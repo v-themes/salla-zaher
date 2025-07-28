@@ -20,7 +20,9 @@
     "component-testimonials",
     "component-square-photos",
     "component-store-features",
-    "component-youtube"
+    "component-youtube",
+    "menu-images",
+    "filters"
   ],
   "settings": [
     {
