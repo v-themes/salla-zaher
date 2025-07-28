@@ -1,0 +1,99 @@
+{% set sale_price = product.sale_price|money|split(' ') %}
+{% set price = product.regular_price|money|split(' ') %}
+{% set discount_percentage = product.discount_percentage|round(0, 'floor') %}
+
+<div id="product-{{ product.id }}"
+     class="product-entry product-entry--full-image rounded-md overflow-hidden min-h-[420px] max-h-[460px] {{ is_special ? 'md:max-h-[640px]':'md:max-h-none' }} {{ product.is_out_of_stock ? 'out-of-stock':'' }}">
+
+    <a href="{{ product.url }}" class='relative overflow-hidden w-full h-full bg-stone-50'>
+        <img class="h-full w-full object-{{ theme.settings.get('slider_background_size') }} lazy"
+             src="{{ 'images/s-empty.png' | asset }}" data-src="{{ product.image.url }}" alt="{{ product.image.alt }}"/>
+    </a>
+
+    {% if product.promotion_title %}
+        <div class="absolute z-10 top-10 start-0">
+            <div class="font-bold px-3 py-2 text-sm bg-red-500 text-white rounded-e-md">{{ product.promotion_title }}</div>
+        </div>
+    {% endif %}
+
+    {# content #}
+    <div class="absolute w-[90%] left-[5%] bottom-[2.5%] xs:bottom-[5%]">
+    {% if is_special and product.is_on_sale %}
+        <div class="w-full xs:w-[85%] mx-auto flex items-center flex-row-reverse my-5 gap-2 xs:gap-4 justify-between">
+            {% if product.quantity %}
+            <div data-quantity="{{ product.quantity }}"
+                data-total="{{ product.quantity > 100 ? product.quantity * 2 : 100 }}" class="pie-wrapper">
+                <span class="!leading-[0.5rem] !text-sm">
+                    <b id="staProductQty" title="{{ product.quantity|number  }}" data-quantity="{{ product.quantity }}">{{
+                        product.quantity|number }}</b>
+                    {{ trans('pages.products.remained') }}
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -1 36 34" class="pie-svg">
+                    <circle cx="16" cy="16" r="15.9155" class="circle_base"></circle>
+                    <circle cx="16" cy="16" r="15.9155" class="circle_bar"></circle>
+                </svg>
+            </div>
+            {% endif %}
+            
+            {% if product.is_on_sale and product.discount_ends %}
+            <div class="salla-counter basis-[70%]">
+                <salla-count-down class="w-full" date="{{ main_product.product.discount_ends }}" boxed labeled></salla-count-down>
+            </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="flex flex-col gap-1 bg-white/80 rounded-md p-3 z-10">
+        {% if product.subtitle %}
+        <p class="text-sm text-slate-600 leading-6 truncate">{{ product.subtitle }}</p>
+        {% endif %}
+        <h3 class="max-w-full text-sm md:text-base my-1 truncate">{{ product.name }}</h3>
+
+        <div class="flex-1 flex gap-2 flex-wrap items-end">
+            {% if product.is_on_sale %}
+            <div class="flex-1 flex items-center gap-1.5 justify-between flex-wrap">
+                <div class="flex flex-col items-start gap-0.5 tracking-widest">
+                    <span class="text-slate-700 text-lg font-semibold relative regular-price before:!bg-slate-700">{{
+                        price|first }}<span class="text-sm mr-1 tracking-normal">{{ price|last }}</span></span>
+                    <span class="text-primary font-extrabold text-4xl">{{ sale_price|first }}<span
+                            class="text-base mr-1 tracking-normal">{{ sale_price|last }}</span></span>
+                </div>
+                {% if product.discount_percentage %}
+                <div class="relative rounded-lg overflow-hidden">
+                    <span class="bg"></span>
+                    <span class="sale-ratio">{{trans('card.discount')}}  {{ discount_percentage }}%</span>
+                </div>
+                {% endif %}
+            </div>
+            {% else %}
+                <span class="text-primary font-extrabold text-3xl">{{ price|first }}
+                    <span class="text-base tracking-normal">{{ price|last }}</span>
+                </span>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+
+    <div class="actions">
+        <salla-button shape="icon" fill="none" aria-label="Add or remove to wishlist" class="btn--wishlist animated"
+            onclick="salla.wishlist.toggle({{ product.id }})" data-id="{{ product.id }}">
+            <i class="sicon-heart text-lg"></i>
+        </salla-button>
+
+        <salla-add-product-button class="add-to-cart-custom" product-id="{{ product.id }}"
+            product-status="{{ product.status }}" product-type="{{ product.type }}">
+            <i class="sicon-cart-add text-xl"></i>
+        </salla-add-product-button>
+
+        {% if theme.settings.get('enable_compare_products') %}
+        <salla-button fill="solid" product-id="{{ product.id }}" class="btn--compare"
+            onclick="salla.event.emit('product::add-to-compare', {button: this})">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z" />
+            </svg>
+        </salla-button>
+        {% endif %}
+    </div>
+</div>

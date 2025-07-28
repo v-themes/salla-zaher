@@ -1,0 +1,42 @@
+{#
+| Variable | Type | Description |
+|--------------------------------|---------|------------------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.slids | slide[] | list of selected products |
+| title | string | section main title |
+#}
+
+<section class="s-block s-block--collection-slider bg-white py-8 sm:py-12 section-shadow">
+    <salla-slider type="fullwidth" class="full-bg-slider" pagination show-controls="false"
+        id="collection-{{ position }}">
+        <div slot="items">
+            {% for slide in component.slids %}
+            {# ? To select the last word in the main title #}
+            {% set title = slide.title %}
+            {% set words = title|split(' ') %}
+            {% set last_word = words|last %}
+            {% set remaining_words = words|slice(0, -1)|join(' ') %}
+
+            <div
+                class="flex flex-col md:flex-row-reverse md:justify-between !items-center gap-4 lg:gap-7 px-6 lg:px-12 py-4">
+                <div class="section-shadow">
+                    <img src="{{ slide.image }}"
+                        class="object-cover md:min-h-[420px] lg:min-w-[620px] xl:min-w-[830px] max-h-[450px]"
+                        alt="collection-product-img" />
+                </div>
+
+                <div class="text-center md:text-start">
+                    <p class="text-2xl xl:text-3xl font-thin text-[#A3A3A3]">{{ slide.sub_title }}</p>
+                    <h1 class="text-3xl lg:text-4xl xl:text-[40px] font-extrabold py-2 whitespace-nowrap">{{
+                        remaining_words }} <span class="text-primary">{{ last_word }}</span></h1>
+                    <p
+                        class="max-w-[600px] text-lg lg:text-[22px] tracking-wide font-thin text-[#A3A3A3] mt-4 lg:leading-9 p-4-line">
+                        {{ slide.desc }}</p>
+                    <a href="{{ slide.url }}" class="shop-now-btn mx-auto md:mx-0">{{slide.url_title|default('تسـوق
+                        الآن')}}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </salla-slider>
+</section>

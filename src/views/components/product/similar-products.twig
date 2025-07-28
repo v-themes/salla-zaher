@@ -1,0 +1,10 @@
+{% if products|length %}
+  <section id="similar-slider" class="mb-8 md:mb-10">
+    {% include 'pages.partials.product.slider' with {
+      products: products, 
+      type: 'similar',
+      title: trans('pages.products.similar_products')
+      }
+    %}
+  </section>
+{% endif %}

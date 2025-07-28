@@ -1,0 +1,69 @@
+{
+  "blocks": {
+    "header": {
+      "cart": "Cart",
+      "get": "GET",
+      "promo": "Enjoy a unique shopping experience - download our app now"
+    }
+  },
+  "site": {
+    "login": "login"
+  },
+  "categories": {
+    "title": "All categories"
+  },
+
+  "compare_modal": {
+    "title": "Compare products",
+    "no_products": "There are no products added to compare",
+    "remove_all": "remove all",
+    "close": "close",
+
+    "product_column": {
+      "picture": "picture",
+      "name": "name",
+      "price": "price",
+      "brand": "brand",
+      "rating": "rating"
+    },
+
+    "notice": {
+      "product_removed": "products removed from the compare successfully",
+      "product_no_exists": "product no longer exists in compare",
+      "product_already_exists": "product already exists",
+      "no_more_four_product": "You cannot add more than four products",
+      "added_success_message": "product added to cart successfully",
+      "removed_success_message": "product removed from cart successfully"
+    }
+  },
+
+  "suggested_products": {
+    "head": {
+      "title": "Suggested Products"
+    }
+  },
+
+  "category_menu": {
+    "all_product": "display all"
+  },
+  "product": {
+    "add_favorite": "add product to favorite",
+    "compare_product": "compare product",
+    "description": "product description",
+    "tags": "tags",
+    "ratings": "product ratings"
+  },
+  "timer": {
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes",
+    "seconds": "seconds"
+  },
+  "footer": {
+    "title": "ٌReady to help",
+    "description": "keep in touch"
+  },
+  "card": {
+    "discount": "discount"
+  }
+}

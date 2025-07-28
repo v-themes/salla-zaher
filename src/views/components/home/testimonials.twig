@@ -1,0 +1,39 @@
+{#
+| Variable | Type | Description |
+|--------------------|---------------------------|-------------------------------------|
+| limit | string | Maximum number of the testimonials |
+| items[] | Testimonial[] *Paginator | |
+| items[].id | int | |
+| items[].avatar | string | |
+| items[].name | string | |
+| items[].has_order | bool | |
+| items[].created_at | Date *Carbon | |
+| items[].stars | int | |
+| items[].content | string | |
+| type | string | `default:store` all, product, store |
+| position | string | Sorting number start from zero |
+#}
+
+<section class="s-block s-block--testimonials">
+    <div class="container max-w-[570px]">
+        <h2 class="main-title">{{trans('blocks.home.testimonials') }}</h2>
+        <salla-slider auto-play id="testimonials-{{ position }}-slider">
+            <div slot="items">
+                {% for item in items %}
+                <div class="flex flex-col !items-center gap-6">
+                    <div class="w-20 h-20 rounded-full shadow overflow-hidden shrink-0">
+                        <img src="{{ 'images/s-empty.png' | asset }}" data-src="{{ item.avatar }}"
+                            alt="{{ item.name }}" class="lazy w-full h-full object-cover">
+                    </div>
+
+                    <div class="w-full flex flex-col gap-2.5 text-center">
+                        <p class="leading-6 text-base text-[#555555] w-[85%] mx-auto">{{ item.text }}</p>
+                        <salla-rating-stars size="small" value="{{ item.stars }}"></salla-rating-stars>
+                        <h4 class="font-bold text-[#323232]">{{ item.name }}</h4>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </salla-slider>
+    </div>
+</section>

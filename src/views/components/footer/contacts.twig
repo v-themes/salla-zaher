@@ -1,0 +1,39 @@
+{#
+| Variable | Type | Description |
+|------------------|--------|----------------------------------------------------|
+| contacts | array | |
+| contacts[].name | string | |
+| contacts[].type | string | whatsapp, mobile, phone, telegram, email |
+| contacts[].icon | string | Css Class |
+| contacts[].url | string | Direct Access to the contact ex: tel:+966555555555 |
+| contacts[].value | string | |
+#}
+{% if is_header %}
+<div class="hidden lg:flex items-center">
+    {% for contact in contacts|filter(contact => contact.type in ['phone']) %}
+    <a href="{{ contact.url }}" class="topnav-link-item nav-link-item">
+        {% if contact.type == 'phone' %}
+        <i class="sicon-phone-talking"></i>
+        <span> {{ contact.value }}</span>
+        {% else %}
+        <span>{{ trans('blocks.footer.social') }}: </span>
+        <span class="unicode">{{ contact.value }}</span>
+        {% endif %}
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+
+<div class="contact-links">
+    <h3>{{ trans('blocks.footer.social') }}</h3>
+    {% for contact in contacts %}
+    <a href="{{ contact.url }}" >
+        <i class="{{ contact.icon }}"></i>
+        <div class="flex flex-col">
+            <p class="contact-name">{{ contact.name }}<p>
+            <span class="text-unicode unicode">{{ contact.value }}</span>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endif %}

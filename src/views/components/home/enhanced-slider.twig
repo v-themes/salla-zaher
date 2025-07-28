@@ -1,0 +1,33 @@
+{#
+| Variable | Type | Description |
+|--------------------------------|----------|------------------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.slides[].image | string | Image url |
+| component.slides[].title | ?string | |
+| component.slides[].description | ?string | |
+| component.slides | object[] | list of slides |
+| position | int | Sorting number start from zero |
+#}
+<section class="s-block home-slider s-block--hero-slider">
+    <salla-slider show-controls="false" id="main-slider-{{ position }}" class="home-slider" auto-play loop type="fullwidth">
+        <div slot="items">
+            {% for slide in component.slides %}
+            <div class="w-full min-h-[300px] lg:min-h-[530px]">
+                <div data-background="{{ slide.image }}" class="swiper-lazy"></div>
+                <div class="flex-center container home-slider__content relative h-full">
+                    <div class=" w-4/6 text-start md:w-7/12 lg:w-5/12 text-white">
+                        <h3 data-swiper-parallax="-500" class="text-2xl md:text-3xl p-2-line mb-4 tracking-wider">{{slide.title }}</h3>
+                        <p data-swiper-parallax="-300" class="line-clamp-2 text-sm md:text-base 
+                        mb-8 text-gray-200 max-w-lg">{{ slide.description}}</p>
+                        {% if slide.url %}
+                        <a href="{{slide.url}}" class="transition duration-300 inline-block text-center text-base leading-[35px] text-white font-medium border-[3px]
+                         border-white hover:border-transparent px-7 min-w-[170px]
+                          uppercase hover:bg-primary">{{ slide.url_title|default('تعرف عالمزيد') }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </salla-slider>
+</section>

@@ -1,0 +1,50 @@
+{#
+| Variable | Type | Description |
+|--------------------------------|---------
+|------------------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.products | product[] | list of banners @see views/pages/home/grid_banners.twig |
+#}
+
+{# We'll use this key to identify the collection in local storage uniquely #}
+{% set key = component.key|split('-')[0] %}
+
+<section class="js-collection-component s-block s-block--collection" data-key="{{ key }}">
+    <salla-slider id="full-bg-slider-{{ position }}">
+        <div slot="items">
+            {% for product in component.products %}
+            <div class="collection__item style-1 relative" data-bg-src="{{ product.bg_image }}"
+                data-id="{{ product.card_item.value[0] }}">
+                <div class="overlay"></div>
+                <div class="indicator" data-top="{{ product.indicator_top }}" data-left="{{ product.indicator_left }}">
+                    <span></span>
+                </div>
+
+                {# We will add all the dynamic content using JS #}
+                <img src="{{ 'images/placeholder.png' | asset }}" alt="product-img" class="main-img h-full w-full max-w-full object-cover object-top">
+                <div class="mini-card">
+                    <div class="relative h-full">
+                        <div class="cancel-icon">
+                            <i class="sicon-cancel text-white"></i>
+                        </div>
+                        <div class="h-[72%]">
+                            <img src="{{ 'images/placeholder.png' | asset }}" alt="product-subImg" class="h-full w-full max-w-full object-cover">
+                        </div>
+                        <div class="card-info h-[28%] flex flex-col">
+                            {# <h5 class="p-2-line">${name}</h5>
+                            <div class="flex-1 flex items-end gap-3">
+                                <span class="text-base text-gray-400 line-through leading-none">${regular_price} ر.س</span>
+                                <span class="text-lg text-primary font-bold leading-none">${sale_price} ر.س</span>
+                            </div> #}
+                        </div>
+                        {# <salla-add-product-button product-id="${id}"
+                            product-status="${status}" product-type="${type}">
+                            <i class="sicon-cart-add"></i>
+                        </salla-add-product-button> #}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </salla-slider>
+</section>

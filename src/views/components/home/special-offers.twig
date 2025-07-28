@@ -1,0 +1,159 @@
+{#
+| Variable                       | Type      | Description                                                                  |
+|--------------------------------|---------  |------------------------------------------------------------------------------|
+| component                      | object    | Contains merchant settings for fields from twilight.json `component` section |
+| component.product_1            | product   | product_1 object data                                                        |
+| component.product_2            | product   | product_2 object data                                                        |
+| component.product_3            | product   | product_3 object data                                                        |
+| component.product_4            | product   | product_4 object data                                                        |
+#}
+
+{# Required data #}
+{% set name_1 =  component.product_1[0].name %}
+{% set url_1 =  component.product_1[0].url %}
+{% set image_1 =  component.product_1[0].image.url %}
+{% set sub_title_1 =  component.product_1[0].subtitle %}
+{% set sale_price_1 =  component.product_1[0].price|money|split(' ') %}
+
+{% set name_2 =  component.product_1[0].name %}
+{% set url_2 =  component.product_2[0].url %}
+{% set image_2 =  component.product_2[0].image.url %}
+{% set sub_title_2 =  component.product_2[0].subtitle %}
+{% set sale_price_2 =  component.product_2[0].price|money|split(' ') %}
+
+{% set name_3 =  component.product_3[0].name %}
+{% set url_3 =  component.product_3[0].url %}
+{% set image_3 =  component.product_3[0].image.url %}
+{% set sub_title_3 =  component.product_3[0].subtitle %}
+{% set sale_price_3 =  component.product_3[0].price|money|split(' ') %}
+
+{% set name_4 =  component.product_4[0].name %}
+{% set url_4 =  component.product_4[0].url %}
+{% set image_4 =  component.product_4[0].image.url %}
+{% set sub_title_4 =  component.product_4[0].subtitle %}
+{% set sale_price_4 =  component.product_4[0].price|money|split(' ') %}
+
+<section class="s-block s-block--special-offers bg-white py-8 sm:py-12 section-shadow">
+    <div class="container">
+        <div class="hidden md:flex flex-col gap-4">
+            <a href="{{ url_1 }}">
+                <img src="{{ image_1 ? image_1 : 'images/placeholder.png' | asset }}" alt="{{ name_1 }}">
+                <div class="product-info">
+                    <div class="product-price">
+                        <p>{{ sub_title_1 }}</p>
+                        <p class="sale-price">{{ sale_price_1|first }}<span class="text-xs mx-1">{{ sale_price_1|last }}</span></p>
+                    </div>
+                    <h4 class="title">{{ name_1 }}</h4>
+                </div>
+            </a>
+            <a href="{{ url_2 }}">
+                <img src="{{ image_2 ? image_2 : 'images/placeholder.png' | asset }}" alt="{{ name_2 }}">
+                <div class="product-info">
+                    <div class="product-price">
+                        <p>{{ sub_title_2 }}</p>
+                        <p class="sale-price">{{ sale_price_1|first }}<span class="text-xs mx-1">{{ sale_price_1|last }}</span></p>
+                    </div>
+                    <h4 class="title">{{ name_2 }}</h4>
+                </div>
+            </a>
+        </div>
+
+        {# offer banner #}
+        <div class="flex-1 relative">
+            <img src="{{ component.v_image ? component.v_image : 'images/placeholder.png' | asset }}" alt="V_banner-image" 
+                    class= "h-[672px] min-h-full max-h-[672px] w-full object-cover hidden md:block">
+
+            <img src="{{ component.h_image ? component.h_image : 'images/placeholder.png' | asset }}" alt="V_banner-image" 
+                    class= "h-[340px] min-h-full max-h-[380px] w-full object-cover md:hidden">
+                    
+            <div class="overlay">
+                <span class="offer-promotional">
+                    {{ component.promotional}}
+                    <span class="angle-r-t"></span>
+                    <span class="angle-r-b"></span>
+                    <span class="angle-l-t"></span>
+                    <span class="angle-l-b"></span>
+                </span>
+                <span class="circle"></span>
+                <span class="offer-title">{{ component.offer_title }}</span>
+            </div>     
+        </div>
+
+        {# Slider - hidden from medium screens #}
+        <salla-slider show-controls="false" auto-play id="full-bg-slider-{{ position }}" class="md:hidden"
+            slider-config='{
+                "slidesPerView":2,
+                "spaceBetween":4,
+                "breakpoints": {
+                    "480": {"slidesPerView":3},
+                    "680": {"slidesPerView":4}
+                }
+            }'>
+            <div slot="items">
+                <a href="{{ url_1 }}">
+                    <img src="{{ image_1 ? image_1 : 'images/placeholder.png' | asset }}" alt="{{ name_1 }}">
+                    <div class="product-info">
+                        <div class="product-price">
+                            <p>{{ sub_title_1 }}</p>
+                            <p class="sale-price">{{ sale_price_1|first }}<span class="text-xs mx-1">{{ sale_price_1|last }}</span></p>
+                        </div>
+                        <h4 class="title">{{ name_1 }}</h4>
+                    </div>
+                </a>
+                <a href="{{ url_2 }}">
+                    <img src="{{ image_2 ? image_2 : 'images/placeholder.png' | asset }}" alt="{{ name_2 }}">
+                    <div class="product-info">
+                        <div class="product-price">
+                            <p>{{ sub_title_2 }}</p>
+                            <p class="sale-price">{{ sale_price_2|first }}<span class="text-xs mx-1">{{ sale_price_2|last }}</span></p>
+                        </div>
+                        <h4 class="title">{{ name_2 }}</h4>
+                    </div>
+                </a>
+                <a href="{{ url_3 }}">
+                    <img src="{{ image_3 ? image_3 : 'images/placeholder.png' | asset }}" alt="{{ name_3 }}">
+                    <div class="product-info">
+                        <div class="product-price">
+                            <p>{{ sub_title_3 }}</p>
+                            <p class="sale-price">{{ sale_price_3|first }}<span class="text-xs mx-1">{{ sale_price_3|last }}</span></p>
+                        </div>
+                        <h4 class="title">{{ name_3 }}</h4>
+                    </div>
+                </a>
+                <a href="{{ url_4 }}">
+                    <img src="{{ image_4 ? image_4 : 'images/placeholder.png' | asset }}" alt="{{ name_4 }}">
+                    <div class="product-info">
+                        <div class="product-price">
+                            <p>{{ sub_title_4 }}</p>
+                            <p class="sale-price">{{ sale_price_4|first }}<span class="text-xs mx-1">{{ sale_price_4|last }}</span></p>
+                        </div>
+                        <h4 class="title">{{ name_4 }}</h4>
+                    </div>
+                </a>
+            </div>
+        </salla-slider>
+
+        <div class="hidden md:flex flex-col gap-4">
+            <a href="{{ url_3 }}">
+                <img src="{{ image_3 ? image_3 : 'images/placeholder.png' | asset }}" alt="{{ name_3 }}">
+                <div class="product-info">
+                    <div class="product-price">
+                        <p>{{ sub_title_3 }}</p>
+                        <p class="sale-price">{{ sale_price_3|first }}<span class="text-xs mx-1">{{ sale_price_3|last }}</span></p>
+                    </div>
+                    <h4 class="title">{{ name_3 }}</h4>
+                </div>
+            </a>
+            <a href="{{ url_4 }}">
+                <img src="{{ image_4 ? image_4 : 'images/placeholder.png' | asset }}" alt="{{ name_4 }}">
+                <div class="product-info">
+                    <div class="product-price">
+                        <p>{{ sub_title_4 }}</p>
+                        <p class="sale-price">{{ sale_price_4|first }}<span class="text-xs mx-1">{{ sale_price_4|last }}</span></p>
+                    </div>
+                    <h4 class="title">{{ name_4 }}</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>

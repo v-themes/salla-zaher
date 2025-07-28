@@ -1,0 +1,52 @@
+{#
+| Variable                       | Type      | Description                                                                  |
+|--------------------------------|---------  |------------------------------------------------------------------------------|
+| component                      | object    | Contains merchant settings for fields from twilight.json `component` section |
+| component.product_1            | product   | Product1 to compare                                                              |
+| component.product_2            | product   | Product2 to compare                                                                   |
+#}
+
+<section class="s-block s-block--comparison bg-white pt-0 lg:pt-24 relative">
+    <div class="bg"></div>
+    <div class="container">
+        <div class="product-wrapper">
+            <div class="product-item" style="background-image: url('{{ component.image_1 }}');">
+                {% if component.product_1 %}
+                <div class="info right-5">
+                    <h4 class="truncate text-[#323232]">{{ component.product_1[0].name }}</h4>
+                    <a href="{{ component.product_1[0].url }}" class="underline text-[#787878]">استكشف المنتج</a>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="product-item" style="background-image: url('{{ component.image_2 }}');">
+                {% if component.product_2 %}
+                <div class="info left-5">
+                    <h4 class="truncate text-[#323232]">{{ component.product_2[0].name }}</h4>
+                    <a href="{{ component.product_2[0].url }}" class="underline text-[#787878]">استكشف المنتج</a>
+                </div>
+                {% endif %}
+            </div>
+
+            <input type="range" min="0" max="100" value="50" class="slider" name='slider'>
+            <div class="slider-line"></div>
+            <div class="slider-btn">
+                <i class="sicon-keyboard_arrow_left text-xl"></i>
+                <i class="sicon-keyboard_arrow_right text-xl"></i>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% block scripts %}
+<script>
+    var comparisonComps = document.querySelectorAll('section.s-block--comparison');
+    comparisonComps.forEach(comp => {
+        const container = comp.querySelector('.container');
+        comp.querySelector('.slider').addEventListener('input', (e) => {
+            container.style.setProperty('--position', `${e.target.value}%`);
+        })
+    })
+</script>
+{% endblock %}

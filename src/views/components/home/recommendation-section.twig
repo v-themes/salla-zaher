@@ -1,0 +1,31 @@
+{#
+| Variable | Type | Description |
+|--------------------------------|---------
+|------------------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.products | products[] | list of selected recommendation products | |
+| component.title | string | section main title |
+| component.background | image | section main title |
+#}
+<section class="s-block s-block--recommendation bg-[#FBFBFB]">
+    <div class='container {{ not theme.settings.get('add_to_cart_as_icon') and theme.settings.get('enable_quick_buy') ? 'md:!h-[680px]' : 'md:!h-[625px]'}} relative'>
+        <div class="bg-image">
+            <img src="{{ component.background ? component.background : 'images/placeholder.png' | asset }}"
+                alt="background-image" class="w-full h-full max-w-full max-h-full object-contain">
+        </div>
+
+        <div class="content text-start">
+            <h1 class="text-primary tracking-wider">{{component.title}}</h1>
+            <p class="mb-6 mt-2 text-gray-600 font-semibold text-base tracking-wider">{{component.sub_title}}</p>
+            <salla-slider show-controls="true" id="slider-with-bg-{{ position }}">
+                <div slot="items">
+                    {% for product in component.products %}
+                    <div class="swiper-slide">
+                        {% include 'pages.partials.product.card' %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </salla-slider>
+        </div>
+    </div>
+</section>

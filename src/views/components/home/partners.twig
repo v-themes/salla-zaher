@@ -1,0 +1,36 @@
+{#
+| Variable | Type | Description |
+|-------------------|---------|------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.title | string | Section title |
+| component.partners| Partner[] | list of selected partners |
+#}
+
+
+<section class="s-block s-block--partner container">
+    <salla-slider show-controls="false" auto-play pagination block-title="{{ component.title }}" id="slider-with-bg-{{ position }}"
+        slider-config='{
+        "centerInsufficientSlides":true,
+        "slidesPerView":2,
+        "spaceBetween":20,
+        "breakpoints": {
+            "320": {"slidesPerView":3},
+            "480": {"slidesPerView":4},
+            "640": {"slidesPerView":5},
+            "768": {"slidesPerView":6},
+            "1024": {"slidesPerView":7},
+            "1280": {"slidesPerView":9}
+        }
+    }'>
+        <div slot="items">
+            {% for partner in component.partners %}
+            <div>
+                <a href="{{ partner.url }}">
+                    <img src="{{ partner.logo }}" alt="{{ partner.name }}">
+                </a>
+                <h4 class="text-base text-[#44444D]">{{ partner.name }}</h4>
+            </div>
+            {% endfor %}
+        </div>
+    </salla-slider>
+</section>

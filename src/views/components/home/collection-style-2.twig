@@ -1,0 +1,52 @@
+{#
+| Variable | Type | Description |
+|--------------------------------|---------
+|------------------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.products | product[] | list of banners @see views/pages/home/grid_banners.twig |
+#}
+
+{# We'll use this key to identify the collection in local storage uniquely #}
+{% set key = component.key|split('-')[0] %}
+
+<section class="js-collection-component s-block s-block--collection-2 relative z-[1]" data-key="{{ key }}">
+    {# Right side #}
+    <div class="md:max-w-[47%] md:basis-[47%]">
+        <salla-slider pagination auto-play show-controls="false" type="thumbs" id="full-bg-slider-{{ position }}"
+            class="js-collection-slider">
+            <div slot="items">
+                {% for product in component.products %}
+                <div class="collection__item style-2 h-full min-w-full" data-id="{{ product.product.value[0] }}">
+                    <img src="{{ 'images/placeholder.png' | asset }}"
+                        class="w-full max-w-full object-cover object-top h-full" alt="product_image_1">
+                    <a href="#" class="product-link">
+                        <i class="sicon-link1 text-2xl font-semibold"></i>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div slot="thumbs" class="slider-thumbs">
+                {# We'll add these data using JS #}
+                {% for product in component.products %}
+                <div class="swiper-slide">
+                    <img src="{{ 'images/placeholder.png' | asset }}" alt="product_image_2"
+                        data-id="{{ product.product.value[0] }}">
+                </div>
+                {% endfor %}
+            </div>
+        </salla-slider>
+    </div>
+
+    {# Left side #}
+    <div class="content" style="background-image: url('{{ component.bg_image }}');">
+        <div class="flex-1 text-center md:text-start py-5 px-3 md:pt-[8rem] md:ltr:pl-12 md:pr-12 lg:pr-16">
+            <p class="text-2xl lg:text-3xl tracking-wide font-thin">{{ component.sub_title }}</p>
+            <h1 class="text-3xl lg:text-6xl leading-none font-extrabold py-3 lg:py-5">{{ component.title }}</h1>
+            <p class="md:max-w-[600px] text-lg lg:text-xl tracking-wider font-thin mt-2 px-2-line">{{ component.desc }}
+            </p>
+            <a href="{{ component.sub_url ? component.sub_url : component.Category_url[0].url }}"
+                class="shop-now-btn">{{ component.url_title|default('اكتشف المزيد') }}</a>
+        </div>
+    </div>
+</section>

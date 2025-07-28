@@ -1,0 +1,57 @@
+{#
+| Variable                       | Type    | Description                                                                  |
+|--------------------------------|---------|------------------------------------------------------------------------------|
+| component                      | object  | Contains merchant settings for fields from twilight.json `component` section |
+| component.products_imgs        | imgs[]  | list of selected imgs                                                        |
+| title                          | string  | section main title                                                           |
+#}
+
+{% set title =  component.title %}
+{% set words = title|split(' ') %}
+{% set last_word = words|last %}
+{% set remaining_words = words|slice(0, -1)|join(' ') %}
+
+<section class="s-block bg-white py-8 sm:py-12 section-shadow">
+    <div class="flex flex-col xl:flex-row justify-between items-center gap-10 lg:gap-14 px-3 lg:px-10">
+        {# Slider - hidden in lg screens #}
+        <div class="xl:hidden px-4">
+            <salla-slider auto-play show-controls="false" pagination class="collection-slider" id="collection-{{ position }}">
+                <div slot="items">
+                    {% for img in component.products_imgs_1 %}
+                        <div class="swiper-slide slide--one-fifth">
+                            <img src="{{ img.image_1 }}" alt="prroduct-img" />    
+                        </div> 
+                    {% endfor %}
+
+                    {% for img in component.products_imgs_2 %}
+                        <div class="swiper-slide slide--one-fifth">
+                            <img src="{{ img.image_2 }}" alt="prroduct-img" />    
+                        </div> 
+                    {% endfor %}
+                </div>
+            </salla-slider>
+        </div>
+
+        {# Images on right side #}
+        <div class="grid-4 hidden xl:grid">
+            {% for img in component.products_imgs_1 %}
+                <img src="{{ img.image_1 }}" alt="prroduct-img"/>   
+            {% endfor %}
+        </div>
+
+        {# Content in center #}
+        <diV class="flex-1 text-center">
+            <p class="text-2xl lg:text-3xl font-thin text-[#A3A3A3]">{{ component.sub_title }}</p>
+            <h1 class="text-3xl xl:text-4xl font-extrabold py-2 whitespace-nowrap">{{ remaining_words }} <span class="text-primary">{{ last_word }}</span></h1>
+            <p class="max-w-[600px] text-lg lg:text-xl tracking-wider font-thin text-[#A3A3A3] mt-4 lg:leading-9">{{ component.desc }}</p>
+            <a href="{{ component.tsnef_almn[0].url }}" class="shop-now-btn mx-auto">{{ component.url_title|default('تسوق الآن') }}</a>
+        </div>
+
+        {# Images on left side #}
+        <div class="grid-4 hidden xl:grid">
+            {% for img in component.products_imgs_2 %}
+                <img src="{{ img.image_2 }}" alt="prroduct-img"/>   
+            {% endfor %}
+        </div>
+    </div>    
+</section>

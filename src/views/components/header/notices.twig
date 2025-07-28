@@ -1,0 +1,41 @@
+{# <div class="offers-notificaions"> #}
+    <div class="offers-notificaions">
+        <div class="offers-bar-content offers-title text-white text-sm font-medium overflow-hidden">
+            <div class="bg-red-500 font-semibold border-r-amber-50 border-r-4 border-gray-50 px-4 ml-1 tracking-wide">{{ component.title }}</div>
+            {% for notice in component.notices %}
+            <div class="word offers">
+                <div class="notice_item flex">
+                    <span class="notice"> {{notice.text}} </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {#
+</div> #}
+
+{% block scripts %}
+<script>
+    function splitNoticesItem() {
+        const noticeElements = document.querySelectorAll('.notice_item');
+        noticeElements.forEach(notice => {
+            let splitNotice = notice.innerText.split(' ');
+            for (let i = 0; i < splitNotice.length; i++) {
+                notice.innerHTML += `<span>${splitNotice[i]}</span>`
+            }
+        });
+        document.querySelectorAll('.notice').forEach(e => e.remove())
+    }
+
+    (function () {
+        const offersNoticesElement = document.querySelector('#notices');
+        const offersContent = document.querySelector('.offers-notificaions');
+        offersNoticesElement.appendChild(offersContent);
+    })()
+
+
+    window.addEventListener('load', () => {
+        splitNoticesItem()
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,71 @@
+{#
+| Variable                      | Type      | Description                                                         |
+|-------------------------------|-----------|---------------------------------------------------------------------|
+| items                         | array     | shared variable in all layout, index.twig, and all components views |
+| items[].title                 | string    | Section title                                                       |
+| items[].name                  | string    | Alias for title                                                     |
+| items[].type                  | string    | category,most_sales,latest_products,chosen_products                 |
+| items[].featured_product      | Product   |                                                                     |
+| items[].special_product.id    | string    | Product string id                                                   |
+| items[].special_product.title | string    | Product Name                                                        |
+| items[].products[]            | Product[] |                                                                     |
+| items[].limit                 | Int       | Number of products to be shown                                      |
+| items[].id                    | String    | Section id                                                          |
+| postion                       | int       | Sorting number starts from zero                                     |
+| is_slider                     | Bool      | Products should be movable or static                                |
+#}
+{% set component_id='featured-products-style2-' ~ position %}
+<section class="s-block s-block-tabs s-block--tabs-produtcs s-block--full-bg {{ is_slider ? '':'as-grid' }} bg-gray-100 py-8" id="{{ component_id }}">
+  <div class="container">
+      <div class="tabs hide-scroll">
+          {% for section in items %}
+              <salla-button 
+                class="tab-trigger {{ loop.first?'is-active':'' }}"
+                data-target="{{ component_id }}-{{ section.id }}"
+                data-component-id="{{ component_id }}"
+                fill="outline">
+                  {{ section.title }}
+              </salla-button>
+          {% endfor %}
+      </div>
+
+      <div class="tabs-wrapper">
+        {% for section in items %}
+            <div id="{{ component_id }}-{{ section.id }}" class="tabs__item {{ loop.first?'is-active':'' }}">
+                {% if is_slider %} 
+                    <salla-slider 
+                      slider-config='{
+                        "slidesPerView":1,
+                        "spaceBetween":10,
+                        "breakpoints": {
+                            "320": {"slidesPerView":2},
+                            "480": {"slidesPerView":3},
+                            "640": {"slidesPerView":4},
+                            "1024": {"slidesPerView":5},
+                            "1280": {"slidesPerView":6}
+                        }
+                      }'
+                      id="section-{{ section.id }}-slider">
+                        <div slot="items">
+                            {% for product in section.products %}
+                            {% include 'pages.partials.product.card' %}
+                            {% endfor %}
+                        </div>
+                    </salla-slider>
+                {% else %}
+                  {# <div class="grid grid-cols-2 xs:grid-cols-3 sm:!grid-cols-4 lg:!grid-cols-5 xl:!grid-cols-6 gap-y-3.5 gap-x-2">
+                    {% for product in section.products %}
+                    {% include 'pages.partials.product.card' %}
+                    {% endfor %}
+                  </div> #}
+                  <div class="grid {{ is_vertical ? 'grid-cols-2 xs:grid-cols-3 sm:!grid-cols-4 lg:!grid-cols-5 xl:!grid-cols-6 gap-y-3.5 gap-x-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3' }}">
+                    {% for product in section.products %}
+                    {% include 'pages.partials.product.card' with { is_horizontal:true, show_desc:true } %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+      </div>
+  </div>
+</section> 

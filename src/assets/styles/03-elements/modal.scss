@@ -1,0 +1,90 @@
+.modal-content {
+  background-color: var(--color-grey);
+  .modal-content-header {
+    div {
+      @media (max-width: 475px) {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 15px;
+      }
+    }
+    @apply rounded-lg;
+    &-description {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .products {
+    min-height: 60vh;
+    .suggested-Products-title {
+      border-bottom: 1px solid var(--color-primary);
+      border-right: 1px solid var(--color-primary);
+    }
+    .product-details {
+      @apply flex items-center overflow-x-auto p-3 relative mini-scroll-bar;
+      .s-product-card-entry {
+        @apply mx-1.5 block relative rounded-lg overflow-hidden;
+        min-width: 200px;
+        max-width: 205px;
+        .s-product-card-content {
+          padding: 0;
+          &-main {
+            padding: 5px 15px;
+          }
+          &-sub {
+            padding: 5px 15px;
+            margin-bottom: 1rem;
+          }
+          &-title {
+            margin: 0;
+          }
+          &-subtitle {
+            display: none;
+          }
+        }
+        .s-product-card-wishlist-btn {
+          display: none;
+        }
+        .s-button-btn {
+          background-color: var(--color-primary);
+          border: 1px solid var(--color-primary);
+          color: #fff;
+          border-radius: 5px 5px 11px 11px;
+          &:hover {
+            background-color: #fff;
+            color: var(--color-primary);
+          }
+        }
+      }
+    }
+  }
+}
+
+.s-modal-close {
+  background-color: var(--color-grey);
+  @apply w-6 h-6 -top-1.5 -left-1.5 rounded-full flex items-center justify-center #{!important};
+  svg {
+    @apply scale-75 mr-[1.5px];
+    path {
+      fill: #000;
+    }
+  }
+  &:hover svg path {
+    fill: rgb(225 29 72);
+  }
+}
+
+.s-modal-body {
+  @media (max-width: 780px) {
+    overflow: unset;
+  }
+}
+
+salla-modal#suggestedProductsModal {
+  .s-modal-wrapper {
+    @apply flex items-center justify-center px-2.5;
+    .s-modal-body {
+      @apply static;
+    }
+  }
+}

@@ -1,0 +1,182 @@
+{#
+| Variable | Type | Description |
+|--------------------------------|---------
+|------------------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.product_1 | product | product_1 object data |
+| component.product_2 | product | product_2 object data |
+| component.product_3 | product | product_3 object data |
+| component.product_4 | product | product_4 object data |
+| component.product_5 | product | product_5 object data |
+| component.product_6 | product | product_6 object data |
+#}
+
+{# Required data #}
+{% set name_1 = component.product_1[0].name %}
+{% set url_1 = component.product_1[0].url %}
+{% set image_1 = component.product_1[0].image.url %}
+{% set sale_price_1 = component.product_1[0].sale_price|money|split(' ') %}
+{% set price_1 = component.product_1[0].regular_price|money|split(' ') %}
+{% set is_on_sale_1 = component.product_1[0].is_on_sale %}
+
+{% set name_2 = component.product_2[0].name %}
+{% set url_2 = component.product_2[0].url %}
+{% set image_2 = component.product_2[0].image.url %}
+{% set sale_price_2 = component.product_2[0].sale_price|money|split(' ') %}
+{% set price_2 = component.product_2[0].regular_price|money|split(' ') %}
+{% set is_on_sale_2 = component.product_2[0].is_on_sale %}
+
+{% set name_3 = component.product_3[0].name %}
+{% set url_3 = component.product_3[0].url %}
+{% set image_3 = component.product_3[0].image.url %}
+{% set sale_price_3 = component.product_3[0].sale_price|money|split(' ') %}
+{% set price_3 = component.product_3[0].regular_price|money|split(' ') %}
+{% set is_on_sale_3 = component.product_3[0].is_on_sale %}
+
+{% set name_4 = component.product_4[0].name %}
+{% set url_4 = component.product_4[0].url %}
+{% set image_4 = component.product_4[0].image.url %}
+{% set sale_price_4 = component.product_4[0].sale_price|money|split(' ') %}
+{% set price_4 = component.product_4[0].regular_price|money|split(' ') %}
+{% set is_on_sale_4 = component.product_4[0].is_on_sale %}
+
+{% set name_5 = component.product_5[0].name %}
+{% set url_5 = component.product_5[0].url %}
+{% set image_5 = component.product_5[0].image.url %}
+{% set sale_price_5 = component.product_5[0].sale_price|money|split(' ') %}
+{% set price_5 = component.product_5[0].regular_price|money|split(' ') %}
+{% set is_on_sale_5 = component.product_5[0].is_on_sale %}
+
+{% set name_6 = component.product_6[0].name %}
+{% set url_6 = component.product_6[0].url %}
+{% set image_6 = component.product_6[0].image.url %}
+{% set sale_price_6 = component.product_6[0].sale_price|money|split(' ') %}
+{% set price_6 = component.product_6[0].regular_price|money|split(' ') %}
+{% set is_on_sale_6 = component.product_6[0].is_on_sale %}
+
+
+<section class="s-block s-block--best-seller bg-white py-8 sm:py-12 section-shadow relative z-[1]">
+    <h2 class="main-title">{{ component.main_title }}</h2>
+    <p class="sub-title">{{ component.sub_title }}</p>
+
+    <div class="container">
+        <div class="wide-product">
+            <a href="{{ url_1 }}">
+                <img src="{{ image_1 ? image_1 : 'images/placeholder.png' | asset }}" alt="{{ name_1 }}">
+                <div class="product-info">
+                    <h4 class="title">{{ name_1 }}</h4>
+                    <div class="product-price">
+                        {% if is_on_sale_1 %}
+                        <p class="before-sale">{{ price_1|first }}<span class="text-sm mx-1">{{ price_1|last }}</span></p>
+                        <p class="sale-price">{{ sale_price_1|first }}<span class="text-base mx-1">{{ sale_price_1|last}}</span></p>
+                        {% else %}
+                        <p class="sale-price w-full text-center">{{ price_1|first }}<span class="text-base mx-1">{{ price_1|last}}</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="narrow-product">
+            <a href="{{ url_2 }}">
+                <img src="{{ image_2 ? image_2 : 'images/placeholder.png' | asset }}" alt="{{ name_2 }}">
+                <div class="product-info">
+                    <h4 class="title">{{ name_2 }}</h4>
+                    <div class="product-price">
+                        {% if is_on_sale_2 %}
+                        <p class="before-sale">{{ price_2|first }}<span class="text-sm mx-1">{{ price_2|last }}</span></p>
+                        <p class="sale-price">{{ sale_price_2|first }}<span class="text-base mx-1">{{ sale_price_2|last}}</span></p>
+                        {% else %}
+                        <p class="sale-price w-full text-center">{{ price_2|first }}<span class="text-base mx-1">{{ price_2|last}}</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="narrow-product">
+            <a href="{{ url_3 }}">
+                <img src="{{ image_3 ? image_3 : 'images/placeholder.png' | asset }}" alt="{{ name_3 }}">
+                <div class="product-info">
+                    <h4 class="title">{{ name_3 }}</h4>
+                    <div class="product-price">
+                        {% if is_on_sale_3 %}
+                        <p class="before-sale">{{ price_3|first }}<span class="text-sm mx-1">{{ price_3|last }}</span></p>
+                        <p class="sale-price">{{ sale_price_3|first }}<span class="text-base mx-1">{{ sale_price_3|last}}</span></p>
+                        {% else %}
+                        <p class="sale-price w-full text-center">{{ price_3|first }}<span class="text-base mx-1">{{ price_3|last}}</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="wide-product">
+            <a href="{{ url_6 }}">
+                <img src="{{ image_6 ? image_6 : 'images/placeholder.png' | asset }}" alt="{{ name_6 }}">
+                <div class="product-info">
+                    <h4 class="title">{{ name_6 }}</h4>
+                    <div class="product-price">
+                        {% if is_on_sale_6 %}
+                        <p class="before-sale">{{ price_6|first }}<span class="text-sm mx-1">{{ price_6|last }}</span></p>
+                        <p class="sale-price">{{ sale_price_6|first }}<span class="text-base mx-1">{{ sale_price_6|last}}</span></p>
+                        {% else %}
+                        <p class="sale-price w-full text-center">{{ price_6|first }}<span class="text-base mx-1">{{ price_6|last}}</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="narrow-product">
+            <a href="{{ url_4 }}">
+                <img src="{{ image_4 ? image_4 : 'images/placeholder.png' | asset }}" alt="{{ name_4 }}">
+                <div class="product-info">
+                    <h4 class="title">{{ name_4 }}</h4>
+                    <div class="product-price">
+                        {% if is_on_sale_4 %}
+                        <p class="before-sale">{{ price_4|first }}<span class="text-sm mx-1">{{ price_4|last }}</span></p>
+                        <p class="sale-price">{{ sale_price_4|first }}<span class="text-base mx-1">{{ sale_price_4|last}}</span></p>
+                        {% else %}
+                        <p class="sale-price w-full text-center">{{ price_4|first }}<span class="text-base mx-1">{{ price_4|last}}</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="narrow-product">
+            <a href="{{ url_5 }}">
+                <img src="{{ image_5 ? image_5 : 'images/placeholder.png' | asset }}" alt="{{ name_5 }}">
+                <div class="product-info">
+                    <h4 class="title">{{ name_5 }}</h4>
+                    <div class="product-price">
+                        {% if is_on_sale_5 %}
+                        <p class="before-sale">{{ price_5|first }}<span class="text-sm mx-1">{{ price_5|last }}</span></p>
+                        <p class="sale-price">{{ sale_price_5|first }}<span class="text-base mx-1">{{ sale_price_5|last}}</span></p>
+                        {% else %}
+                        <p class="sale-price w-full text-center">{{ price_5|first }}<span class="text-base mx-1">{{ price_5|last}}</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="wide-product">
+            <a href="{{ url_6 }}">
+                <img src="{{ image_6 ? image_6 : 'images/placeholder.png' | asset }}" alt="{{ name_6 }}">
+                <div class="product-info">
+                    <h4 class="title">{{ name_6 }}</h4>
+                    <div class="product-price">
+                        {% if is_on_sale_6 %}
+                        <p class="before-sale">{{ price_6|first }}<span class="text-sm mx-1">{{ price_6|last }}</span></p>
+                        <p class="sale-price">{{ sale_price_6|first }}<span class="text-base mx-1">{{ sale_price_6|last}}</span></p>
+                        {% else %}
+                        <p class="sale-price w-full text-center">{{ price_6|first }}<span class="text-base mx-1">{{ price_6|last}}</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>

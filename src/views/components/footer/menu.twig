@@ -1,0 +1,28 @@
+{#
+| Variable | Type | Description |
+|-----------------|---------|------------------|
+| items | link[] | |
+| items[].id | int | |
+| items[].title | String | |
+| items[].url | String | |
+| items[].target | String | '_blank','_self' |
+#}
+{% if is_header %}
+{% if items|length %}
+<ul class="hidden lg:flex items-center pe-4 whitespace-nowrap">
+    {% for key, item in items|slice(0,3) %}
+    <a href="{{ item.url }}" class="topnav-link-item right-side">{{ item.title }}</a>
+    {% endfor %}
+</ul>
+{% endif %}
+{% else %}
+<div class="footer-menu md:w-fit md:mx-auto">
+    <h3 class="tracking-wider w-full">{{ trans('blocks.footer.pages_links') }}</h3>
+    <div class="menu-links">
+        {% for item in items %}
+        <a href="{{ item.url }}" target="{{ item.target }}" class="text-[#404040] text-sm sm:text-base">{{ item.title
+            }}</a>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

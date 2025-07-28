@@ -1,0 +1,58 @@
+{% set is_admin = comment.type=='admin' %}
+{% if not is_admin %}
+<div>
+    {% endif %}
+    <div class="{% if is_admin %} nested-comment ps-8 sm:ps-12 my-6 admin {% else %}comment mb-4 {% endif %} flex flex-col gap-3 text-sm comment_id_{{ comment.id }}">
+        <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3">
+                {% if is_admin %} <i class="sicon-reply text-lg text-gray-400"></i>{% endif %}
+                <img data-src="{{ comment.avatar|is_placeholder ? 'images/avatar.png' | cdn : comment.avatar }}"
+                    alt="{{ comment.name }}" src="{{ 'images/s-empty.png' | asset }}"
+                    class="w-9 h-9 xs:w-11 xs:h-11 bg-gray-100 object-contain rounded-full lazy">
+            </div>
+
+            <div class="flex-1 flex justify-between items-center gap-1.5">
+                <div class="flex flex-col gap-1">
+                    <h3 class="font-semibold text-sm sm:text-base text-slate-800">{{ comment.name }}</h3>
+                    {% if comment.has_order or comment.stars %}
+                        <div class="flex">
+                            {% if comment.has_order %}
+                                <i class="sicon-check rounded-full bg-amber-400 h-4 w-4 flex items-center justify-center text-xs"></i>
+                                <span class="fix-align ms-1 text-xs text-gray-600 mt-0.5">
+                                {{ trans('blocks.comments.has_bought') }}{{ comment.stars?', ':'' }}
+                                </span>
+                            {% endif %}
+                            {# {% if comment.stars %}
+                                <span class="fix-align ms-1 text-sm text-gray-600 mt-0.5">{{ trans('pages.rating.rated') }}</span>
+                            {% endif %} #}
+                        </div>
+                    {% endif %}
+                    {% if comment.stars %}
+                        <div class="text-xs">
+                            {% for i in 1..5 %}
+                                <i class="sicon-star2 inline-block {{ comment.stars>=i  ? 'text-amber-400' : 'text-gray-400' }}"></i>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <p class="text-gray-400 text-xs xs:text-sm whitespace-nowrap">{{ comment.created_at|time_ago }}</p>
+            </div>
+        </div>
+        
+        <div class="text-[#44444D] text-sm sm:text-base font-semibold !mr-0">
+            <p>{{ comment.content|raw }}</p>
+            {% if comment.is_pending %}
+                <span class="pending-comment pending-comment bg-gray-200 rounded-full px-2.5 py-0.5 inline-block mt-2">{{ trans('blocks.comments.waiting_approval') }}</span>
+            {% endif %}
+            {# {% if comment.has_order %}
+                <i class="icon-cart user-buy" data-toggle="tooltip" data-placement="right"
+                title="{{ trans('blocks.comments.has_order') }}"></i>
+            {% endif %} #}
+        </div>
+    </div>
+    {% if not is_admin %}
+    {% for replay in comment.replies %}
+        {% include _self with {comment:replay} %}
+    {% endfor %}
+</div>
+{% endif %}

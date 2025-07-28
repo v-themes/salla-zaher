@@ -1,0 +1,23 @@
+{# | Variable | Type | Description |
+|---------------|--------|------------------------------------------------------------------|
+| items[] | array | List of 3 features | | items[].icon | string | SallaIcons
+css class `sicon-*` | | items[].title | string | Title of the feature | |
+items[].text | string | Subtitle for the feature | | position | Int | Sorting
+number start from zero | #}
+<section class="s-block s-block--features container">
+  <div class="flex justify-between lg:justify-center mini-scroll-bar gap-6 pb-6">
+    {% for item in items %}
+    <div class="flex-1 s-block--features__item">
+      <div class="features-content p-4 lg:p-5">
+        <div class="feature-icon relative z-[2]">
+          <i class="{{ item.icon }}"></i>
+        </div>
+        <div class="relative z-[2]">
+          <h4>{{ item.title }}</h4>
+          <p>{{ item.text }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>

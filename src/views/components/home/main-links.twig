@@ -1,0 +1,43 @@
+{#
+| Variable | Type | Description |
+|------------------------------------|----------|------------------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.merge_with_top_component | bool | |
+| component.title | ?string | |
+| component.links | object[] | list of links |
+| component.links[].icon | string | |
+| component.links[].title | string | |
+| component.links[].url | string | |
+| position | int | Sorting number start from zero |
+#}
+<section class="s-block s-block--main-links">
+    <div class="container">
+        <salla-slider pagination {% if(component.title) or (component.merge_with_top_component) %} block-title="{{ component.title }}" {% endif %}
+            show-controls="false" id="main-links-{{ position }}"
+            slider-config='{
+                "centerInsufficientSlides":true,
+                "slidesPerView":2,
+                "spaceBetween":0,
+                "breakpoints": {
+                    "320": {"slidesPerView":2},
+                    "480": {"slidesPerView":3},
+                    "640": {"slidesPerView":4},
+                    "768": {"slidesPerView":5},
+                    "1024": {"slidesPerView":6},
+                    "1280": {"slidesPerView":7}
+                }
+            }'>
+
+            <div slot="items">
+                {% for link in component.links %}
+                <div>
+                    <a href="{{ link.url }}">
+                        <i class="{{ link.icon }}"></i>
+                        <h4 class="p-2-line">{{ link.title }}</h4>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </salla-slider>
+    </div>
+</section>

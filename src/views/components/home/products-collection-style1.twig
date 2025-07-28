@@ -1,0 +1,44 @@
+{#
+| Variable                       | Type    | Description                                                                  |
+|--------------------------------|---------|------------------------------------------------------------------------------|
+| component                      | object  | Contains merchant settings for fields from twilight.json `component` section |
+| component.products_imgs        | imgs[]  | list of selected imgs                                                        |
+| title                          | string  | section main title                                                           |
+#}
+
+{% set title =  component.title %}
+{% set words = title|split(' ') %}
+{% set last_word = words|last %}
+{% set remaining_words = words|slice(0, -1)|join(' ') %}
+
+<section class="s-block s-block--collection-1 bg bg-white py-8 sm:py-12 section-shadow">
+    <div class="container flex flex-col lg:flex-row justify-between items-center gap-10 lg:gap-6 px-3 lg:px-10 ">
+        {# Slider - hidden in lg screens #}
+        <div class="lg:hidden px-4">
+            <salla-slider auto-play pagination show-controls="false" class="collection-slider" id="collection-1-slider-{{ position }}">
+                <div slot="items">
+                    {% for img in component.products_imgs %}
+                        <div class="swiper-slide slide--one-fifth">
+                            <img src="{{ img.image }}" alt="prroduct-img" />    
+                        </div> 
+                    {% endfor %}
+                </div>
+            </salla-slider>
+        </div>
+
+        {# Right-side #}
+        <diV class="flex-1 text-center lg:text-start">
+            <p class="text-2xl lg:text-3xl font-thin text-[#A3A3A3]">{{ component.sub_title }}</p>
+            <h1 class="text-3xl lg:text-[40px] font-extrabold py-3 lg:py-5">{{ remaining_words }} <span class="text-primary">{{ last_word }}</span></h1>
+            <p class="max-w-[600px] text-lg lg:text-xl tracking-wider font-thin text-[#A3A3A3] mt-3">{{ component.desc }}</p>
+            <a href="{{ component.url[0].url }}" class="shop-now-btn mx-auto lg:mx-0">{{ component.url_title|default('تسوق الآن') }}</a>
+        </div>
+
+        {# Left-side #}
+        <div class="grid-4 hidden lg:grid">
+            {% for img in component.products_imgs %}
+                <img src="{{ img.image }}" alt="prroduct-img"/>   
+            {% endfor %}
+        </div>
+    </div>    
+</section>

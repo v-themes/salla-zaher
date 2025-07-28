@@ -1,0 +1,65 @@
+{
+  "blocks": {
+    "header": {
+      "cart": "السلة",
+      "get": "احصل علي",
+      "promo": "استمتع بتجربة تسوق فريدة - قم بتحميل تطبيقنا الآن"
+    }
+  },
+  "site": {
+    "login": "تسجيل الدخول"
+  },
+  "categories": {
+    "title": "جميع الأقسام"
+  },
+  "compare_modal": {
+    "title": "مقارنة المنتجات",
+    "no_products": "لم يتم إضافة منتجات للمقارنة حتى الآن",
+    "remove_all": "حذف القائمة",
+    "close": "إغلاق",
+    "product_column": {
+      "picture": "الصورة",
+      "name": "الاسم",
+      "price": "السعر",
+      "brand": "الماركة",
+      "rating": "التقييم"
+    },
+    "notice": {
+      "product_removed": "تم حذف المنتجات من المقارنة بنجاح",
+      "product_no_exists": "المنتج لم يعد موجودا بالمقارنة",
+      "product_already_exists": "المنتج موجود بالفعل",
+      "no_more_four_product": "لا يمكن إضافة أكثر من أربعة منتجات",
+      "added_success_message": "تمت اضافة المنتج بنجاح للسلة",
+      "removed_success_message": "تم حذف المنتج من المقارنة بنجاح"
+    }
+  },
+  "suggested_products": {
+    "head": {
+      "title": "منتجات مقترحة"
+    }
+  },
+
+  "category_menu": {
+    "all_product": "عرض الكل"
+  },
+  "product": {
+    "add_favorite": "أضف المنتج إلي مفضلتك",
+    "compare_product": "قارن هذا المنتج",
+    "description": "وصف المنتج",
+    "tags": "الوسوم",
+    "ratings": "تقيمات المنتج"
+  },
+  "timer": {
+    "days": "يوم",
+    "hours": "ساعات",
+    "minutes": "دقائق",
+    "seconds": "ثواني"
+  },
+  "footer": {
+    "title": "جـاهز للمساعدة",
+    "description": "اتصـل بنا عبر قنوات الإتصــال التالية"
+  },
+  "card": {
+    "discount": "خصـم"
+  }
+}

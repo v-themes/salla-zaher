@@ -1,0 +1,381 @@
+{#
+| Variable | Type | Description |
+|------------------|---------|---------------------------------|
+| cart | object | |
+| cart.items_count | int | |
+| cart.total | string | Formatted total ex: "١٠٠ ر.س" |
+#}
+
+{# Suggest mobile app #}
+<div class="suggest-mobile-app flex justify-between items-center p-2.5 bg-stone-100 gap-3">
+    <div class="flex-1 flex items-center gap-1">
+        <div class="close text-gray-500 cursor-pointer text-sm">&#10006;</div>
+
+        <img fetchpriority="high" loading="eager" class="w-14 h-16 object-contain shrink-0" src="{{theme.settings.get('app_image')|default(store.logo)}}" alt="{{ store.name }}">
+
+        <div class="flex-1 flex flex-col my-1.5">
+            <div class="font-semibold text-sm truncate w-[90%]">{{theme.settings.get('app_title')|default(store.name)}}</div>
+            <p class="text-xs text-gray-500 w-[90%]">{{trans('blocks.header.promo')}}</p>
+            <salla-rating-stars size="mini" value="{{theme.settings.get('app_rating')|default(5)}}"></salla-rating-stars>
+        </div>
+    </div>
+
+    <button class="px-2 py-1 border border-slate-800 whitespace-nowrap text-xs font-semibold">
+        <a href="#" rel="noreferrer" target="blank">{{trans('blocks.header.get')}}</a>
+    </button>
+</div>
+
+<header class="store-header bg-white z-[999]">
+    <div class="notices-top-bar" id="notices">
+        {# included Component notices #}
+    </div>
+
+    {# Top Nav #}
+    <div class="top-navbar py-2.5 bg-white">
+        <div class="container flex justify-center items-center">
+                <div class="header-search relative flex">
+                    <button class="voice-search-btn flex justify-center items-center p-2 text-xl cursor-pointer">
+                        <i class="sicon-mic-alt"></i>
+                    </button>
+                    <salla-search inline oval height="36" class="flex-1"></salla-search>
+                </div>
+
+                <div class="flex-1 flex justify-center items-center">
+                    <a class="navbar-brand navbar-brand-desktop" href="{{ store.url }}">
+                        <img fetchpriority="high" width="100%" height="100%" loading="eager" src="{{ store.logo }}" alt="{{ store.name }}">
+                        {% if is_page('index') %}
+                        <h1 class="sr-only">{{ store.name }}</h1>
+                        {% else %}
+                        <h2 class="sr-only">{{ store.name }}</h2>
+                        {% endif %}
+                    </a>
+                </div>
+
+                {# Scopes | Branches #}
+                {% if store.scope %}
+                <button class="btn--rounded-gray" onclick="salla.event.dispatch('scopes::open', {'mode': 'default'})">
+                    <i class="sicon-location me-1"></i> {{ store.scope.name }}
+                </button>
+                {% endif %}
+
+                <div class="flex items-center gap-4 relative z-[99]">
+                    <div class="flex items-bassline">
+                        {% if user.type=='user' %}
+                        <salla-user-menu avatar-only show-header></salla-user-menu>
+                        {% else %}
+                        <button class="header-btn" onclick="salla.event.dispatch('login::open')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="24" viewBox="0 0 28 27"
+                                fill="none">
+                                <path
+                                    d="M26.8658 24.4995C24.9621 21.2082 22.0283 18.8482 18.6046 17.7295C20.2981 16.7213 21.6139 15.1851 22.3498 13.3567C23.0858 11.5284 23.2012 9.509 22.6784 7.60869C22.1556 5.70838 21.0234 4.03224 19.4558 2.83765C17.8882 1.64306 15.9717 0.996094 14.0008 0.996094C12.0299 0.996094 10.1135 1.64306 8.54586 2.83765C6.97823 4.03224 5.84607 5.70838 5.32325 7.60869C4.80043 9.509 4.91586 11.5284 5.65181 13.3567C6.38776 15.1851 7.70354 16.7213 9.39708 17.7295C5.97333 18.847 3.03958 21.207 1.13583 24.4995C1.06601 24.6133 1.01971 24.74 0.999638 24.872C0.97957 25.004 0.986147 25.1387 1.01898 25.2682C1.05182 25.3976 1.11024 25.5192 1.19082 25.6257C1.27139 25.7322 1.37247 25.8214 1.48811 25.8882C1.60374 25.955 1.73158 25.998 1.86409 26.0146C1.99659 26.0311 2.13107 26.021 2.2596 25.9848C2.38813 25.9486 2.5081 25.8869 2.61244 25.8036C2.71677 25.7202 2.80335 25.6168 2.86708 25.4995C5.22208 21.4295 9.38458 18.9995 14.0008 18.9995C18.6171 18.9995 22.7796 21.4295 25.1346 25.4995C25.1983 25.6168 25.2849 25.7202 25.3892 25.8036C25.4936 25.8869 25.6135 25.9486 25.742 25.9848C25.8706 26.021 26.0051 26.0311 26.1376 26.0146C26.2701 25.998 26.3979 25.955 26.5135 25.8882C26.6292 25.8214 26.7303 25.7322 26.8108 25.6257C26.8914 25.5192 26.9498 25.3976 26.9827 25.2682C27.0155 25.1387 27.0221 25.004 27.002 24.872C26.9819 24.74 26.9356 24.6133 26.8658 24.4995ZM7.00083 9.99949C7.00083 8.61503 7.41137 7.26165 8.18054 6.1105C8.94971 4.95936 10.043 4.06215 11.322 3.53234C12.6011 3.00252 14.0086 2.8639 15.3665 3.134C16.7243 3.40409 17.9716 4.07078 18.9506 5.04975C19.9295 6.02871 20.5962 7.276 20.8663 8.63386C21.1364 9.99173 20.9978 11.3992 20.468 12.6783C19.9382 13.9574 19.041 15.0506 17.8898 15.8198C16.7387 16.589 15.3853 16.9995 14.0008 16.9995C12.1449 16.9975 10.3656 16.2594 9.05327 14.9471C7.74095 13.6347 7.00281 11.8554 7.00083 9.99949Z"
+                                    fill="#44444D" />
+                            </svg>
+                            <span class="inline-block mr-0 md:mr-1">{{ trans('site.login') }}</span>
+                        </button>
+                        {% endif %}
+                        {# Language & Currency Component #}
+                        {% if store.settings.is_multilingual or store.settings.currencies_enabled %}
+                        <span class="text-gray-400 rtl:pr-1 md:rtl:pr-4  text-lg">|</span>
+                        <button type="button" onclick="salla.event.dispatch('localization::open')"
+                            class="btn--rounded-gray bg-white basis-0 btn-select-type-coins ltr:ml-1 rtl:mr-1 md:ltr:ml-4 md:rtl:mr-4">
+                            <span class="flag iti__flag iti__{{ user.language.country_code }} me-1.5 rounded-sm">
+                            </span> <span class="ms-1 me-1 font-semibold text-dark">{{ currency.symbol }}</span>
+                        </button>
+                        <salla-localization-modal></salla-localization-modal>
+                        {% endif %}
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    {# Main Nav #}
+    <div id="mainnav" class="main-nav-container shadow-default bg-white relative">
+        <div class="inner bg-white opacity-90">
+            <div class="container">
+                <div class="flex items-center justify-between !min-h-[70px]">
+                    {# {% component 'footer.contacts' with {is_header:true} %} #}
+                    <div class="header-category relative hidden lg:block">
+                        <span
+                            class="cat-toggle flex items-center gap-3 transition duration-150 hover:scale-[1.02] whitespace-nowrap">
+                            {# <i class="sicon-menu text-2xl"></i> #}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 24 22"
+                                fill="none">
+                                <path
+                                    d="M0 1.66732C0 0.930938 0.596954 0.333984 1.33333 0.333984H22.6667C23.403 0.333984 24 0.930938 24 1.66732C24 2.4037 23.403 3.00065 22.6667 3.00065H1.33333C0.596954 3.00065 0 2.4037 0 1.66732ZM8 11.0007C8 10.2643 8.59695 9.66732 9.33333 9.66732H22.6667C23.403 9.66732 24 10.2643 24 11.0007C24 11.737 23.403 12.334 22.6667 12.334H9.33333C8.59695 12.334 8 11.737 8 11.0007ZM0 20.334C0 19.5976 0.596954 19.0007 1.33333 19.0007H22.6667C23.403 19.0007 24 19.5976 24 20.334C24 21.0704 23.403 21.6673 22.6667 21.6673H1.33333C0.596954 21.6673 0 21.0704 0 20.334Z"
+                                    fill="" />
+                            </svg>
+                            {{ trans('categories.title') }}
+                        </span>
+                        <div class="category-menu">
+                            <ul class="category-menu-items bg-scroll">
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="menu-nav flex items-center justify-between py-3">
+                        <a class="lg:hidden mburger mburger--collapse leading-none" href="#mobile-menu">
+                            <i class="sicon-menu text-primary text-2xl me-2.5"></i>
+                        </a>
+                        <a class="lg:hidden navbar-brand" href="{{ store.url }}">
+                            <img fetchpriority="high" width="100%" height="100%" loading="eager"
+                                src="{{ store.logo }}" alt="{{ store.name }}">
+                            {% if is_page('index') %}
+                            <h1 class="sr-only">{{ store.name }}</h1>
+                            {% else %}
+                            <h2 class="sr-only">{{ store.name }}</h2>
+                            {% endif %}
+                        </a>
+                        {% component 'header.menu' %}
+                    </div>
+                    
+                    <div class="flex items-center gap-4">
+                        {% if theme.settings.get('enable_compare_products') %}
+                        <button id="compare-modal-button" class="header-btn"
+                            style="position:relative;width:40px;height:40px;display:flex;justify-content:center;align-items:center;"
+                            onclick="compareProducts()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="22" viewBox="0 0 30 31"
+                                fill="none">
+                                <path
+                                    d="M18.75 16.5502C18.75 19.6429 21.2685 22.1501 24.375 22.1501C27.4815 22.1501 30 19.6424 30 16.5502H29.1625L25.51 7.29313C25.7395 7.12061 25.9257 6.89754 26.054 6.64139C26.1824 6.38525 26.2495 6.103 26.25 5.81674C26.25 4.78635 25.41 3.95009 24.375 3.95009C24.101 3.95009 23.843 4.01181 23.6085 4.11635C23.2258 3.96809 22.8443 3.81693 22.464 3.66288C21.03 3.0775 19.3615 2.40351 17.624 2.01525C17.4206 1.48646 17.061 1.0315 16.5925 0.710412C16.124 0.389327 15.5688 0.217216 15 0.216797C14.4312 0.217255 13.8759 0.389439 13.4074 0.710617C12.9389 1.0318 12.5793 1.48686 12.376 2.01575C10.638 2.40351 8.9695 3.0775 7.5355 3.66337C7.209 3.79678 6.7495 3.97697 6.391 4.11684C6.15047 4.0077 5.88933 3.95086 5.625 3.95009C5.12772 3.95009 4.65081 4.14675 4.29917 4.49682C3.94754 4.84688 3.75 5.32167 3.75 5.81674C3.75063 6.10292 3.81771 6.38509 3.94599 6.64119C4.07427 6.8973 4.26028 7.12042 4.4895 7.29313L0.837 16.5502H0C0 19.6429 2.5185 22.1501 5.625 22.1501C8.7315 22.1501 11.25 19.6429 11.25 16.5502H10.4125L6.76 7.29363C6.98932 7.12087 7.17543 6.89768 7.30379 6.64149C7.43216 6.3853 7.49931 6.10303 7.5 5.81674C7.5 5.77343 7.4895 5.73261 7.487 5.68981L7.9545 5.50115C9.27 4.96306 10.7935 4.34433 12.357 3.96652C12.4984 4.35589 12.7247 4.70923 13.0197 5.00109C13.3147 5.29296 13.671 5.5161 14.063 5.65446V8.5077H13.488V17.4835H12.863V21.8784C9.7615 22.4513 7.5 24.2353 7.5 26.3499H6.5625V28.2165H4.6875V30.0831H25.3125V28.2165H23.4375V26.3499H22.5C22.5 24.2353 20.2375 22.4513 17.1375 21.8784V17.4835H16.5125V8.5072H15.9375V5.65397C16.3294 5.51551 16.6856 5.29233 16.9805 5.00047C17.2754 4.70861 17.5016 4.35533 17.643 3.96602C19.207 4.34383 20.7295 4.96256 22.046 5.50065C22.206 5.56636 22.357 5.62659 22.513 5.68981C22.51 5.73261 22.5 5.77343 22.5 5.81674C22.5006 6.10292 22.5677 6.38509 22.696 6.64119C22.8243 6.8973 23.0103 7.12042 23.2395 7.29313L19.587 16.5497L18.75 16.5502ZM5.625 4.88341C5.74997 4.88057 5.87425 4.90263 5.99053 4.94829C6.10682 4.99394 6.21277 5.06228 6.30215 5.14928C6.39153 5.23627 6.46254 5.34018 6.51101 5.45489C6.55948 5.5696 6.58444 5.6928 6.5844 5.81724C6.58437 5.94169 6.55935 6.06487 6.51082 6.17955C6.46229 6.29424 6.39122 6.3981 6.30179 6.48505C6.21236 6.57201 6.10638 6.64029 5.99007 6.68588C5.87376 6.73147 5.74947 6.75346 5.6245 6.75056C5.37954 6.74486 5.14655 6.64397 4.97535 6.46946C4.80415 6.29495 4.70834 6.06067 4.7084 5.81674C4.70847 5.57281 4.80441 5.33859 4.9757 5.16417C5.14699 4.98975 5.38004 4.88898 5.625 4.88341ZM9.4445 16.5502H1.804L5.315 7.65252C5.4165 7.66945 5.519 7.68338 5.625 7.68338C5.731 7.68338 5.833 7.66945 5.934 7.65202L9.4445 16.5502ZM24.375 4.88341C24.5 4.88057 24.6243 4.90263 24.7405 4.94829C24.8568 4.99394 24.9628 5.06228 25.0521 5.14928C25.1415 5.23627 25.2125 5.34018 25.261 5.45489C25.3095 5.5696 25.3344 5.6928 25.3344 5.81724C25.3344 5.94169 25.3094 6.06487 25.2608 6.17955C25.2123 6.29424 25.1412 6.3981 25.0518 6.48505C24.9624 6.57201 24.8564 6.64029 24.7401 6.68588C24.6238 6.73147 24.4995 6.75346 24.3745 6.75056C24.1295 6.74486 23.8966 6.64397 23.7254 6.46946C23.5542 6.29495 23.4583 6.06067 23.4584 5.81674C23.4585 5.57281 23.5544 5.33859 23.7257 5.16417C23.897 4.98975 24.13 4.88898 24.375 4.88341ZM24.0655 7.65252C24.1676 7.67144 24.2711 7.68176 24.375 7.68338C24.4805 7.68338 24.583 7.66945 24.684 7.65202L28.1945 16.5497H20.5535L24.0655 7.65252Z"
+                                    fill="#44444D" />
+                            </svg>
+                            <span class="compare-modal-button-count ltr:left-[1.3rem] rtl:-right-[0.1rem]"
+                                id="compare-modal-button-count"
+                                style="position:absolute; top:-1.1px; background-color:var(--color-primary); color:#fff; border-radius:50%; width:19px; height:19px;line-height: 19px; font-size:12px; display:flex; justify-content:center; align-items:center;">
+                            </span>
+                        </button>
+                        {% endif %}
+
+                        <div class="cart-wrapper">
+                            <i class="sicon-cart-add"></i>
+                            <salla-cart-summary></salla-cart-summary>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if user.type=='guest' %}
+    <salla-login-modal></salla-login-modal>
+    {% endif %}
+
+    {% if theme.settings.get('enable_compare_products') %}
+    <salla-modal id="compare-modal" title="{{ trans('compare_modal.title') }}"
+        sub-title="{{ trans('compare_modal.title') }}" icon="sicon-alert-engine" position="middle" width="md"
+        is-closable="true">
+        <div id="compare-products-alert" class="hidden" style="margin-bottom:18px;">
+            {{ trans('compare_modal.no_products') }}
+        </div>
+
+        <div id="compare-modal-loading" class="hidden"></div>
+
+        <div id="compare-products-container" style="overflow-x:auto;">
+            <div class="products-wrapper m-auto" style="display:flex; gap:20px;"></div>
+        </div>
+
+        <div slot="footer" class="text-center mt-3">
+            <salla-button color="gray" fill="solid" onclick="removeCompareProducts()">
+                {{ trans('compare_modal.remove_all') }}
+            </salla-button>
+
+            <salla-button onclick="compareModal.close()" class="mr-2">
+                {{ trans('compare_modal.close') }}
+            </salla-button>
+        </div>
+    </salla-modal>
+    {% endif %}
+    </div>
+</header>
+{% if store.scope %}
+<salla-scopes selection="{{ store.scope.display_as == 'popup' ? 'mandatory' : 'optional' }}"></salla-scopes>
+{% endif %}
+
+
+{% block scripts %}
+<script>
+    let carIcon = document.querySelector('.cat-toggle');
+</script>
+{# Active nav menu item started #}
+<script>
+    'use strict'
+    const activeLink = () => {
+        let urlCurrentPage = window.location.href;
+        let navMenuItem = document.querySelectorAll('#mobile-menu li a');
+        navMenuItem.forEach(item => {
+            if (item.href === urlCurrentPage) {
+                item.closest('li a').classList.add('active-menu-link');
+            }
+        })
+    }
+
+    window.addEventListener('load', activeLink)
+</script>
+{# Active nav menu item ended #}
+
+<script>
+    let navIcon = document.querySelector('.cat-toggle');
+    let navIconToggle = document.querySelector('.cat-toggle .sicon-menu');
+    let categoryName = document.querySelector('.category-menu');
+    navIcon.addEventListener('click', (e) => {
+        // navIconToggle.classList.toggle("active-menu-nav-icon");
+        categoryName.classList.toggle("display-menu");
+    });
+    document.addEventListener('scroll', () => {
+        categoryName.classList.remove("display-menu");
+    });
+</script>
+
+{% if theme.settings.get('enable_compare_products') %}
+<script>
+    const compareModal = document.querySelector('#compare-modal')
+
+    async function compareProducts() {
+        const compareModalLoading = document.querySelector("#compare-modal-loading")
+        const productsContainer = document.querySelector('#compare-products-container .products-wrapper')
+        const sallaProductIds = salla.storage.get('compare-products-ids')
+        productsContainer.innerHTML = ""
+        compareModal.open()
+        if (typeof sallaProductIds !== 'object' || sallaProductIds.length === 0) {
+            document.querySelector("#compare-products-alert").classList.remove("hidden")
+            productsContainer.classList.add("hidden")
+            return
+        }
+
+        compareModalLoading.classList.remove("hidden")
+        document.querySelector("#compare-products-alert").classList.add("hidden")
+        productsContainer.classList.remove("hidden")
+        let productsData = []
+        for (productId of sallaProductIds) {
+            await salla.product.getDetails(productId, ['brand', 'options']).then((response) => {
+                if (response.success) {
+                    productsData.push(response.data)
+                }
+            })
+        }
+
+        let options = []
+        productsData.forEach(product => {
+            for (option of product.options) {
+                if (!options.includes(option.name)) {
+                    options.push(option.name)
+                }
+            }
+        })
+
+        compareModalLoading.classList.add("hidden")
+        productsContainer.style.width = `${(productsData.length + 1) * 132 - 12}px`
+
+        let comparisonTitlesCol = ""
+
+        comparisonTitlesCol += `<div class="product-column" style = "width:120px; display:flex; flex-direction:column; gap:12px;" >
+            <div class="product-row" style="height:160px; width:100%; font-weight:bold;">
+                {{ trans('compare_modal.product_column.picture') }}
+            </div>
+            <div class="product-row" style="height:50px; width:100%; font-weight:bold;">
+                {{ trans('compare_modal.product_column.name') }}
+            </div>
+            <div class="product-row" style="height:50px; width:100%; font-weight:bold;">
+                {{ trans('compare_modal.product_column.price') }}
+            </div>
+            <div class="product-row" style="height:50px; width:100%; font-weight:bold;">
+                {{ trans('compare_modal.product_column.brand') }}
+            </div>
+        `
+
+        options.forEach(option => {
+            comparisonTitlesCol += `<div class="product-row" style="height:95px; width:100%; font-weight:bold;"> ${option}</div>`
+        })
+        comparisonTitlesCol += `</div >`
+        productsContainer.innerHTML += comparisonTitlesCol
+
+        productsData.forEach(product => {
+            let comparisonProductCol = ` <div class="product-column" style = "position:relative; width:120px; display:flex; flex-direction:column; gap:12px;" >
+                <div class="product-row" style="height:160px; width:100%;">
+                    ${product.image.url ? `<a href="${product.url}"> <img src="${product.image.url}" alt="${product.name}"
+                    style="width:100%; height:100%; object-fit:cover; border-radius: 10px;"> </a>` : `<span class="font-bold">...</span>`}
+                </div>
+                <div class="product-row" style="height:50px; width:100%;">
+                    <a href="${product.url}" class="px-2 flex items-center justify-between"><h4 class="truncate">${product.name}</h4> 
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Capa_1" viewBox="0 0 473 473" xml:space="preserve">
+                        <g><g><path d="M459.5,0H330.4c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5h96.5L218.8,235.1c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4 s6.9-1.3,9.5-4L446,46.1v96.5c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5V13.5C473,6,467,0,459.5,0z"/>
+                            <path d="M459.5,231.2c-7.5,0-13.5,6-13.5,13.5v130.9c0,38.8-31.6,70.4-70.4,70.4H97.4C58.6,446,27,414.4,27,375.6V97.4 C27,58.6,58.6,27,97.4,27h129.9c7.5,0,13.5-6,13.5-13.5S234.8,0,227.3,0H97.4C43.7,0,0,43.7,0,97.4v278.2  C0,429.3,43.7,473,97.4,473h278.2c53.7,0,97.4-43.7,97.4-97.4V244.7C473,237.2,467,231.2,459.5,231.2z"/>
+                            </g></g>
+                        </svg>
+                    </a>
+                </div>
+                <div class="product-row" style="height:50px; width:100%;">
+                    ${product.regular_price != product.price ? "<span class='relative regular-price text-sm text-gray-400'>" +
+                    salla.money(product.regular_price) + "</span><br>" : ''}
+                   <h4 class="text-primary font-bold text-base">${salla.money(product.price)}</h4>
+                </div>
+                <div class="product-row" style="height:50px; width:100%;">
+                    ${product.brand?.name ?? `<span class="font-bold">...</span>`}
+                </div>
+            `
+
+            options.forEach(option => {
+                let productOption = product.options.find(o => o.name == option)
+                comparisonProductCol += `<div class="product-row flex flex-wrap	justify-center rtl:flex-row-reverse min-h-[60px]" style="width:100%;">
+                    ${productOption ? productOption.details.map(optionValue => `<span class="text-sm px-1 mb-2 mx-1 border border-slate-200 rounded-sm h-fit">` + optionValue.name + `</span>`).join(' ') : `<span class="font-bold">...</span>`}
+                </div>
+                `
+            })
+
+            comparisonProductCol += `<span onclick="salla.event.emit('product::remove-from-compare', {button: this})"
+                    product-id="${product.id}" class="close-compare">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </span>
+            </div>
+            `
+            productsContainer.innerHTML += comparisonProductCol
+        })
+    }
+
+    function removeCompareProducts() {
+        salla.storage.remove('compare-products-ids')
+        updateCompareIndicator()
+        compareModal.close()
+        salla.notify.success(this.setTranslations("تم حذف جميع المنتج من المقارنة بنجاح", "Products removed from compare"));
+    }
+
+    function updateCompareIndicator() {
+        const compareProductIds = localStorage.getItem('compare-products-ids') ?? "[]"
+        document.querySelector(".compare-modal-button-count").textContent = formatNumberToArabic(JSON.parse(compareProductIds).length)
+    }
+
+    function formatNumberToArabic(num) {
+        const formatter = {
+            0: "٠",
+            1: "١",
+            2: "٢",
+            3: "٣",
+            4: "٤",
+            5: "٥",
+            6: "٦",
+            7: "٧",
+            8: "٨",
+            9: "٩"
+        }
+
+        num = num.toString()
+        let modifiedNumber = ""
+        for (let i = 0; i < num.length; i++) {
+            modifiedNumber += formatter[num[i]]
+        }
+
+        return modifiedNumber
+    }
+
+    window.addEventListener("load", () => {
+        updateCompareIndicator()
+    })
+
+    function setTranslations(ar, en) {
+        return salla.lang.getLocale() == 'en' ? en : ar
+    }
+</script>
+{% endif %}
+{% endblock %}

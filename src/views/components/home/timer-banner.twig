@@ -1,0 +1,35 @@
+{#
+| Variable | Type | Description |
+|--------------------------------|---------
+|------------------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.url | string | link to some products |
+| component.time | number | duration of offer in days |
+#}
+
+
+<section class="s-block s-block--timer-banner bg-gray-100 relative overflow-hidden">
+    <div class="hidden md:block">
+        <img src="{{ component.bg_image }}" alt="بانر التخفيضات"
+            class="max-h-[700px] md:min-h-[500px] lg:min-h-[600px] w-full object-cover max-w-full" />
+    </div>
+
+    <div class="content min-h-[320px]">
+        <div class="poly w-full">
+            <img src="{{'images/poly-1.png' | asset}}" alt="poly-img" />
+        </div>
+        <div class="poly w-[97%]">
+            <img src="{{'images/poly-2.png' | asset}}" alt="poly-img-2" />
+        </div>
+
+        <div class="content__inner">
+            <h3 class="offer-title">{{ component.offer_title }}</h3>
+            <p class="tracking-wide text-center px-4">{{ component.desc }}</p>
+            {% if component.with_timer %}
+                <salla-count-down class="w-full max-w-[360px] md:py-5" date="{{ component.time }}" boxed labeled></salla-count-down>
+            {% endif %}
+            <a href="{{ component.sub_url ? component.sub_url : component.category_url[0].url }}" class="link">
+                {{ component.url_title ? component.url_title : "تسـوق الآن" }}
+            </a>
+        </div>
+</section>

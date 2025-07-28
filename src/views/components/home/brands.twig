@@ -1,0 +1,38 @@
+{#
+| Variable                       | Type    | Description                                                                  |
+|--------------------------------|---------|------------------------------------------------------------------------------|
+| component                      | object  | Contains merchant settings for fields from twilight.json `component` section |
+| component.brands               | Brand[] | list of selected brands @see views/pages/brands/single.twig                  |
+| position                       | int     | Sorting number start from zero                                               |
+#}
+<section class="s-block s-block--logos-slider">
+    <div class="container">
+            {% if component.title %}
+                <div class="s-block__title">
+                    <h2>{{ component.title }}</h2>
+                </div>
+            {% endif %}
+
+        <salla-slider class="brands-slider" auto-play show-controls="false" id="brands-{{ position }}" slider-config='{
+                "slidesPerView":1,
+                "spaceBetween":10,
+                "breakpoints": {
+                    "320": {"slidesPerView":2},
+                    "480": {"slidesPerView":3},
+                    "640": {"slidesPerView":4},
+                    "768": {"slidesPerView":5},
+                    "1024": {"slidesPerView":6},
+                    "1280": {"slidesPerView":7},
+                    "1440": {"slidesPerView":8}
+                }
+            }'>
+            <div slot="items">
+                {% for brand in component.brands %}
+                <a href="{{ brand.url }}" class="flex justify-center">
+                    <img width="100%" height="100%" src="{{ brand.logo }}" alt="{{ brand.name }}" class="lazy" />
+                </a>
+                {% endfor %}
+            </div>
+        </salla-slider>
+    </div>
+</section>

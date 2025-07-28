@@ -1,0 +1,174 @@
+salla-slider {
+  @apply block;
+
+  &.details-slider {
+    .s-slider-container {
+      @apply bg-white border-[1px] rounded-md;
+    }
+
+    .swiper-slide {
+      @apply relative rounded-md bg-white ring-1 ring-inset ring-gray-100;
+    }
+
+    salla-button.btn--wishlist {
+      @apply absolute rtl:right-4 ltr:left-4 bottom-4 z-[2] sm:hidden;
+    }
+
+    .s-slider-block__title-nav {
+      @apply hidden sm:flex;
+    }
+  }
+
+  .slide--one-fourth {
+    @apply pt-[15px] pb-[20px] h-auto w-full sm:w-1/2 md:w-1/3 lg:w-1/4 max-w-[250px] sm:max-w-[320px];
+  }
+
+  .slide--one-fifth {
+    @apply py-4 h-auto w-full sm:w-2/5 md:w-1/4 lg:w-1/5 max-w-[250px] sm:max-w-[320px];
+  }
+
+  .slide--one-sixth {
+    @apply w-1/2 sm:w-2/6 md:w-1/4 lg:w-1/6;
+  }
+
+  .swiper--one-sixth {
+    @apply w-[300px] sm:w-[250px] md:w-2/5 lg:w-1/6;
+  }
+
+  // Fix Flickering in Safari
+  .swiper-slide {
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+  }
+
+  .swiper-pagination {
+    @apply static;
+
+    &-bullet {
+      @apply w-5 sm:w-8 h-[3px] sm:h-1 opacity-100 bg-gray-300 rounded-sm;
+    }
+
+    &-bullet-active {
+      @apply bg-primary;
+    }
+  }
+}
+
+// brands-slider
+salla-slider.brands-slider {
+  a {
+    @apply overflow-hidden justify-center h-full m-auto p-3;
+    img {
+      @apply transition-all duration-300 object-contain max-h-[110px] grayscale;
+
+      &:hover {
+        @apply scale-110 filter-none;
+      }
+    }
+  }
+}
+
+.home-slider {
+  &__slide {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    &:not(.loaded) {
+      .overlay {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.best-products-slider {
+  .swiper-wrapper {
+    @media screen and (min-width: 768px) {
+      height: 510px;
+
+      .swiper-slide {
+        height: calc((100% - 30px) / 2);
+      }
+    }
+  }
+}
+
+//general
+.s-slider-v-centered {
+  .s-slider-block__title-nav {
+    button.swiper-button-disabled {
+      opacity: 0.5;
+      svg {
+        fill: #d1d5db !important;
+      }
+    }
+  }
+}
+
+.s-block--tabs-produtcs {
+  .s-slider-block__title-nav {
+    @apply slider-arrows translate-x-0;
+  }
+}
+
+// Offer slider
+.s-block--best-offers {
+  h2 {
+    @apply text-primary border-current pt-0 py-1;
+    [dir='rtl'] & {
+      @apply border-r-4 pr-2;
+    }
+    [dir='ltr'] & {
+      @apply border-l-4 pl-2;
+    }
+  }
+}
+
+// move to slider component
+model-viewer[style*='width']:before {
+  @apply hidden;
+}
+
+// Blog slider
+.blog-slider {
+  .swiper-slide img {
+    @apply min-h-[380px] max-h-[480px] md:max-h-[680px];
+  }
+}
+
+salla-slider.collection-slider {
+  .s-slider-container {
+    @apply pl-0 #{!important};
+    .swiper-wrapper {
+      .swiper-slide {
+        @apply max-w-[220px] h-[180px] max-h-[180px] overflow-hidden rounded-tl-xl rounded-br-xl p-0 mx-2;
+
+        img {
+          @apply w-full h-full max-w-full max-h-full object-cover;
+        }
+      }
+    }
+  }
+}
+
+salla-slider.full-bg-slider {
+  .s-slider-container {
+    @apply max-w-[1440px];
+  }
+
+  @media (min-width: 768px) {
+    .s-slider-container {
+      .swiper-pagination {
+        @apply absolute bottom-[40px] lg:bottom-[20px] xl:bottom-[40px] w-fit right-6 lg:right-12 z-[-1] #{!important};
+
+        &-bullet {
+          @apply w-[9px] h-[9px] bg-transparent rounded-full text-primary border border-primary #{!important};
+        }
+        &-bullet-active {
+          @apply bg-primary #{!important};
+        }
+      }
+    }
+  }
+}

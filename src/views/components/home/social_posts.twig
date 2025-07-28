@@ -1,0 +1,37 @@
+{#
+| Variable | Type | Description |
+|--------------------------------|---------|------------------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.posts | post[] | list of selected brands @see views/pages/brands/single.twig |
+| position | int | Sorting number start from zero |
+#}
+
+<section class="s-block s-block--posts-slider bg-white pt-8 pb-10 lg:pb-14 section-shadow">
+    <div class="container px-5 sm:px-10 lg:px-4">
+        <salla-slider loop auto-play show-controls="false" class="social-slider" block-title="{{ component.title }}" id="brands-{{ position }}"
+            slider-config='{
+            "centerInsufficientSlides":true,
+            "slidesPerView":1,
+            "spaceBetween":1,
+            "breakpoints": {
+                "320": {"slidesPerView":2},
+                "420": {"slidesPerView":3},
+                "520": {"slidesPerView":4},
+                "768": {"slidesPerView":5},
+                "1024": {"slidesPerView":6},
+                "1280": {"slidesPerView":7}
+            }
+        }'>
+            <div slot="items">
+                {% for post in component.posts %}
+                <a href="{{ post.url }}">
+                    <img src="{{ post.image }}" class="w-full max-w-full object-cover h-full" alt="post-img" />
+                    <div class="icon">
+                        <i class="{{post.icon}} text-3xl text-primary"></i>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </salla-slider>
+    </div>
+</section>

@@ -1,0 +1,20 @@
+// sliders lazyloading opacity transition
+.swiper-lazy {
+  @apply absolute top-0 h-full w-full bg-cover bg-center transition-opacity duration-500 opacity-0;
+  @media (min-width: 768px) {
+    background-size: 100% 100%;
+  }
+
+  &.swiper-lazy-loaded {
+    @apply opacity-100;
+  }
+}
+
+.lazy__bg {
+  @apply absolute top-0 left-0 w-full h-full bg-no-repeat bg-center transition-opacity duration-500 opacity-0;
+  background-size: 100% 100%;
+
+  &.loaded {
+    @apply opacity-100;
+  }
+}

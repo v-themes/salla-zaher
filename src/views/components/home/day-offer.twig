@@ -1,0 +1,79 @@
+{#
+| Variable | Type | Description |
+|--------------------------------|---------
+|------------------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.product | product[] | list of product data |
+| component.time | number | duration of offer in days |
+#}
+
+{# Required data #}
+{% set id = component.product[0].id %}
+{% set name = component.product[0].name %}
+{% set subtitle = component.product[0].subtitle %}
+{% set image = component.product[0].image.url %}
+{% set sale_price = component.product[0].sale_price|money|split(' ') %}
+{% set price = component.product[0].regular_price|money|split(' ') %}
+{% set sub_images = component.product[0].images %}
+{% set has_many_images = component.product[0].images|length > 2 %}
+
+<section class="s-block s-block--day-offer bg-white relative z-[1]">
+    <h2 class="main-title">{{ component.title }}</h2>
+    <p class="sub-title">{{ component.sub_title }}</p>
+
+    <div class="container">
+        {# right side #}
+        <div class="right-side">
+            <p class="text-[#A3A3A3] tracking-wider font-medium text-base">{{ subtitle }}</p>
+            <h3>{{ name }}</h3>
+
+            <div class="flex items-center gap-6">
+                {% if component.product[0].is_on_sale %}
+                <span class="text-[#969696] text-xl lg:text-2xl font-semibold relative regular-price">{{ price|first
+                    }}<span class="text-base mr-1">{{ price|last }}</span></span>
+                <span class="text-primary font-bold text-3xl lg:text-4xl">{{ sale_price|first }}<span
+                        class="text-lg mr-1">{{ sale_price|last }}</span></span>
+                {% else %}
+                <span class="text-primary font-bold text-3xl lg:text-4xl">{{ price|first }}<span
+                        class="text-lg mr-1">{{ price|last }}</span></span>       
+                {% endif %}
+            </div>
+   
+            {% if component.with_timer %}
+                <salla-count-down class="w-full max-w-[380px] md:ltr:pr-5 md:ltr:-ml-8 md:pl-5 md:-mr-8" date="{{ component.time }}" boxed labeled></salla-count-down>
+            {% endif %}
+
+            <salla-add-product-button product-id="{{ component.product[0].id }}"
+                product-status="{{ component.product[0].status }}" product-type="{{ component.product[0].type }}">
+                    <div class="flex items-center gap-3">
+                        <i class="sicon-cart-add text-2xl"></i>
+                        <span>{{ component.product[0].add_to_cart_label}}</span>
+                    </div>
+            </salla-add-product-button>
+        </div>
+
+        {# Left side #}
+        <div class="md:max-w-1/2 md:basis-1/2">
+            <salla-slider id="thumbs-{{id}}" auto-play class="offer-day-slider" show-controls="false" type="thumbs">
+                <div slot="items">
+                    {% for image in sub_images %}
+                    <a href="{{ component.product[0].url }}" class="block expand">
+                        <img src="{{ image.url }}" alt="{{ image.alt }}">
+                    </a>
+                    {% endfor %}
+                </div>
+
+                {% if has_many_images %}
+                <div slot="thumbs">
+                    {% for image in sub_images %}
+                    <div class="!mx-1 md:!mx-1.5">
+                        <img src="{{ image.url }}" alt="{{ image.alt }}">
+                        <div class="half-border"></div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </salla-slider>
+        </div>
+    </div>
+</section>

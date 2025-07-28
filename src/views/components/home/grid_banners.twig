@@ -1,0 +1,19 @@
+{#
+| Variable                       | Type    | Description                                                                  |
+|--------------------------------|---------|------------------------------------------------------------------------------|
+| component                      | object  | Contains merchant settings for fields from twilight.json `component` section |
+| component.banners              | banner[]| list of banners @see views/pages/home/grid_banners.twig                  |
+| position                       | int     | Sorting number start from zero                                               |
+#}
+
+<section class="s-block s-block--grid-banners container relative">
+    <div class="grid grid-cols-1 sm:grid-cols-4 grid-rows-2 gap-3 md:max-h-[530px]">
+        {% for banner in component.banners %}
+            <div class="banner_item">
+                <a href="#">
+                    <img class="w-full h-full object-cover max-w-full max-h-full" src="{{ banner.image }}" alt="grid-banner">
+                </a>
+            </div>
+        {% endfor %}
+    </salla-slider>
+</section>

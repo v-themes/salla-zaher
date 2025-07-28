@@ -1,0 +1,160 @@
+{#
+view options:
+1- is_horizontal = false // display horizonal card
+2- is_special = false // display special product with count down
+
+*Notice: if marchent wants equal image, {{store.settings.product.fit_type}} will be (contain|cover) if not, it will be
+empty.
+#}
+
+{% set sale_price = product.sale_price|money|split(' ') %}
+{% set price = product.regular_price|money|split(' ') %}
+{% set sale_price_en = product.sale_price %}
+{% set price_en = product.regular_price %}
+{% set has_many_images = product.images|length > 1 %}
+{% set discount_percentage = product.discount_percentage|round(0, 'floor') %}
+
+<div id="product-{{ product.id }}" class='product-entry {{ block_classes ?: '' }}
+  {{ is_horizontal ? ' product-entry--horizontal': 'product-entry--vertical' }} {{ is_special
+    ? 'product-entry--special' :'' }} {{ main_product.product.discount_ends ? 'with-timer' :'' }} {{
+    store.settings.product.fit_type and not is_special ? 'product-entry--fit-type' :'' }} {{ product.is_out_of_stock
+    ? 'out-of-stock' :'' }} overflow-hidden relative'>
+
+    {# Image #}
+    <div class='product-entry__image {{ is_horizontal ? '': 'border border-stone-100 hover:!opacity-100' }}'>
+        <a href="{{ product.url }}">
+            <img width="100%" class="object-{{ product.image.url|is_placeholder ? 'contain' : store.settings.product.fit_type ? :'cover' }} bg-stone-50 lazy"
+                src="{{ 'images/s-empty.png' | asset }}" data-src="{{ product.image.url }}"
+                alt="{{ product.image.alt }}" />
+            {% if product.promotion_title %}
+            <div class="absolute top-4 start-0 z-1 font-bold px-1 py-0.5 text-xs bg-primary text-white {{ is_horizontal ? '' : 'max-w-[calc(100%-60px)]'}}">
+                <span class="offer-label truncate">{{ product.promotion_title }}</span>
+            </div>
+            {% endif %}
+
+            {% if has_many_images %}
+            {% set sub_image = product.images[1].url %}
+            <img class="sub-image object-cover" src="{{ sub_image }}" alt="{{ product.name }}" />
+            {% endif %}
+        </a>
+
+        {% if not is_horizontal %}
+        <div class="absolute rtl:left-[4px] ltr:right-[4px] top-[9px] flex flex-col items-baseline justify-center gap-2">
+            <salla-button shape="icon" fill="none" aria-label="Add or remove to wishlist" class="btn--wishlist animated"
+                onclick="salla.wishlist.toggle({{ product.id }})" data-id="{{ product.id }}">
+                <i class="sicon-heart text-lg px-1"></i>
+            </salla-button>
+            {% if theme.settings.get('enable_compare_products') %}
+            <salla-button fill="solid" product-id="{{ product.id }}" class="btn--compare"
+                onclick="salla.event.emit('product::add-to-compare', {button: this})">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z" />
+                </svg>
+            </salla-button>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if not is_horizontal and theme.settings.get('add_to_cart_as_icon')  %}
+        <salla-add-product-button class="add-to-cart-custom" product-id="{{ product.id }}"
+            product-status="{{ product.status }}" product-type="{{ product.type }}">
+            <i class="sicon-cart-add text-lg text-white"></i>
+        </salla-add-product-button>
+        {% endif %}
+    </div>
+
+    {# content #}
+    <div class="{{ is_horizontal ? 'py-2 px-2 md:px-3' : 'p-2'}} {{ theme.settings.get('add_to_cart_as_icon') ? 'pt-4 pb-2 px-2' : ''}} {{ is_special ? '' : 'flex-1'}} flex flex-col gap-0.5 relative donating-wrap">
+        {% if product.subtitle and theme.settings.get('show_sub_title') %}
+        <p class="text-sm text-gray-400 leading-6 {{ is_horizontal ? 'p-2-line': 'truncate' }}">{{ product.subtitle }}</p>
+        {% endif %}
+        <a href="{{ product.url }}">
+            <span class="block max-w-full text-sm md:text-base mt-0.5 hover:text-primary transition-all duration-150 {{ is_horizontal ? 'p-2-line': 'truncate' }}">{{ product.name }}</span>
+        </a>
+
+        {% if product.is_donation %}
+        <salla-progress-bar donation="{{ product.donation }}"></salla-progress-bar>
+        <div class="border-color mb-2.5 w-full">
+            {% if product.can_donate %}
+            <label for="donation-amount" class="block text-sm mb-2.5">{{ trans('pages.products.donation_amount') }}
+                <span class="text-red-500">*</span></label>
+            <input type="text" data-digits id="donation-amount" name="donating_amount" class="h-9 form-input"
+                placeholder="{{ trans('pages.products.donation_amount') }}">
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="flex-1 flex flex-col gap-1.5 flex-wrap {{ is_horizontal ? 'mt-3': 'mt-1' }}">
+            {% if product.is_on_sale %}
+            <div class="flex gap-1.5 justify-between {{ is_horizontal ? 'flex-wrap items-center': 'flex-col items-start xs:items-center xs:flex-row flex-1' }}">
+                <div class="w-full xs:w-auto flex gap-3 xs:flex-col items-start xs:gap-[1px]">
+                    <span class="text-[#969696] text-base font-semibold relative regular-price">{{
+                        price|first }}<span class="text-xs mr-1 tracking-normal">{{ price|last }}</span></span>
+                    <span class="text-primary font-bold text-lg md:text-xl">{{ sale_price|first }}<span
+                            class="text-sm mr-1 tracking-normal">{{ sale_price|last }}</span></span>
+                </div>
+                {% if product.discount_percentage %}
+                <div class="relative rounded-lg overflow-hidden">
+                    <span class="bg"></span>
+                    <span class="sale-ratio">{{trans('card.discount')}} {{discount_percentage}}%</span>
+                </div>
+                {% endif %}
+            </div>
+            {% elseif product.starting_price %}
+                <div class="flex items-center gap-2.5">
+                    <span class="font-semibold text-red-500">{{ trans('pages.products.starting_price') }}</span>
+                    <h4 class="text-primary font-extrabold text-sm inline-block"> {{ product.starting_price|money }}</h4>
+                </div>
+            {% else %}
+            <span class="text-primary font-bold text-lg md:text-xl {{ is_horizontal ? '': 'flex-1' }}">{{
+                price|first }}<span class="text-sm mr-1 tracking-normal">{{ price|last }}</span></span>
+            {% endif %}
+
+            {% if not is_horizontal %}  
+                {% if not theme.settings.get('add_to_cart_as_icon') %}
+                <salla-add-product-button class="optional-btn" product-status="{{ product.status }}"
+                    product-type="{{ product.type }}" product-id="{{ product.id }}">
+                        <i class="sicon-cart-add text-xl"></i>
+                    <span>{{ product.add_to_cart_label }}</span>
+                </salla-add-product-button>
+                {% endif %}
+
+                {% if theme.settings.get('enable_quick_buy') %}
+                <salla-quick-buy
+                    product-id="{{ product.id }}"
+                    product-type="{{ product.type }}"
+                    product-status="{{ product.status }}">
+                </salla-quick-buy>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        {# Actions btns for Horizonatal card #}
+        {% if is_horizontal %}
+        <div class="actions">
+            <salla-button shape="icon" fill="none" aria-label="Add or remove to wishlist" class="btn--wishlist animated"
+                onclick="salla.wishlist.toggle({{ product.id }})" data-id="{{ product.id }}">
+                <i class="sicon-heart text-lg"></i>
+            </salla-button>
+
+            <salla-add-product-button class="add-to-cart-custom" product-id="{{ product.id }}"
+                product-status="{{ product.status }}" product-type="{{ product.type }}">
+                <i class="sicon-cart-add text-lg"></i>
+            </salla-add-product-button>
+
+            {% if theme.settings.get('enable_compare_products') %}
+            <salla-button fill="solid" product-id="{{ product.id }}" class="btn--compare"
+                onclick="salla.event.emit('product::add-to-compare', {button: this})">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z" />
+                </svg>
+            </salla-button>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
