@@ -69,8 +69,6 @@
 #}
 
 {% set has_many_images = product.images|length > 1 %}
-{% set sale_price = product.price|money|split(' ') %}
-{% set price = product.regular_price|money|split(' ') %}
 
 {% set sale_price_en = product.sale_price %}
 {% set price_en = product.regular_price %}
@@ -199,11 +197,11 @@
             <div class="flex items-center gap-8">
                 {% if product.is_on_sale %}
                 <span class="text-red-500 text-xl lg:text-2xl font-semibold relative tracking-widest before:bg-red-500 before-price regular-price">
-                    {{ price|first }}<span class="text-base mr-1 tracking-normal">{{ price|last }}</span>
+                    {{product.regular_price|money}}
                 </span>
                 {% endif %}
                 <h4 class="text-primary font-bold text-3xl lg:text-4xl tracking-widest total-price">
-                    {{ sale_price|first }}<span class="text-lg mr-1 tracking-normal">{{ sale_price|last }}</span>
+                    {{product.sale_price|money}}
                 </h4>
             </div>
 

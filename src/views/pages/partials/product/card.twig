@@ -7,8 +7,6 @@ view options:
 empty.
 #}
 
-{% set sale_price = product.sale_price|money|split(' ') %}
-{% set price = product.regular_price|money|split(' ') %}
 {% set sale_price_en = product.sale_price %}
 {% set price_en = product.regular_price %}
 {% set has_many_images = product.images|length > 1 %}
@@ -90,10 +88,8 @@ empty.
             {% if product.is_on_sale %}
             <div class="flex gap-1.5 justify-between {{ is_horizontal ? 'flex-wrap items-center': 'flex-col items-start xs:items-center xs:flex-row flex-1' }}">
                 <div class="w-full xs:w-auto flex gap-3 xs:flex-col items-start xs:gap-[1px]">
-                    <span class="text-[#969696] text-base font-semibold relative regular-price">{{
-                        price|first }}<span class="text-xs mr-1 tracking-normal">{{ price|last }}</span></span>
-                    <span class="text-primary font-bold text-lg md:text-xl">{{ sale_price|first }}<span
-                            class="text-sm mr-1 tracking-normal">{{ sale_price|last }}</span></span>
+                    <span class="text-[#969696] text-base font-semibold relative regular-price">{{ product.regular_price|money }}</span>
+                    <span class="text-primary font-bold text-lg md:text-xl">{{ product.sale_price|money }}</span>
                 </div>
                 {% if product.discount_percentage %}
                 <div class="relative rounded-lg overflow-hidden">
@@ -108,8 +104,7 @@ empty.
                     <h4 class="text-primary font-extrabold text-sm inline-block"> {{ product.starting_price|money }}</h4>
                 </div>
             {% else %}
-            <span class="text-primary font-bold text-lg md:text-xl {{ is_horizontal ? '': 'flex-1' }}">{{
-                price|first }}<span class="text-sm mr-1 tracking-normal">{{ price|last }}</span></span>
+            <span class="text-primary font-bold text-lg md:text-xl {{ is_horizontal ? '': 'flex-1' }}">{{ product.regular_price|money }}</span>
             {% endif %}
 
             {% if not is_horizontal %}  
