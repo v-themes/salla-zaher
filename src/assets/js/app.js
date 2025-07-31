@@ -1,9 +1,9 @@
 import MobileMenu from 'mmenu-light';
 import Swal from 'sweetalert2';
+import AppHelpers from './app-helpers';
 import Anime from './partials/anime';
 import initTootTip from './partials/tooltip';
-import AppHelpers from "./app-helpers";
-import Valinteca from "./valinteca";
+import Valinteca from './valinteca';
 
 class App extends AppHelpers {
   constructor() {
@@ -38,12 +38,12 @@ class App extends AppHelpers {
 
   copyToClipboard(event) {
     event.preventDefault();
-    let aux = document.createElement("input"),
+    let aux = document.createElement('input'),
       btn = event.currentTarget;
-    aux.setAttribute("value", btn.dataset.content);
+    aux.setAttribute('value', btn.dataset.content);
     document.body.appendChild(aux);
     aux.select();
-    document.execCommand("copy");
+    document.execCommand('copy');
     document.body.removeChild(aux);
     this.toggleElementClassIf(btn, 'copied', 'code-to-copy', () => true);
     setTimeout(() => {
@@ -65,38 +65,60 @@ class App extends AppHelpers {
         didOpen: (toast) => {
           toast.addEventListener('mouseenter', Swal.stopTimer);
           toast.addEventListener('mouseleave', Swal.resumeTimer);
-        }
+        },
       }).fire({
         icon: type,
         title: message,
         showCloseButton: true,
-        timerProgressBar: true
+        timerProgressBar: true,
       });
     });
   }
 
   initiateMobileMenu() {
-    const menu = new MobileMenu(this.element("#mobile-menu"), "(max-width: 1024px)", "( slidingSubmenus: false)");
+    const menu = new MobileMenu(
+      this.element('#mobile-menu'),
+      '(max-width: 1024px)',
+      '( slidingSubmenus: false)'
+    );
     salla.lang.onLoaded(() => {
       menu.navigation({ title: salla.lang.get('blocks.header.main_menu') });
     });
-    const drawer = menu.offcanvas({ position: salla.config.get('theme.is_rtl') ? "right" : 'left' });
+    const drawer = menu.offcanvas({
+      position: salla.config.get('theme.is_rtl') ? 'right' : 'left',
+    });
 
-    this.onClick("a[href='#mobile-menu']", event => event.preventDefault() || drawer.close() || drawer.open());
-    this.onClick(".close-mobile-menu", event => event.preventDefault() || drawer.close());
+    this.onClick(
+      "a[href='#mobile-menu']",
+      (event) => event.preventDefault() || drawer.close() || drawer.open()
+    );
+    this.onClick(
+      '.close-mobile-menu',
+      (event) => event.preventDefault() || drawer.close()
+    );
   }
 
   initiateStickyMenu() {
     let header = this.element('#mainnav'),
       height = this.element('#mainnav .inner').clientHeight;
 
-    window.addEventListener('load', () => setTimeout(() => this.setHeaderHeight(), 500));
+    window.addEventListener('load', () =>
+      setTimeout(() => this.setHeaderHeight(), 500)
+    );
     window.addEventListener('resize', () => this.setHeaderHeight());
 
-    window.addEventListener('scroll', () => {
-      window.scrollY >= header.offsetTop + height ? header.classList.add('fixed-pinned', 'animated') : header.classList.remove('fixed-pinned');
-      window.scrollY >= 200 ? header.classList.add('fixed-header') : header.classList.remove('fixed-header', 'animated');
-    }, { passive: true });
+    window.addEventListener(
+      'scroll',
+      () => {
+        window.scrollY >= header.offsetTop + height
+          ? header.classList.add('fixed-pinned', 'animated')
+          : header.classList.remove('fixed-pinned');
+        window.scrollY >= 200
+          ? header.classList.add('fixed-header')
+          : header.classList.remove('fixed-header', 'animated');
+      },
+      { passive: true }
+    );
   }
 
   setHeaderHeight() {
@@ -110,7 +132,7 @@ class App extends AppHelpers {
    * by store the status of the ad in local storage `salla.storage.set(...)`
    */
   initiateAdAlert() {
-    let ad = this.element(".salla-advertisement");
+    let ad = this.element('.salla-advertisement');
 
     if (!ad) {
       return;
@@ -140,7 +162,10 @@ class App extends AppHelpers {
       document.body.classList.toggle('dropdown--is-opened');
       // Click Outside || Click on close btn
       window.addEventListener('click', ({ target: element }) => {
-        if (!element.closest('.dropdown__menu') && element !== btn || element.classList.contains('dropdown__close')) {
+        if (
+          (!element.closest('.dropdown__menu') && element !== btn) ||
+          element.classList.contains('dropdown__close')
+        ) {
           btn.parentElement.classList.remove('is-opened');
           document.body.classList.remove('dropdown--is-opened');
         }
@@ -149,33 +174,47 @@ class App extends AppHelpers {
   }
 
   initiateModals() {
-    this.onClick('[data-modal-trigger]', e => {
+    this.onClick('[data-modal-trigger]', (e) => {
       let id = '#' + e.target.dataset.modalTrigger;
       this.removeClass(id, 'hidden');
       setTimeout(() => this.toggleModal(id, true)); //small amont of time to running toggle After adding hidden
     });
-    salla.event.document.onClick("[data-close-modal]", e => this.toggleModal('#' + e.target.dataset.closeModal, false));
+    salla.event.document.onClick('[data-close-modal]', (e) =>
+      this.toggleModal('#' + e.target.dataset.closeModal, false)
+    );
   }
 
   toggleModal(id, isOpen) {
-    this.toggleClassIf(`${id} .s-salla-modal-overlay`, 'ease-out duration-300 opacity-100', 'opacity-0', () => isOpen)
-      .toggleClassIf(`${id} .s-salla-modal-body`,
+    this.toggleClassIf(
+      `${id} .s-salla-modal-overlay`,
+      'ease-out duration-300 opacity-100',
+      'opacity-0',
+      () => isOpen
+    )
+      .toggleClassIf(
+        `${id} .s-salla-modal-body`,
         'ease-out duration-300 opacity-100 translate-y-0 sm:scale-100', //add these classes
         'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95', //remove these classes
-        () => isOpen)
-      .toggleElementClassIf(document.body, 'modal-is-open', 'modal-is-closed', () => isOpen);
+        () => isOpen
+      )
+      .toggleElementClassIf(
+        document.body,
+        'modal-is-open',
+        'modal-is-closed',
+        () => isOpen
+      );
     if (!isOpen) {
       setTimeout(() => this.addClass(id, 'hidden'), 350);
     }
   }
 
   initiateCollapse() {
-    document.querySelectorAll('.btn--collapse')
-      .forEach((trigger) => {
-        const content = document.querySelector('#' + trigger.dataset.show);
-        const state = { isOpen: false };
+    document.querySelectorAll('.btn--collapse').forEach((trigger) => {
+      const content = document.querySelector('#' + trigger.dataset.show);
+      const state = { isOpen: false };
 
-        const onOpen = () => anime({
+      const onOpen = () =>
+        anime({
           targets: content,
           duration: 225,
           height: content.scrollHeight,
@@ -183,7 +222,8 @@ class App extends AppHelpers {
           easing: 'easeOutQuart',
         });
 
-        const onClose = () => anime({
+      const onClose = () =>
+        anime({
           targets: content,
           duration: 225,
           height: 0,
@@ -191,19 +231,23 @@ class App extends AppHelpers {
           easing: 'easeOutQuart',
         });
 
-        const toggleState = (isOpen) => {
-          state.isOpen = !isOpen;
-          this.toggleElementClassIf(content, 'is-closed', 'is-opened', () => isOpen);
-        };
+      const toggleState = (isOpen) => {
+        state.isOpen = !isOpen;
+        this.toggleElementClassIf(
+          content,
+          'is-closed',
+          'is-opened',
+          () => isOpen
+        );
+      };
 
-        trigger.addEventListener('click', () => {
-          const { isOpen } = state;
-          toggleState(isOpen);
-          isOpen ? onClose() : onOpen();
-        });
+      trigger.addEventListener('click', () => {
+        const { isOpen } = state;
+        toggleState(isOpen);
+        isOpen ? onClose() : onOpen();
       });
+    });
   }
-
 
   /**
    * Workaround for seeking to simplify & clean, There are three ways to use this method:
@@ -224,19 +268,25 @@ class App extends AppHelpers {
    * they can be from any page, especially when mega-menu is enabled
    */
   initAddToCart() {
-    salla.cart.event.onUpdated(summary => {
-      document.querySelectorAll('[data-cart-total]').forEach(el => el.innerText = salla.money(summary.total));
-      document.querySelectorAll('[data-cart-count]').forEach(el => el.innerText = salla.helpers.number(summary.count));
+    salla.cart.event.onUpdated((summary) => {
+      document
+        .querySelectorAll('[data-cart-total]')
+        .forEach((el) => (el.innerHTML = salla.money(summary.total)));
+      document
+        .querySelectorAll('[data-cart-count]')
+        .forEach((el) => (el.innerText = salla.helpers.number(summary.count)));
     });
 
     salla.cart.event.onItemAdded((response, prodId) => {
-      app.element('salla-cart-summary').animateToCart(app.element(`#product-${prodId} img`));
+      app
+        .element('salla-cart-summary')
+        .animateToCart(app.element(`#product-${prodId} img`));
     });
   }
 
   initCircleBar() {
     // Special offer Block ---
-    document.querySelectorAll('.pie-wrapper').forEach(elem => {
+    document.querySelectorAll('.pie-wrapper').forEach((elem) => {
       let qty = elem.dataset.quantity,
         total = elem.dataset.total,
         roundPercent = (qty / total) * 100,
@@ -251,16 +301,21 @@ class App extends AppHelpers {
    */
   initDonating() {
     // Digits Only field all over the theme
-    app.on('input', '[data-digits]', e => salla.helpers.inputDigitsOnly(e.target));
+    app.on('input', '[data-digits]', (e) =>
+      salla.helpers.inputDigitsOnly(e.target)
+    );
 
     //add donating amount attr to salla-add-product-buton
-    app.on('input', '#donation-amount', e => {
-      e.target.closest('.donating-wrap').querySelector('salla-add-product-button').setAttribute('donating-amount', e.target.value);
+    app.on('input', '#donation-amount', (e) => {
+      e.target
+        .closest('.donating-wrap')
+        .querySelector('salla-add-product-button')
+        .setAttribute('donating-amount', e.target.value);
     });
   }
 }
 
 salla.onReady(() => {
-  (new App).loadTheApp();
+  new App().loadTheApp();
   Valinteca.registerEvents();
 });
