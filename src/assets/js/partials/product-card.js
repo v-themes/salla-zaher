@@ -299,7 +299,6 @@ class ProductCard extends HTMLElement {
     const addAsIcon = salla.config.get('theme.settings.add_to_cart_as_icon');
 
     this.innerHTML = `
-      <!-- Image -->
       <div class="product-entry__image ${
         this.isHorizontal ? '' : 'border border-stone-100 hover:!opacity-100'
       }">
