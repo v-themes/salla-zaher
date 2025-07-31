@@ -277,7 +277,16 @@ class ProductCard extends HTMLElement {
 
   render() {
     this.classList.add('product-entry');
-    this.classList.add(this.blockClasses);
+
+    // Only add block classes if they exist and are not empty
+    if (this.blockClasses && this.blockClasses.trim()) {
+      this.blockClasses.split(' ').forEach((cls) => {
+        if (cls.trim()) {
+          this.classList.add(cls.trim());
+        }
+      });
+    }
+
     this.classList.add(
       this.isHorizontal
         ? 'product-entry--horizontal'
