@@ -61,7 +61,7 @@ share_message | string | | | short_share_message | string | | #} {% extends
         </salla-button>
       </p>
       <salla-button
-        onclick="salla.order.show({order_id:{{ order.id }}, url:'{{
+        onclick="salla.order.show({order_id:'{{ order.id }}', url:'{{
           order.url
         }}'})"
         class="salla-btn-invoice-details"

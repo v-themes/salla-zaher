@@ -256,7 +256,7 @@
                     <div class="mt-1 sm:mt-0 sm:col-span-2 text-end bg-black">
                         <div class="flex space-s-3">
                             <a href="#!"
-                                onclick="salla.event.dispatch('scopes::open', {mode: 'availability', product_id: {{ product.id }} })"
+                                onclick="salla.event.dispatch('scopes::open', {mode: 'availability', product_id: '{{ product.id }}' })"
                                 class="group text-primary flex items-center justify-center">
                                 <span>{{ trans('pages.products.select_branch') }}</span>
                                 <span

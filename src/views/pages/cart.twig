@@ -110,11 +110,7 @@ int | image file name | #} {% extends "layouts.master" %} {% block content %}
             </div>
           </div>
           <span class="absolute top-3.5 end-2.5">
-            <salla-button type="button" shape="icon" size="small" color="danger" class="btn--delete" onclick="salla.cart.deleteItem({{
-                item.id
-              }}).then(() => document.querySelector('#item-{{
-                item.id
-              }}').remove())">
+            <salla-button type="button" shape="icon" size="small" color="danger" class="btn--delete" onclick="salla.cart.deleteItem('{{item.id}}').then(() => document.querySelector('#item-{{item.id}}').remove())">
               <i class="sicon-cancel"></i>
             </salla-button>
           </span>
