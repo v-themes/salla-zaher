@@ -1,9 +1,12 @@
-{# | Variable | Type | Description |
+{#
+| Variable      | Type   | Description                                                      |
 |---------------|--------|------------------------------------------------------------------|
-| items[] | array | List of 3 features | | items[].icon | string | SallaIcons
-css class `sicon-*` | | items[].title | string | Title of the feature | |
-items[].text | string | Subtitle for the feature | | position | Int | Sorting
-number start from zero | #}
+| items[]       | array  | List of 3 features                                               |
+| items[].icon  | string | SallaIcons css class `sicon-*`                                   |
+| items[].title | string | Title of the feature                                             |
+| items[].text  | string | Subtitle for the feature                                         |
+| position      | Int    | Sorting number start from zero                                   |
+#}
 <section class="s-block s-block--features container">
   <div class="flex justify-between lg:justify-center mini-scroll-bar gap-6 pb-6">
     {% for item in items %}

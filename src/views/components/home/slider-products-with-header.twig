@@ -1,12 +1,12 @@
 {#
-| Variable | Type | Description |
+| Variable              | Type                  | Description                                                                  |
 |-----------------------|-----------------------|------------------------------------------------------------------------------|
-| component | object | Contains merchant settings for fields from twilight.json `component` section |
-| component.background | string | |
-| component.title | ?string | |
-| component.description | ?string | |
-| component.products | Product[] *Collection | @see views/pages/product.twig |
-| position | int | Sorting number start from zero |
+| component             | object                | Contains merchant settings for fields from twilight.json `component` section |
+| component.background  | string                |                                                                              |
+| component.title       | ?string               |                                                                              |
+| component.description | ?string               |                                                                              |
+| component.products    | Product[] *Collection | @see views/pages/product.twig                                                |
+| position              | int                   | Sorting number start from zero                                               |
 #}
 <section class="s-block s-block--slider-with-bg s-block--full-bg">
     <div class="slider-bg" style="background-image: url('{{ component.background }}');">
@@ -22,16 +22,18 @@
         </div>
     </div>
 
+    {% set display_all = component.display_all_url  %}
     <div class="container -mt-62 relative overflow-hidden">
-        <salla-slider type="carousel" block-title=" " display-all-url="{{component.display_all_url}}"
-            id="slider-with-bg-{{ position }}">
-            <div slot="items">
-                {% for product in component.products %}
-                <div class="slide--one-fourth">
-                    {% include 'pages.partials.product.card' %}
-                </div>
-                {% endfor %}
-            </div>
-        </salla-slider>
+        <salla-products-slider
+            {% if component.products|length %}
+              source="selected" 
+              source-value="[{{ component.products|map((product) => product.id)|join(',') }}]" 
+            {% endif %}
+            {% if display_all != '' and  display_all != '#' %}
+                display-all-url="{{display_all}}" 
+            {% endif %}
+            block-title=" " 
+            slider-id="slider-with-bg-{{ position }}"
+        ></salla-products-slider>
     </div>
 </section>

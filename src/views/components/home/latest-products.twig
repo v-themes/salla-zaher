@@ -1,21 +1,13 @@
 {#
-| Variable | Type | Description |
+| Variable        | Type       | Description                    |
 |-----------------|------------|--------------------------------|
-| products | Products[] | |
-| position | Int | Sorting number start from zero |
+| products        | Products[] |                                |
+| position        | Int        | Sorting number start from zero |
 #}
 <section class="s-block s-block--latest-products container">
     <div class="s-block__title">
-        <h2>{{trans('blocks.home.latest_products') }}</h2>
-        {# <p>عنوان فرعي توصيفي صغير</p> #}
+      <h2>{{ trans('blocks.home.latest_products') }}</h2>
     </div>
-    {% if products|length %}
-    <salla-infinite-scroll
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-4 mb-6"
-        next-page="{{ products.next_page }}" autoload>
-        {% for product in products %}
-        {% include 'pages.partials.product.card' %}
-        {% endfor %}
-    </salla-infinite-scroll>
-    {% endif %}
-</section>
+    
+    <salla-products-list source="latest"></salla-products-list>
+</section> 

@@ -1,17 +1,10 @@
 {#
-| Variable | Type | Description |
+| Variable           | Type                      | Description                         |
 |--------------------|---------------------------|-------------------------------------|
-| limit | string | Maximum number of the testimonials |
-| items[] | Testimonial[] *Paginator | |
-| items[].id | int | |
-| items[].avatar | string | |
-| items[].name | string | |
-| items[].has_order | bool | |
-| items[].created_at | Date *Carbon | |
-| items[].stars | int | |
-| items[].content | string | |
-| type | string | `default:store` all, product, store |
-| position | string | Sorting number start from zero |
+| limit              | string                    | Maximum number of the testimonials  |
+| type               | string                    | `default:store` all, product, store |
+| sort               | string                    |                                     |
+| hide_customer_info | bool                      | show/hide info customers            |
 #}
 
 <section class="s-block s-block--testimonials">

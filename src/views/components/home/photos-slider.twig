@@ -1,12 +1,12 @@
 {#
-| Variable | Type | Description |
+| Variable          | Type    | Description                                                      |
 |-------------------|---------|------------------------------------------------------------------|
-| items | array | List of sliders |
-| items[].url | string | |
-| items[].link_type | ?String | category,product,offers,page,external_link,brand |
-| items[].image.url | string | |
-| items[].image.alt | string | |
-| position | Int | Sorting number start from zero |
+| items             | array   | List of sliders                                                  |
+| items[].url       | string  |                                                                  |
+| items[].link_type | ?String | category,product,offers,page,external_link,brand                 |
+| items[].image.url | string  |                                                                  |
+| items[].image.alt | string  |                                                                  |
+| position          | Int     | Sorting number start from zero                                   |
 #}
 <section class="s-block s-block--photos-slider {{ is_repeated?'repeated-block':'' }} container">
   <salla-slider auto-play show-controls="false" pagination id="photos-{{ position }}-slider">

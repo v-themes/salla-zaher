@@ -7,9 +7,7 @@
 | position    | Int     | Sorting number start from zero                                   |
 #}
 <section class="s-block s-block--fixed-banner">
-    <div>
-        <a href="{{ url }}" class="banner banner--fixed overflow-hidden" aria-label="Banner {{ image.alt }}">
-            <img width="100%" class="lazy max-h-[520px]" src="{{'images/s-empty-wide.png' | asset}}" data-src="{{ image.url }}" alt="{{ image.alt }}"/>
-        </a>
-    </div>
+    <a href="{{ url }}" class="banner banner--fixed overflow-hidden" aria-label="Banner {{ image.alt }}">
+        <img width="100%" class="lazy max-h-[520px]" src="{{'images/s-empty-wide.png' | asset}}" data-src="{{ image.url }}" alt="{{ image.alt }}"/>
+    </a>
 </section>

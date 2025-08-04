@@ -850,6 +850,7 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .bg-white{--tw-bg-opacity:1;background-color:rgba(255, 255, 255, 1);background-color:rgba(255, 255, 255, var(--tw-bg-opacity, 1))}
 .bg-white\/60{background-color:rgba(255, 255, 255, 0.6)}
 .bg-white\/80{background-color:rgba(255, 255, 255, 0.8)}
+.bg-dark{--tw-bg-opacity:1;background-color:rgba(29, 31, 31, 1);background-color:rgba(29, 31, 31, var(--tw-bg-opacity, 1))}
 .bg-cover{background-size:cover}
 .bg-scroll{background-attachment:scroll}
 .bg-center{background-position:center}
@@ -931,6 +932,7 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .pt-6{padding-top:1.5rem}
 .pt-8{padding-top:2rem}
 .pt-\[3rem\]{padding-top:3rem}
+.pb-16{padding-bottom:4rem}
 .text-center{text-align:center}
 .text-justify{text-align:justify}
 [dir="ltr"] .text-start{text-align:left}
@@ -969,6 +971,7 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .leading-\[35px\]{line-height:35px}
 .leading-none{line-height:1}
 .leading-normal{line-height:1.5}
+.leading-tight{line-height:1.25}
 .tracking-normal{letter-spacing:0em}
 .tracking-wide{letter-spacing:0.025em}
 .tracking-wider{letter-spacing:0.05em}
@@ -10990,6 +10993,7 @@ button.swiper-pagination-bullet {
 .group:hover .group-hover\:-translate-x-1{--tw-translate-x:-0.25rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
 @media (min-width: 640px){
 .sm\:col-span-2{grid-column:span 2 / span 2}
+.sm\:row-span-2{grid-row:span 2 / span 2}
 .sm\:mx-0{margin-left:0px;margin-right:0px}
 .sm\:mb-0{margin-bottom:0px}
 .sm\:mb-24{margin-bottom:6rem}
@@ -10997,10 +11001,12 @@ button.swiper-pagination-bullet {
 .sm\:mb-6{margin-bottom:1.5rem}
 .sm\:mt-0{margin-top:0px}
 .sm\:mt-4{margin-top:1rem}
+.sm\:mb-8{margin-bottom:2rem}
 .sm\:block{display:block}
 .sm\:flex{display:flex}
 .sm\:grid{display:grid}
 .sm\:h-full{height:100%}
+.sm\:h-auto{height:auto}
 .sm\:\!w-\[220px\]{width:220px !important}
 .sm\:grow-0{flex-grow:0}
 .sm\:translate-y-0{--tw-translate-y:0px;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
@@ -11023,10 +11029,14 @@ button.swiper-pagination-bullet {
 .sm\:px-10{padding-left:2.5rem;padding-right:2.5rem}
 .sm\:py-0{padding-top:0px;padding-bottom:0px}
 .sm\:py-12{padding-top:3rem;padding-bottom:3rem}
+.sm\:py-16{padding-top:4rem;padding-bottom:4rem}
 [dir="ltr"] .sm\:ps-12{padding-left:3rem}
 [dir="rtl"] .sm\:ps-12{padding-right:3rem}
 .sm\:pt-20{padding-top:5rem}
 .sm\:pt-\[5\.5rem\]{padding-top:5.5rem}
+.sm\:pb-20{padding-bottom:5rem}
+.sm\:pt-12{padding-top:3rem}
+.sm\:pb-0{padding-bottom:0px}
 [dir="ltr"] .sm\:text-start{text-align:left}
 [dir="rtl"] .sm\:text-start{text-align:right}
 .sm\:text-2xl{font-size:1.5rem;line-height:2rem}
@@ -11091,6 +11101,7 @@ button.swiper-pagination-bullet {
 .md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}
 .md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}
 .md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}
+.md\:grid-cols-5{grid-template-columns:repeat(5, minmax(0, 1fr))}
 .md\:flex-row{flex-direction:row}
 .md\:flex-row-reverse{flex-direction:row-reverse}
 .md\:items-center{align-items:center}
@@ -11158,6 +11169,7 @@ button.swiper-pagination-bullet {
 .lg\:h-\[570px\]{height:570px}
 .lg\:min-h-\[530px\]{min-height:530px}
 .lg\:min-h-\[600px\]{min-height:600px}
+.lg\:min-h-\[528px\]{min-height:528px}
 .lg\:w-10\/12{width:83.333333%}
 .lg\:w-24{width:6rem}
 .lg\:w-5\/12{width:41.666667%}
@@ -11174,6 +11186,7 @@ button.swiper-pagination-bullet {
 .lg\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}
 .lg\:grid-cols-6{grid-template-columns:repeat(6, minmax(0, 1fr))}
 .lg\:grid-cols-8{grid-template-columns:repeat(8, minmax(0, 1fr))}
+.lg\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}
 .lg\:flex-row{flex-direction:row}
 .lg\:\!items-start{align-items:flex-start !important}
 .lg\:justify-center{justify-content:center}
@@ -11181,6 +11194,7 @@ button.swiper-pagination-bullet {
 .lg\:gap-5{gap:1.25rem}
 .lg\:gap-6{gap:1.5rem}
 .lg\:gap-7{gap:1.75rem}
+.lg\:gap-8{gap:2rem}
 .lg\:space-y-16 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(4rem * (1 - var(--tw-space-y-reverse)));margin-top:calc(4rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(4rem * var(--tw-space-y-reverse))}
 .lg\:overflow-hidden{overflow:hidden}
 .lg\:p-5{padding:1.25rem}
@@ -11212,6 +11226,7 @@ button.swiper-pagination-bullet {
 .lg\:text-\[46px\]{font-size:46px}
 .lg\:text-lg{font-size:1.125rem;line-height:1.75rem}
 .lg\:text-xl{font-size:1.25rem;line-height:1.75rem}
+.lg\:text-title-size{font-size:42px}
 .lg\:leading-9{line-height:2.25rem}
 [dir="ltr"] .lg\:ps-10{padding-left:2.5rem}
 [dir="rtl"] .lg\:ps-10{padding-right:2.5rem}

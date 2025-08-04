@@ -1,17 +1,17 @@
 {#
-| Variable | Type | Description |
+| Variable                      | Type      | Description                                                         |
 |-------------------------------|-----------|---------------------------------------------------------------------|
-| items | array | |
-| items[].title | string | Section title |
-| items[].name | string | Alias for title |
-| items[].type | string | category,most_sales,latest_products,chosen_products |
-| items[].featured_product | Product | |
-| items[].special_product.id | string | Product string id |
-| items[].special_product.title | string | Product Name |
-| items[].products[] | Product[] | |
-| items[].limit | Int | Number of products to be shown |
-| items[].id | string | Section id |
-| position | int | Sorting number starts from zero |
+| items                         | array     |                                                                     |
+| items[].title                 | string    | Section title                                                       |
+| items[].name                  | string    | Alias for title                                                     |
+| items[].type                  | string    | category,most_sales,latest_products,chosen_products                 |
+| items[].featured_product      | Product   |                                                                     |
+| items[].special_product.id    | string    | Product string id                                                   |
+| items[].special_product.title | string    | Product Name                                                        |
+| items[].products[]            | Product[] |                                                                     |
+| items[].limit                 | Int       | Number of products to be shown                                      |
+| items[].id                    | string    | Section id                                                          |
+| position                      | int       | Sorting number starts from zero                                     |
 #}
 
 <section class="s-block s-block--features-products {{ items | length > 1 ? 'two-cols max-w-[1440px] mx-auto px-2.5': 'container' }}">
@@ -20,15 +20,20 @@
         <div>
             <div class="s-block__title">
                 <h2>{{ section.title }}</h2>
-                {# <p>عنوان فرعي توصيفي صغير</p> #}
             </div>
 
             {% if section.featured_product %}
             <div class="flex-1 grid md:grid-cols-2 gap-3">
-                {% include 'pages.partials.product.card-full-image' with {product:section.featured_product} %}
+                <custom-salla-product-card 
+                    product='{{ section.featured_product|json_encode }}'
+                    fullImage>
+                </custom-salla-product-card>
                 <div class="grid gap-3">
                     {% for product in section.products|slice(0,3) %}
-                    {% include 'pages.partials.product.card' with { is_horizontal: true, show_desc:true } %}
+                    <custom-salla-product-card 
+                        product='{{ product|json_encode }}'
+                        horizontal>
+                    </custom-salla-product-card>
                     {% endfor %}
                 </div>
             </div>
@@ -36,7 +41,10 @@
             {% else %}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5 {{ items | length > 1 ? 'xl:grid-cols-2': '' }}">
                 {% for product in section.products %}
-                {% include 'pages.partials.product.card' with { is_horizontal: true, show_desc:true } %}
+                <custom-salla-product-card 
+                    product='{{ product|json_encode }}'
+                    horizontal>
+                </custom-salla-product-card>
                 {% endfor %}
             </div>
             {% endif %}

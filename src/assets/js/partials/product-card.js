@@ -49,6 +49,11 @@ class ProductCard extends HTMLElement {
 
   getProductBadge() {
     if (this.product.promotion_title) {
+      if (this.fullImage) {
+        return `<div class="absolute z-10 top-10 start-0">
+          <div class="font-bold px-3 py-2 text-sm bg-red-500 text-white rounded-e-md">${this.product.promotion_title}</div>
+        </div>`;
+      }
       return `<div class="absolute top-4 start-0 z-1 font-bold px-1 py-0.5 text-xs bg-primary text-white ${
         this.isHorizontal ? '' : 'max-w-[calc(100%-60px)]'
       }">
@@ -80,41 +85,76 @@ class ProductCard extends HTMLElement {
     let price = '';
     let discountPercentage = Math.floor(this.product.discount_percentage || 0);
 
-    if (this.product.is_on_sale) {
-      price = `<div class="flex gap-1.5 justify-between ${
-        this.isHorizontal
-          ? 'flex-wrap items-center'
-          : 'flex-col items-start xs:items-center xs:flex-row flex-1'
-      }">
-        <div class="w-full xs:w-auto flex gap-3 xs:flex-col items-start xs:gap-[1px]">
-          <span class="text-[#969696] text-base font-semibold relative regular-price">${this.getPriceFormat(
-            this.product.regular_price
-          )}</span>
-          <span class="text-primary font-bold text-lg md:text-xl">${this.getPriceFormat(
-            this.product.sale_price
-          )}</span>
-        </div>
-        ${
-          this.product.discount_percentage
-            ? `
-        <div class="relative rounded-lg overflow-hidden">
-          <span class="bg"></span>
-          <span class="sale-ratio">${this.discount} ${discountPercentage}%</span>
-        </div>`
-            : ''
-        }
-      </div>`;
-    } else if (this.product.starting_price) {
-      price = `<div class="flex items-center gap-2.5">
-        <span class="font-semibold text-red-500">${this.startingPrice}</span>
-        <h4 class="text-primary font-extrabold text-sm inline-block">${this.getPriceFormat(
-          this.product.starting_price
-        )}</h4>
-      </div>`;
+    if (this.fullImage) {
+      // Full image card pricing
+      if (this.product.is_on_sale) {
+        price = `<div class="flex-1 flex items-center gap-1.5 justify-between flex-wrap">
+          <div class="flex flex-col items-start gap-0.5 tracking-widest">
+            <span class="text-slate-700 text-lg font-semibold relative regular-price before:!bg-slate-700">${this.getPriceFormat(
+              this.product.regular_price
+            )}</span>
+            <span class="text-primary font-extrabold text-4xl">${this.getPriceFormat(
+              this.product.sale_price
+            )}</span>
+          </div>
+          ${
+            this.product.discount_percentage
+              ? `
+          <div class="relative rounded-lg overflow-hidden">
+            <span class="bg"></span>
+            <span class="sale-ratio">${this.discount} ${discountPercentage}%</span>
+          </div>`
+              : ''
+          }
+        </div>`;
+      } else {
+        const priceArray = this.getPriceFormat(
+          this.product.regular_price
+        ).split(' ');
+        const mainPrice = priceArray[0] || '';
+        const currency = priceArray.slice(1).join(' ') || '';
+        price = `<span class="text-primary font-extrabold text-3xl">${mainPrice}
+          <span class="text-base tracking-normal">${currency}</span>
+        </span>`;
+      }
     } else {
-      price = `<span class="text-primary font-bold text-lg md:text-xl ${
-        this.isHorizontal ? '' : 'flex-1'
-      }">${this.getPriceFormat(this.product.regular_price)}</span>`;
+      // Regular card pricing
+      if (this.product.is_on_sale) {
+        price = `<div class="flex gap-1.5 justify-between ${
+          this.isHorizontal
+            ? 'flex-wrap items-center'
+            : 'flex-col items-start xs:items-center xs:flex-row flex-1'
+        }">
+          <div class="w-full xs:w-auto flex gap-3 xs:flex-col items-start xs:gap-[1px]">
+            <span class="text-[#969696] text-base font-semibold relative regular-price">${this.getPriceFormat(
+              this.product.regular_price
+            )}</span>
+            <span class="text-primary font-bold text-lg md:text-xl">${this.getPriceFormat(
+              this.product.sale_price
+            )}</span>
+          </div>
+          ${
+            this.product.discount_percentage
+              ? `
+          <div class="relative rounded-lg overflow-hidden">
+            <span class="bg"></span>
+            <span class="sale-ratio">${this.discount} ${discountPercentage}%</span>
+          </div>`
+              : ''
+          }
+        </div>`;
+      } else if (this.product.starting_price) {
+        price = `<div class="flex items-center gap-2.5">
+          <span class="font-semibold text-red-500">${this.startingPrice}</span>
+          <h4 class="text-primary font-extrabold text-sm inline-block">${this.getPriceFormat(
+            this.product.starting_price
+          )}</h4>
+        </div>`;
+      } else {
+        price = `<span class="text-primary font-bold text-lg md:text-xl ${
+          this.isHorizontal ? '' : 'flex-1'
+        }">${this.getPriceFormat(this.product.regular_price)}</span>`;
+      }
     }
 
     return price;
@@ -226,6 +266,62 @@ class ProductCard extends HTMLElement {
     </div>`;
   }
 
+  getSpecialContent() {
+    if (!this.isSpecial || !this.fullImage || !this.product.is_on_sale)
+      return '';
+
+    return `<div class="w-full xs:w-[85%] mx-auto flex items-center flex-row-reverse my-5 gap-2 xs:gap-4 justify-between">
+      ${
+        this.product.quantity
+          ? `
+      <div data-quantity="${this.product.quantity}"
+        data-total="${
+          this.product.quantity > 100 ? this.product.quantity * 2 : 100
+        }" class="pie-wrapper">
+        <span class="!leading-[0.5rem] !text-sm">
+          <b id="staProductQty" title="${salla.helpers.number(
+            this.product.quantity
+          )}" data-quantity="${this.product.quantity}">${salla.helpers.number(
+              this.product.quantity
+            )}</b>
+          ${this.remained}
+        </span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -1 36 34" class="pie-svg">
+          <circle cx="16" cy="16" r="15.9155" class="circle_base"></circle>
+          <circle cx="16" cy="16" r="15.9155" class="circle_bar"></circle>
+        </svg>
+      </div>`
+          : ''
+      }
+      
+      ${
+        this.product.discount_ends
+          ? `
+      <div class="salla-counter basis-[70%]">
+        <salla-count-down class="w-full" date="${this.product.discount_ends}" boxed labeled></salla-count-down>
+      </div>`
+          : ''
+      }
+    </div>`;
+  }
+
+  getFullImageActions() {
+    if (!this.fullImage) return '';
+
+    return `<div class="actions">
+      ${this.getWishlistButton()}
+      <salla-add-product-button class="add-to-cart-custom" product-id="${
+        this.product.id
+      }"
+        product-status="${this.product.status}" product-type="${
+      this.product.type
+    }">
+        <i class="sicon-cart-add text-xl"></i>
+      </salla-add-product-button>
+      ${this.getCompareButton()}
+    </div>`;
+  }
+
   getHorizontalActions() {
     if (!this.isHorizontal) return '';
 
@@ -248,6 +344,11 @@ class ProductCard extends HTMLElement {
      * Horizontal card.
      */
     this.isHorizontal = this.hasAttribute('horizontal');
+
+    /**
+     * Full image card.
+     */
+    this.fullImage = this.hasAttribute('fullImage');
 
     /**
      * Support shadow on hover.
@@ -287,95 +388,153 @@ class ProductCard extends HTMLElement {
       });
     }
 
-    this.classList.add(
-      this.isHorizontal
-        ? 'product-entry--horizontal'
-        : 'product-entry--vertical'
-    );
+    // Add layout classes
+    if (this.fullImage) {
+      this.classList.add(
+        'product-entry--full-image',
+        'rounded-md',
+        'overflow-hidden',
+        'min-h-[420px]',
+        'max-h-[460px]'
+      );
+      if (this.isSpecial) {
+        this.classList.add('md:max-h-[640px]');
+      } else {
+        this.classList.add('md:max-h-none');
+      }
+    } else {
+      this.classList.add(
+        this.isHorizontal
+          ? 'product-entry--horizontal'
+          : 'product-entry--vertical'
+      );
+      this.classList.add('overflow-hidden', 'relative');
+    }
+
     this.isSpecial && this.classList.add('product-entry--special');
     this.product?.discount_ends && this.classList.add('with-timer');
     this.fitImageHeight &&
       !this.isSpecial &&
       this.classList.add('product-entry--fit-type');
     this.product?.is_out_of_stock && this.classList.add('out-of-stock');
-    this.classList.add('overflow-hidden', 'relative');
 
     this.setAttribute('id', `product-${this.product.id}`);
 
     const hasSubtitle =
       this.product.subtitle &&
-      salla.config.get('theme.settings.show_sub_title');
+      (this.fullImage || salla.config.get('theme.settings.show_sub_title'));
     const addAsIcon = salla.config.get('theme.settings.add_to_cart_as_icon');
+    const sliderBgSize =
+      salla.config.get('theme.settings.slider_background_size') || 'cover';
 
-    this.innerHTML = `
-      <div class="product-entry__image ${
-        this.isHorizontal ? '' : 'border border-stone-100 hover:!opacity-100'
-      }">
-        <a href="${this.product.url}">
-          <img width="100%" class="object-${
-            salla.url.is_placeholder(this.product.image?.url)
-              ? 'contain'
-              : this.fitImageHeight || 'cover'
-          } bg-stone-50 lazy"
-            src="${this.placeholder}" data-src="${this.product.image?.url}"
-            alt="${this.product.image?.alt}" />
-          ${this.getProductBadge()}
-          ${this.getSubImage()}
+    if (this.fullImage) {
+      // Full image card layout
+      this.innerHTML = `
+        <a href="${
+          this.product.url
+        }" class="relative overflow-hidden w-full h-full bg-stone-50">
+          <img class="h-full w-full object-${sliderBgSize} lazy"
+            src="${this.placeholder}" data-src="${
+        this.product.image?.url
+      }" alt="${this.product.image?.alt}"/>
         </a>
 
-        ${
-          !this.isHorizontal
-            ? `
-        <div class="absolute rtl:left-[4px] ltr:right-[4px] top-[9px] flex flex-col items-baseline justify-center gap-2">
-          ${this.getWishlistButton()}
-          ${this.getCompareButton()}
-        </div>`
-            : ''
-        }
+        ${this.getProductBadge()}
 
-        ${!this.isHorizontal && addAsIcon ? this.getAddToCartButton() : ''}
-      </div>
+        <!-- Content -->
+        <div class="absolute w-[90%] left-[5%] bottom-[2.5%] xs:bottom-[5%]">
+          ${this.getSpecialContent()}
 
-      <!-- Content -->
-      <div class="${this.isHorizontal ? 'py-2 px-2 md:px-3' : 'p-2'} ${
-      addAsIcon ? 'pt-4 pb-2 px-2' : ''
-    } ${
-      this.isSpecial ? '' : 'flex-1'
-    } flex flex-col gap-0.5 relative donating-wrap">
-        ${
-          hasSubtitle
-            ? `<p class="text-sm text-gray-400 leading-6 ${
-                this.isHorizontal ? 'p-2-line' : 'truncate'
-              }">${this.product.subtitle}</p>`
-            : ''
-        }
-        
-        <a href="${this.product.url}">
-          <span class="block max-w-full text-sm md:text-base mt-0.5 hover:text-primary transition-all duration-150 ${
-            this.isHorizontal ? 'p-2-line' : 'truncate'
-          }">${this.product.name}</span>
-        </a>
+          <div class="flex flex-col gap-1 bg-white/80 rounded-md p-3 z-10">
+            ${
+              hasSubtitle
+                ? `<p class="text-sm text-slate-600 leading-6 truncate">${this.product.subtitle}</p>`
+                : ''
+            }
+            <h3 class="max-w-full text-sm md:text-base my-1 truncate">${
+              this.product.name
+            }</h3>
 
-        ${this.getDonationInput()}
+            <div class="flex-1 flex gap-2 flex-wrap items-end">
+              ${this.getProductPrice()}
+            </div>
+          </div>
+        </div>
 
-        <div class="flex-1 flex flex-col gap-1.5 flex-wrap ${
-          this.isHorizontal ? 'mt-3' : 'mt-1'
+        ${this.getFullImageActions()}
+      `;
+    } else {
+      // Regular card layout
+      this.innerHTML = `
+        <div class="product-entry__image ${
+          this.isHorizontal ? '' : 'border border-stone-100 hover:!opacity-100'
         }">
-          ${this.getProductPrice()}
+          <a href="${this.product.url}">
+            <img width="100%" class="object-${
+              salla.url.is_placeholder(this.product.image?.url)
+                ? 'contain'
+                : this.fitImageHeight || 'cover'
+            } bg-stone-50 lazy"
+              src="${this.placeholder}" data-src="${this.product.image?.url}"
+              alt="${this.product.image?.alt}" />
+            ${this.getProductBadge()}
+            ${this.getSubImage()}
+          </a>
 
           ${
             !this.isHorizontal
               ? `
-            ${!addAsIcon ? this.getAddToCartButton() : ''}
-            ${this.getQuickBuyButton()}
-          `
+          <div class="absolute rtl:left-[4px] ltr:right-[4px] top-[9px] flex flex-col items-baseline justify-center gap-2">
+            ${this.getWishlistButton()}
+            ${this.getCompareButton()}
+          </div>`
               : ''
           }
+
+          ${!this.isHorizontal && addAsIcon ? this.getAddToCartButton() : ''}
         </div>
 
-        ${this.getHorizontalActions()}
-      </div>
-    `;
+        <!-- Content -->
+        <div class="${this.isHorizontal ? 'py-2 px-2 md:px-3' : 'p-2'} ${
+        addAsIcon ? 'pt-4 pb-2 px-2' : ''
+      } ${
+        this.isSpecial ? '' : 'flex-1'
+      } flex flex-col gap-0.5 relative donating-wrap">
+          ${
+            hasSubtitle
+              ? `<p class="text-sm text-gray-400 leading-6 ${
+                  this.isHorizontal ? 'p-2-line' : 'truncate'
+                }">${this.product.subtitle}</p>`
+              : ''
+          }
+          
+          <a href="${this.product.url}">
+            <span class="block max-w-full text-sm md:text-base mt-0.5 hover:text-primary transition-all duration-150 ${
+              this.isHorizontal ? 'p-2-line' : 'truncate'
+            }">${this.product.name}</span>
+          </a>
+
+          ${this.getDonationInput()}
+
+          <div class="flex-1 flex flex-col gap-1.5 flex-wrap ${
+            this.isHorizontal ? 'mt-3' : 'mt-1'
+          }">
+            ${this.getProductPrice()}
+
+            ${
+              !this.isHorizontal
+                ? `
+              ${!addAsIcon ? this.getAddToCartButton() : ''}
+              ${this.getQuickBuyButton()}
+            `
+                : ''
+            }
+          </div>
+
+          ${this.getHorizontalActions()}
+        </div>
+      `;
+    }
 
     // Handle donation input
     this.querySelectorAll('[name="donating_amount"]').forEach((element) => {

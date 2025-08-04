@@ -1,20 +1,20 @@
 {#
-| Variable | Type | Description |
+| Variable                 | Type      | Description                                                         |
 |--------------------------|-----------|---------------------------------------------------------------------|
-| items | array | |
-| items[].title | string | Section title |
-| items[].name | string | Alias for title |
-| items[].type | string | category,most_sales,latest_products,chosen_products |
-| items[].featured_product | Null | |
-| items[].products[] | Product[] | |
-| items[].limit | Int | Number of products to be shown |
-| items[].id | string | Section id |
-| main_product | array | |
-| main_product.id | string | string product id |
-| main_product.title | string | Offer title |
-| main_product.value | string | Product Name |
-| main_product.product | Product | |
-| position | int | sorting block |
+| items                    | array     |                                                                     |
+| items[].title            | string    | Section title                                                       |
+| items[].name             | string    | Alias for title                                                     |
+| items[].type             | string    | category,most_sales,latest_products,chosen_products                 |
+| items[].featured_product | Null      |                                                                     |
+| items[].products[]       | Product[] |                                                                     |
+| items[].limit            | Int       | Number of products to be shown                                      |
+| items[].id               | string    | Section id                                                          |
+| main_product             | array     |                                                                     |
+| main_product.id          | string    | string product id                                                   |
+| main_product.title       | string    | Offer title                                                         |
+| main_product.value       | string    | Product Name                                                        |
+| main_product.product     | Product   |                                                                     |
+| position                 | int       | sorting block                                                       |
 #}
 {% set component_id='featured-products-style1-' ~ position %}
 <section class="s-block s-block-tabs s-block--special-products container max-w-[1024px]" id="{{ component_id }}">
@@ -22,7 +22,9 @@
 
     <div class="grid grid-cols-1 {{ main_product?'md:grid-cols-2':''}} gap-4">
         {% if main_product %}
-            {% include 'pages.partials.product.card-full-image' with {product:main_product.product, is_special:true} %}
+            <div class="flex flex-col">
+                <custom-salla-product-card shadow-on-hover product="{{main_product.product}}" isSpecial></custom-salla-product-card>  
+            </div>
         {% endif %}
         <div class="flex flex-col">
             <div class="tabs mb-4 sm:mb-6 hide-scroll">
@@ -38,9 +40,9 @@
                 {% for section in items %}
                 <div id="{{ component_id }}-{{ section.id }}"
                     class="tabs__item {{ main_product?'grid-cols-2 xs:grid-cols-3 sm:!grid-cols-4 md:!grid-cols-2':'grid-cols-1 lg:!grid-cols-4'}} {{ loop.first?'is-active':'' }}">
-                    {% for product in section.products|slice(0,main_product?4:8) %}
-                    {% include 'pages.partials.product.card' %}
-                    {% endfor %}
+                        {% for product in section.products|slice(0,main_product?4:8) %}
+                            <custom-salla-product-card product="{{product}}"></custom-salla-product-card>
+                        {% endfor %}
                 </div>
                 {% endfor %}
             </div>
