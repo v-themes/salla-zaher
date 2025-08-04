@@ -751,8 +751,6 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .gap-4{gap:1rem}
 .gap-6{gap:1.5rem}
 .gap-8{gap:2rem}
-.gap-x-2{-moz-column-gap:0.5rem;column-gap:0.5rem}
-.gap-y-3\.5{row-gap:0.875rem}
 .space-x-1 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.25rem * var(--tw-space-x-reverse));margin-left:calc(0.25rem * (1 - var(--tw-space-x-reverse)));margin-left:calc(0.25rem * calc(1 - var(--tw-space-x-reverse)))}
 .space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * (1 - var(--tw-space-x-reverse)));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}
 .space-x-3 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.75rem * var(--tw-space-x-reverse));margin-left:calc(0.75rem * (1 - var(--tw-space-x-reverse)));margin-left:calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))}
@@ -4999,6 +4997,22 @@ body::-webkit-scrollbar{width:11px}
 body::-webkit-scrollbar-track{--tw-bg-opacity:1;background-color:rgba(229, 231, 235, 1);background-color:rgba(229, 231, 235, var(--tw-bg-opacity, 1))}
 body::-webkit-scrollbar-thumb{
   background-color: var(--color-primary)}
+.s-products-list-wrapper.s-products-list-vertical-cards{grid-template-columns:repeat(2, minmax(0, 1fr));row-gap:0.875rem;-moz-column-gap:0.5rem;column-gap:0.5rem}
+@media (min-width: 640px){
+.s-products-list-wrapper.s-products-list-vertical-cards{grid-template-columns:repeat(4, minmax(0, 1fr)) !important}}
+@media (min-width: 1024px){
+.s-products-list-wrapper.s-products-list-vertical-cards{grid-template-columns:repeat(5, minmax(0, 1fr)) !important}}
+@media (min-width: 1280px){
+.s-products-list-wrapper.s-products-list-vertical-cards{grid-template-columns:repeat(6, minmax(0, 1fr)) !important}}
+@media (min-width: 480px){
+.s-products-list-wrapper.s-products-list-vertical-cards{grid-template-columns:repeat(3, minmax(0, 1fr))}}
+.s-products-list-wrapper.s-products-list-horizontal-cards{grid-template-columns:repeat(1, minmax(0, 1fr));gap:0.75rem}
+@media (min-width: 640px){
+.s-products-list-wrapper.s-products-list-horizontal-cards{grid-template-columns:repeat(2, minmax(0, 1fr))}}
+@media (min-width: 1024px){
+.s-products-list-wrapper.s-products-list-horizontal-cards{grid-template-columns:repeat(3, minmax(0, 1fr))}}
+@media (min-width: 1280px){
+.s-products-list-wrapper.s-products-list-horizontal-cards{grid-template-columns:repeat(4, minmax(0, 1fr))}}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -11157,7 +11171,6 @@ button.swiper-pagination-bullet {
 .lg\:basis-\[40\%\]{flex-basis:40%}
 .lg\:basis-\[60\%\]{flex-basis:60%}
 .lg\:\!grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr)) !important}
-.lg\:\!grid-cols-5{grid-template-columns:repeat(5, minmax(0, 1fr)) !important}
 .lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}
 .lg\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}
 .lg\:grid-cols-6{grid-template-columns:repeat(6, minmax(0, 1fr))}
@@ -11218,10 +11231,8 @@ button.swiper-pagination-bullet {
 .xl\:grid{display:grid}
 .xl\:hidden{display:none}
 .xl\:min-w-\[830px\]{min-width:830px}
-.xl\:\!grid-cols-6{grid-template-columns:repeat(6, minmax(0, 1fr)) !important}
 .xl\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}
 .xl\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}
-.xl\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}
 .xl\:flex-row{flex-direction:row}
 .xl\:px-0{padding-left:0px;padding-right:0px}
 .xl\:text-3xl{font-size:1.875rem;line-height:2.25rem}
