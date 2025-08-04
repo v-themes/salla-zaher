@@ -1,19 +1,20 @@
 {#
-| Variable | Type | Description |
+| Variable                   | Type        | Description                                                          |
 |----------------------------|-------------|----------------------------------------------------------------------|
-| page | object | |
-| page.title | string | *could be html |
-| page.slug | string | ex: "cat.show" |
-| products | Product[] | |
-| category | ?Category | |
-| category.name | string | |
-| category.url | string | |
-| category.sub_categories | ?Category[] | |
-| sort_options[] | SortList[] | |
-| sort_options[].id | string | ourSuggest, bestSell, topRated, priceFromTopToLow, priceFromLowToTop |
-| sort_options[].name | string | |
-| sort_options[].is_selected | bool | Is current page sorted by it |
-| search_query | ?string | |
+| page                       | object      |                                                                      |
+| page.title                 | string      | *could be html                                                       |
+| page.slug                  | string      | ex: "cat.show"                                                       |
+| category                   | ?Category   |                                                                      |
+| category.name              | string      |                                                                      |
+| category.url               | string      |                                                                      |
+| category.sub_categories    | ?Category[] |                                                                      |
+| category.image             | ?string     |                                                                      |
+| filters                     | bool        | is filters allowed here or not                                        |
+| sort_options[]             | SortList[]  |                                                                      |
+| sort_options[].id          | string      | ourSuggest, bestSell, topRated, priceFromTopToLow, priceFromLowToTop |
+| sort_options[].name        | string      |                                                                      |
+| sort_options[].is_selected | bool        | Is current page sorted by it                                         |
+| search_query               | ?string     |                                                                      |
 #}
 {% extends "layouts.master" %}
 {% block content %}
@@ -42,14 +43,6 @@
                             </select>
                         </div>
                         {% endif %}
-                        <div class="hidden items-center ms-2 md:ms-2">
-                            <a href="#" data-type="grid" class="grid-trigger bg-border-color text-primary">
-                                <i class="sicon-grid"></i>
-                            </a>
-                            <a href="#" data-type="list" class="grid-trigger">
-                                <i class="sicon-list"></i>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -67,11 +60,11 @@
     </div>
 </div>
 
-{% if store.settings.category.testimonial_enabled %}
-{% component 'home.testimonials' %}
-{% endif %}
+    {% if store.settings.category.testimonial_enabled %}
+        {% component 'home.testimonials' %}
+    {% endif %}
 {% endblock %}
 
 {% block scripts %}
-<script defer src="{{ 'product.js' | asset }}"></script>
+    <script defer src="{{ 'product.js' | asset }}"></script>
 {% endblock %}
