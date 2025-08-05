@@ -482,6 +482,7 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .pointer-events-none{pointer-events:none}
 .visible{visibility:visible}
 .static{position:static}
+.fixed{position:fixed}
 .absolute{position:absolute}
 .relative{position:relative}
 .sticky{position:sticky}
@@ -717,6 +718,7 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .translate-y-0{--tw-translate-y:0px;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
 .translate-y-3{--tw-translate-y:0.75rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
 .translate-y-4{--tw-translate-y:1rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
+.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
 .cursor-pointer{cursor:pointer}
 .resize{resize:both}
 .grid-flow-row{grid-auto-flow:row}
@@ -906,8 +908,6 @@ select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/
 .pr-14{padding-right:3.5rem}
 .pr-2{padding-right:0.5rem}
 .pr-3{padding-right:0.75rem}
-[dir="ltr"] .ps-5{padding-left:1.25rem}
-[dir="rtl"] .ps-5{padding-right:1.25rem}
 [dir="ltr"] .ps-8{padding-left:2rem}
 [dir="rtl"] .ps-8{padding-right:2rem}
 .pt-0{padding-top:0px}
@@ -4781,8 +4781,6 @@ input[type=radio].sr-only:checked ~ div.s-wallet-table-tbody-tr a {
 [dir="rtl"] .pe-3{padding-left:0.75rem}
 [dir="ltr"] .pe-4{padding-right:1rem}
 [dir="rtl"] .pe-4{padding-left:1rem}
-[dir="ltr"] .ps-5{padding-left:1.25rem}
-[dir="rtl"] .ps-5{padding-right:1.25rem}
 [dir="ltr"] .ps-8{padding-left:2rem}
 [dir="rtl"] .ps-8{padding-right:2rem}
 [dir="ltr"] .pe-10{padding-right:2.5rem}
@@ -11117,8 +11115,6 @@ button.swiper-pagination-bullet {
 .md\:py-5{padding-top:1.25rem;padding-bottom:1.25rem}
 .md\:pb-16{padding-bottom:4rem}
 .md\:pb-6{padding-bottom:1.5rem}
-[dir="ltr"] .md\:pe-8{padding-right:2rem}
-[dir="rtl"] .md\:pe-8{padding-left:2rem}
 .md\:pl-5{padding-left:1.25rem}
 .md\:pr-12{padding-right:3rem}
 .md\:pt-\[8rem\]{padding-top:8rem}
@@ -11128,8 +11124,6 @@ button.swiper-pagination-bullet {
 .md\:text-3xl{font-size:1.875rem;line-height:2.25rem}
 .md\:text-base{font-size:1rem;line-height:1.5rem}
 .md\:text-xl{font-size:1.25rem;line-height:1.75rem}
-[dir="ltr"] .md\:pe-8{padding-right:2rem}
-[dir="rtl"] .md\:pe-8{padding-left:2rem}
 [dir="ltr"] .md\:ms-2{margin-left:0.5rem}
 [dir="rtl"] .md\:ms-2{margin-right:0.5rem}
 [dir="rtl"] .md\:text-start{text-align:right}
@@ -11274,9 +11268,9 @@ button.swiper-pagination-bullet {
 @media (min-width: 768px){
 .md\:ltr\:-ml-8:where([dir="ltr"], [dir="ltr"] *){margin-left:-2rem}
 .md\:ltr\:ml-4:where([dir="ltr"], [dir="ltr"] *){margin-left:1rem}
+.ltr\:md\:pr-8:where([dir="ltr"], [dir="ltr"] *){padding-right:2rem}
 .md\:ltr\:pl-12:where([dir="ltr"], [dir="ltr"] *){padding-left:3rem}
-.md\:ltr\:pr-5:where([dir="ltr"], [dir="ltr"] *){padding-right:1.25rem}
-.ltr\:md\:pr-8:where([dir="ltr"], [dir="ltr"] *){padding-right:2rem}}
+.md\:ltr\:pr-5:where([dir="ltr"], [dir="ltr"] *){padding-right:1.25rem}}
 .rtl\:-right-\[0\.1rem\]:where([dir="rtl"], [dir="rtl"] *){right:-0.1rem}
 .rtl\:left-4:where([dir="rtl"], [dir="rtl"] *){left:1rem}
 .rtl\:left-\[4px\]:where([dir="rtl"], [dir="rtl"] *){left:4px}
@@ -11290,8 +11284,8 @@ button.swiper-pagination-bullet {
 .rtl\:-scale-x-100:where([dir="rtl"], [dir="rtl"] *){--tw-scale-x:-1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
 .rtl\:flex-row-reverse:where([dir="rtl"], [dir="rtl"] *){flex-direction:row-reverse}
 .rtl\:space-x-reverse:where([dir="rtl"], [dir="rtl"] *) > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:1}
-.rtl\:pr-1:where([dir="rtl"], [dir="rtl"] *){padding-right:0.25rem}
 .rtl\:pl-5:where([dir="rtl"], [dir="rtl"] *){padding-left:1.25rem}
+.rtl\:pr-1:where([dir="rtl"], [dir="rtl"] *){padding-right:0.25rem}
 .rtl\:pr-5:where([dir="rtl"], [dir="rtl"] *){padding-right:1.25rem}
 .rtl\:even\:border-r:nth-child(even):where([dir="rtl"], [dir="rtl"] *){border-right-width:1px}
 @media (min-width: 768px){
