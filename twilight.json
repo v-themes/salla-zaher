@@ -27,6 +27,33 @@
   "settings": [
     {
       "type": "boolean",
+      "id": "is_more_button_enabled",
+      "label": "عرض (زر الكل) في الصفحة الرئيسية",
+      "format": "switch"
+    },
+    {
+      "type": "static",
+      "id": "static-line2",
+      "format": "line"
+    },
+    {
+      "type": "static",
+      "format": "title",
+      "id": "static-label3",
+      "value": "<div style='padding:6px 18px;border-radius:6px;font-size:21px;text-align:center;font-weight:600;background:#1a73e8;'>خيارات زاهر</div>",
+      "variant": "h2"
+    },
+    {
+      "id": "description",
+      "type": "static",
+      "format": "description",
+      "label": "Description",
+      "value": "<h6 style='text-align:center;color: #2377CD;font-size: 14px;margin-bottom:22px;background: #E9F0FD;padding: 8px;border-radius: 4px;'>تم إضافة هذه المميزات لتعزيز تجربة المستخدم والذي بدوره يكون له تأثير فعال في زيادة مبيعات متجرك وجلب المزيد من العملاء</h6>",
+      "variant": "h1",
+      "icon": "sicon-format-size"
+    },
+    {
+      "type": "boolean",
       "icon": "sicon-toggle-off",
       "label": "وضع عمودي للمنتجات في مربع المنتجات الثابتة في الصفحة الرئيسية",
       "description": null,
@@ -37,15 +64,28 @@
       "selected": false
     },
     {
+      "id": "store_bg_color",
+      "type": "string",
+      "format": "color",
+      "inputType": "color",
+      "label": "خلفية المتجر",
+      "description": null,
+      "labelHTML": null,
+      "icon": "sicon-format-fill",
+      "value": "#f8f9fa",
+      "required": false,
+      "public": true
+    },
+    {
       "type": "static",
-      "id": "static-line1",
+      "id": "static-line3",
       "format": "line"
     },
     {
       "type": "static",
       "format": "title",
-      "id": "static-label2",
-      "value": "خيارات أعلى الصفحة",
+      "id": "static-label1",
+      "value": "<div style='padding:6px 18px;border-radius:6px;font-size:21px;margin-bottom:22px;text-align:center;font-weight:600;background:#1a73e8;'>خيارات أعلي الصفحة</div>",
       "variant": "h6"
     },
     {
@@ -61,14 +101,14 @@
     },
     {
       "type": "static",
-      "id": "static-line3",
+      "id": "static-line4",
       "format": "line"
     },
     {
       "type": "static",
       "format": "title",
       "id": "static-label4",
-      "value": "خيارات أسفل الصفحة",
+      "value": "<div style='padding:6px 18px;border-radius:6px;font-size:21px;text-align:center;font-weight:600;background:#1a73e8;'>خيارات أسفل الصفحة</div>",
       "variant": "h6"
     },
     {
@@ -84,6 +124,12 @@
     },
     {
       "type": "static",
+      "format": "description",
+      "id": "static-note",
+      "value": "<h4 style='color: #2377CD;font-size: 14px;margin:1rem 0px;background: #E9F0FD;margin-bottom:22px; padding: 10px 15px;border-radius: 4px;text-align:center;'>يُنصح دائماً أن تكون صور المنتجات لها نفس الأبعاد.</h4>"
+    },
+    {
+      "type": "static",
       "id": "static-line5",
       "format": "line"
     },
@@ -91,7 +137,7 @@
       "type": "static",
       "format": "title",
       "id": "static-label6",
-      "value": "خيارات صفحة المنتج",
+      "value": "<div style='padding:6px 18px;border-radius:6px;font-size:21px;margin-bottom:22px;text-align:center;font-weight:600;background:#1a73e8;'>خيارات صفحة المنتج</div>",
       "variant": "h6"
     },
     {
