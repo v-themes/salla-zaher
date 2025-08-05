@@ -26,6 +26,27 @@
   ],
   "settings": [
     {
+      "id": "line_0",
+      "type": "static_line_0",
+      "format": "line"
+    },
+    {
+      "type": "static",
+      "format": "title",
+      "id": "static-label3",
+      "value": "<div style='padding:6px 18px;border-radius:6px;font-size:21px;text-align:center;font-weight:600;background:#ECBF51;'>خيارات زاهــر</div>",
+      "variant": "h2"
+    },
+    {
+      "id": "description",
+      "type": "static",
+      "format": "description",
+      "label": "Description",
+      "value": "<h6 style='text-align:center;color: #2377CD;font-size: 14px;margin-bottom:22px;background: #E9F0FD;padding: 8px;border-radius: 4px;'>تم إضافة هذه المميزات لتعزيز تجربة المستخدم والذي بدوره يكون له تأثير فعال في زيادة مبيعات متجرك وجلب المزيد من العملاء</h6>",
+      "variant": "h1",
+      "icon": "sicon-format-size"
+    },
+    {
       "type": "boolean",
       "icon": "sicon-toggle-off",
       "label": "وضع عمودي للمنتجات في مربع المنتجات الثابتة في الصفحة الرئيسية",
@@ -37,15 +58,39 @@
       "selected": false
     },
     {
+      "id": "enable_compare_products",
+      "type": "boolean",
+      "format": "switch",
+      "label": "تفعيل ميزة مقارنة المنتجات",
+      "description": null,
+      "labelHTML": null,
+      "icon": "sicon-toggle-off",
+      "value": true,
+      "selected": true,
+      "required": false
+    },
+    {
+      "id": "enable_cross_selling",
+      "type": "boolean",
+      "format": "switch",
+      "label": "تفعيل ميزة البيع المتقاطع",
+      "description": null,
+      "labelHTML": null,
+      "icon": "sicon-toggle-off",
+      "value": true,
+      "selected": true,
+      "required": false
+    },
+    {
       "type": "static",
-      "id": "static-line1",
+      "id": "static-line_1",
       "format": "line"
     },
     {
       "type": "static",
       "format": "title",
-      "id": "static-label2",
-      "value": "خيارات أعلى الصفحة",
+      "id": "static-label1",
+      "value": "<div style='padding:6px 18px;border-radius:6px;font-size:21px;margin-bottom:22px;text-align:center;font-weight:600;background:#ECBF51;'>خيارات أعلي الصفحة</div>",
       "variant": "h6"
     },
     {
@@ -61,37 +106,62 @@
     },
     {
       "type": "static",
-      "id": "static-line3",
+      "id": "static-line_2",
       "format": "line"
     },
     {
       "type": "static",
       "format": "title",
-      "id": "static-label4",
-      "value": "خيارات أسفل الصفحة",
+      "id": "static-label2",
+      "value": "<div style='padding:6px 18px;border-radius:6px;font-size:21px;text-align:center;font-weight:600;background:#ECBF51;'>خيارات كارد المنتج</div>",
       "variant": "h6"
     },
     {
+      "id": "enable_quick_buy",
       "type": "boolean",
-      "icon": "sicon-toggle-off",
-      "label": "الوضع الداكن",
-      "description": null,
-      "id": "footer_is_dark",
       "format": "switch",
-      "required": false,
+      "label": "تفعيل \"إشتري الآن\" في كارد المنتج العمودي",
+      "description": "لا تقم بتفعيل هذه الميزة إذا منتجاتك بها خيارات (options)...",
+      "labelHTML": null,
+      "icon": "sicon-toggle-off",
       "value": true,
-      "selected": false
+      "selected": false,
+      "required": false
+    },
+    {
+      "id": "add_to_cart_as_icon",
+      "type": "boolean",
+      "format": "switch",
+      "label": "إضافة للسلة (أيقون)",
+      "description": null,
+      "labelHTML": null,
+      "icon": "sicon-toggle-off",
+      "value": true,
+      "selected": true,
+      "required": false
+    },
+    {
+      "id": "show_sub_title",
+      "type": "boolean",
+      "format": "switch",
+      "label": "إضافة العنوان الفرعي",
+      "description": null,
+      "labelHTML": null,
+      "icon": "sicon-toggle-off",
+      "value": true,
+      "selected": true,
+      "required": false
     },
     {
       "type": "static",
-      "id": "static-line5",
+      "id": "static-line_3",
       "format": "line"
     },
     {
       "type": "static",
       "format": "title",
       "id": "static-label6",
-      "value": "خيارات صفحة المنتج",
+      "value": "<div style='padding:6px 18px;border-radius:6px;font-size:21px;margin-bottom:22px;text-align:center;font-weight:600;background:#ECBF51;'>خيارات صفحة المنتج</div>",
       "variant": "h6"
     },
     {
@@ -104,18 +174,6 @@
       "required": false,
       "value": true,
       "selected": true
-    },
-    {
-      "id": "enable_features",
-      "type": "boolean",
-      "format": "switch",
-      "label": "ممـيزات المتجـر",
-      "description": "إذا تم تفعيل هذا الزر فإنه سيتم إضافة مكون مميزات المتجر إلي صفحة المنتج...",
-      "labelHTML": null,
-      "icon": "sicon-toggle-off",
-      "value": true,
-      "selected": false,
-      "required": false
     },
     {
       "id": "slider_background_size",
@@ -173,103 +231,16 @@
       "maxLength": 30
     },
     {
-      "id": "line",
       "type": "static",
-      "format": "line",
-      "label": "Line",
-      "icon": "sicon-minus"
+      "id": "static-line_4",
+      "format": "line"
     },
     {
-      "id": "enable_compare_products",
-      "type": "boolean",
-      "format": "switch",
-      "label": "تفعيل ميزة مقارنة المنتجات",
-      "description": null,
-      "labelHTML": null,
-      "icon": "sicon-toggle-off",
-      "value": true,
-      "selected": true,
-      "required": false
-    },
-    {
-      "id": "enable_cross_selling",
-      "type": "boolean",
-      "format": "switch",
-      "label": "تفعيل ميزة البيع المتقاطع",
-      "description": null,
-      "labelHTML": null,
-      "icon": "sicon-toggle-off",
-      "value": true,
-      "selected": true,
-      "required": false
-    },
-    {
-      "id": "line_1",
-      "type": "static",
-      "format": "line",
-      "label": "Line 1",
-      "icon": "sicon-minus"
-    },
-    {
-      "id": "title",
       "type": "static",
       "format": "title",
-      "label": "Title",
-      "value": "خيارات كارد المنتج",
-      "variant": "h6",
-      "icon": "sicon-format-text"
-    },
-    {
-      "id": "enable_quick_buy",
-      "type": "boolean",
-      "format": "switch",
-      "label": "تفعيل \"إشتري الآن\" في كارد المنتج العمودي",
-      "description": "لا تقم بتفعيل هذه الميزة إذا منتجاتك بها خيارات (options)...",
-      "labelHTML": null,
-      "icon": "sicon-toggle-off",
-      "value": true,
-      "selected": false,
-      "required": false
-    },
-    {
-      "id": "add_to_cart_as_icon",
-      "type": "boolean",
-      "format": "switch",
-      "label": "إضافة للسلة (أيقون)",
-      "description": null,
-      "labelHTML": null,
-      "icon": "sicon-toggle-off",
-      "value": true,
-      "selected": true,
-      "required": false
-    },
-    {
-      "id": "show_sub_title",
-      "type": "boolean",
-      "format": "switch",
-      "label": "إضافة العنوان الفرعي",
-      "description": null,
-      "labelHTML": null,
-      "icon": "sicon-toggle-off",
-      "value": true,
-      "selected": true,
-      "required": false
-    },
-    {
-      "id": "line_2",
-      "type": "static",
-      "format": "line",
-      "label": "Line 2",
-      "icon": "sicon-minus"
-    },
-    {
-      "id": "title_1",
-      "type": "static",
-      "format": "title",
-      "label": "Title 1",
-      "value": "بيانات التطبيق",
-      "variant": "h6",
-      "icon": "sicon-format-text"
+      "id": "static-label7",
+      "value": "<div style='padding:6px 18px;border-radius:6px;font-size:21px;margin-bottom:22px;text-align:center;font-weight:600;background:#ECBF51;'>بيانات التطبيق</div>",
+      "variant": "h6"
     },
     {
       "id": "app_image",
