@@ -32,7 +32,10 @@
         <div class="grow p-8">
             <div class="grid gap-4 grid-cols-4">
                 {% for product in menu.products|slice(0, 4) %}
-                {% include 'pages.partials.product.card' with {block_classes:'shadow-default'} %}
+                <custom-salla-product-card 
+                    product='{{ product|json_encode }}'
+                    block-classes="shadow-default">
+                </custom-salla-product-card>
                 {% endfor %}
             </div>
         </div>

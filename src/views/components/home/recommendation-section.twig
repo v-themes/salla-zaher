@@ -17,15 +17,12 @@
         <div class="content text-start">
             <h1 class="text-primary tracking-wider">{{component.title}}</h1>
             <p class="mb-6 mt-2 text-gray-600 font-semibold text-base tracking-wider">{{component.sub_title}}</p>
-            <salla-slider show-controls="true" id="slider-with-bg-{{ position }}">
-                <div slot="items">
-                    {% for product in component.products %}
-                    <div class="swiper-slide">
-                        {% include 'pages.partials.product.card' %}
-                    </div>
-                    {% endfor %}
-                </div>
-            </salla-slider>
+            <salla-products-slider 
+                source="selected" 
+                source-value="[{{ component.products|map((product) => product.id)|join(',') }}]" 
+                show-controls="true" 
+                id="slider-with-bg-{{ position }}">
+            </salla-products-slider>
         </div>
     </div>
 </section>
