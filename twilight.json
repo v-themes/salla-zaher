@@ -229,60 +229,6 @@
       "required": false,
       "minLength": 6,
       "maxLength": 30
-    },
-    {
-      "type": "static",
-      "id": "static-line_4",
-      "format": "line"
-    },
-    {
-      "type": "static",
-      "format": "title",
-      "id": "static-label7",
-      "value": "<div style='padding:6px 18px;border-radius:6px;font-size:21px;margin-bottom:22px;text-align:center;font-weight:600;background:#ECBF51;'>بيانات التطبيق</div>",
-      "variant": "h6"
-    },
-    {
-      "id": "app_image",
-      "type": "string",
-      "format": "image",
-      "label": "Image",
-      "description": "أدخل صورة التطبيق - يتم استخدام لوقو المتجر كقيمة افتراضية...",
-      "labelHTML": null,
-      "placeholder": "e.g. https://hostname.com/image.png",
-      "icon": "sicon-image",
-      "value": null,
-      "required": false
-    },
-    {
-      "id": "app_title",
-      "type": "string",
-      "format": "text",
-      "label": "String",
-      "description": "أدخل اسم التطبيق - يتم استخدام اسم المتجر كقيمة افتراضية...",
-      "labelHTML": null,
-      "placeholder": "Placeholder text ..",
-      "icon": "sicon-format-text-alt",
-      "value": null,
-      "multilanguage": false,
-      "required": false,
-      "minLength": 6,
-      "maxLength": 30
-    },
-    {
-      "id": "app_rating",
-      "type": "number",
-      "format": "integer",
-      "inputType": "number",
-      "label": "Integer",
-      "description": "أدخل تقيم التطبيق - يتم التقيم بـ 5 نجوم كقيمة افتراضية...",
-      "labelHTML": null,
-      "placeholder": "Input an integer number between 1 and 5.",
-      "icon": "sicon-hashtag",
-      "value": null,
-      "required": false,
-      "minimum": "1",
-      "maximum": "5"
     }
   ],
   "components": [
