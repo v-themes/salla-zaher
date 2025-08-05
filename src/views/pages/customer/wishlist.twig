@@ -1,68 +1,21 @@
 {#
-| Variable | Type | Description |
+| Variable   | Type                 | Description |
 |------------|----------------------|-------------|
-| page | object | |
-| page.title | string | |
-| page.slug | string | |
-| products[] | Product[] *Paginator | |
+| page       | object               |             |
+| page.title | string               |             |
+| page.slug  | string               |             |
 #}
 {% extends "layouts.customer" %}
+{% block head_scripts %}
+	<script defer data-cfasync="false" src="{{ 'wishlist-card.js'|asset }}"></script>
+{% endblock %}
+
 {% block inner_content %}
-<div class="space-y-5" id="wishlist">
-    {% hook 'customer:wishlist.items.start' %}
-
-    {% for product in products %}
-    <div id="wishlist-product-{{ product.id }}">
-        <div class="product-entry product-entry--wishlist gap-3">
-            <div class="flex items-center">
-                <a href="{{ product.url }}" class='product-entry__image'>
-                    <img class="h-full w-full object-cover lazy" data-src="{{ product.image.url }}"
-                        alt="{{ product.image.alt }}" />
-                </a>
-                <div class="flex-1 ps-5">
-                    <h3 class="text-sm text-gray-800 leading-6 mb-1.5 pe-4 md:pe-8 line-clamp-1">
-                        <a href="{{ product.url }}">{{ product.name }}</a>
-                    </h3>
-                    <div class="w-full center-between">
-                        {% if product.is_on_sale %}
-                        <div class="flex items-center gap-3">
-                            <span class="relative regular-price text-sm text-gray-500">{{ product.regular_price|money }}</span>
-                            <h4 class="text-primary font-bold text-lg inline-block">{{ product.sale_price|money }}</h4>
-                        </div>
-                        {% else %}
-                        <h4 class="font-bold text-lg">{{ product.price|money }}</h4>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="flex items-center btn-add-to-cart space-s-4">
-                <salla-add-product-button roduct-status="{{ product.status }}" product-id="{{ product.id }}"
-                    loader-position="center" class="flex-grow sm:grow-0 w-full md:w-40">
-                    <div class="flex items-center gap-2">
-                        <i class="sicon-cart-add text-lg leading-none"></i>
-                        {{ product.add_to_cart_label }}
-                    </div>
-                </salla-add-product-button>
-
-                <salla-button loader-position="center" shape="icon" size="small" color="danger" class="btn--delete"
-                    onclick="salla.wishlist.remove({{ product.id }})">
-                    <i class="sicon-cancel"></i>
-                </salla-button>
-            </div>
-        </div>
-    </div>
-    {% else %}
-    <div class="no-content-placeholder">
-        <span class="rounded-icon !w-36 !h-36 bg-gray-100 mb-6">
-            <i class="sicon-heart text-6xl block text-gray-400"></i>
-        </span>
-        <p class="text-sm mb-5">{{ trans('pages.profile.wishlist_placeholder') }}</p>
-    </div>
-    {% endfor %}
-
-    {% hook 'customer:wishlist.items.end' %}
-</div>
+	<div class="space-y-5" id="wishlist">
+		{% hook 'customer:wishlist.items.start' %}
+		<salla-products-list source="wishlist" row-cards product-card-component="custom-wishlist-card"></salla-products-list>
+		{% hook 'customer:wishlist.items.end' %}
+	</div>
 {% endblock %}
-{% block scripts %}
-<script defer src="{{ 'customer.js' | asset }}"></script>
-{% endblock %}
+
+ 
