@@ -26,8 +26,8 @@
   ],
   "settings": [
     {
-      "id": "line_0",
-      "type": "static_line_0",
+      "type": "static",
+      "id": "static-line0",
       "format": "line"
     },
     {
