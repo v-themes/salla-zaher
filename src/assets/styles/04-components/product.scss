@@ -141,10 +141,10 @@
       @apply flex flex-col xs:flex-row items-start lg:items-center gap-2 border-b border-[#D9D9D9];
 
       .s-quantity-input-container {
-        @apply h-12 w-[150px] items-center border border-[#CFCFCF];
+        @apply h-10 w-[130px] items-center border border-[#CFCFCF];
 
         .s-quantity-input-input {
-          @apply text-primary text-2xl bg-transparent;
+          @apply text-primary text-xl bg-transparent h-10;
           &:focus-visible {
             outline: 0;
           }
@@ -168,7 +168,7 @@
 
       salla-add-product-button {
         salla-button button {
-          @apply h-12 py-0 px-4 border border-primary text-base font-medium hover:opacity-100;
+          @apply h-10 py-0 px-2 border border-primary text-base font-medium hover:opacity-100;
           .s-button-text {
             @apply flex items-center gap-2;
           }
