@@ -168,18 +168,17 @@
 
       salla-add-product-button {
         salla-button button {
-          @apply py-2 px-4 sm:px-6 border border-primary text-base xs:text-lg font-medium hover:opacity-100;
+          @apply h-12 py-0 px-4 border border-primary text-base font-medium hover:opacity-100;
           .s-button-text {
-            @apply flex items-center gap-2 sm:gap-3;
+            @apply flex items-center gap-2;
           }
         }
-        salla-quick-buy {
-          button {
-            @apply hover:text-white hover:opacity-90;
-            .s-button-text {
-              svg {
-                @apply w-5 h-5 sm:w-6 sm:h-6 mx-0;
-              }
+
+        .s-fast-checkout-button {
+          @apply hover:text-white hover:opacity-90 h-12;
+          .s-button-text {
+            svg {
+              @apply w-5 h-5 sm:w-6 sm:h-6 mx-0;
             }
           }
         }
