@@ -1,23 +1,21 @@
 <footer>
-  {# Contact-us section above the footer #}
   <div class='contact-us'>
     <div class="flex flex-col">
       <h3 class="leading-none mb-1">{{trans('footer.title')}}</h3>
       <p>{{trans('footer.description')}}</p>
     </div>
 
-    {% component 'footer.contacts' %}
+    <salla-contacts></salla-contacts>
   </div>
 
   {# main footer #}
   <div aria-label="footer" class="footer-wrapper">
     <div class="inner-footer container">
-      {# #}
       <div class="hidden md:block">
-        {% component 'footer.menu' %}
+        <h3 class="mb-14">{{ trans('blocks.footer.pages_links') }}</h3>
+				<salla-menu source="footer"></salla-menu>
       </div>
 
-      {# #}
       <div class="store-info">
         <a href="{{ link('/') }}" class="">
           <img fetchpriority="high" loading="eager" class="w-[105px] h-[105px] object-contain" src="{{ store.logo }}"
@@ -30,56 +28,23 @@
         </p>
         {% endif %}
 
-        {% component 'footer.social' %}
+        <salla-social></salla-social>
 
         <div class="md:hidden footer-menu-mobile">
-          {% component 'footer.menu' %}
+          <h3>{{ trans('blocks.footer.pages_links') }}</h3>
+				  <salla-menu source="footer"></salla-menu>
         </div>
 
-        {% component 'footer.mobile-apps' %}
+        <salla-apps-icons></salla-apps-icons>
       </div>
 
-      {# #}
-      <div class="hidden md:block footer-contacts">
-        {% component 'footer.contacts' %}
+      <div class="hidden md:block">
+        <salla-contacts></salla-contacts>
       </div>
-
     </div>
 
-    <div class="footer-payment container">
-      {# vat #}
-      <div>
-        {% if store.settings.tax.number %}
-        <div class="flex space-s-2 items-end">
-          {% if store.settings.tax.certificate %}
-          <a onclick="document.querySelector('#modal-value-tax').open(); event.preventDefault();" href="#/"
-            alt="{{ store.settings.tax.number }}" class="shrink-0">
-            <img width="100%" height="100%" src="{{ 'images/s-empty.png' | asset }}"
-              data-src="{{'images/tax.png' | cdn}}" class="lazy w-10 rounded-sm hover:opacity-80 transition-opacity"
-              alt="value added tax">
-          </a>
-          {% endif %}
-          <div>
-            <p class="text-sm text-text-grey mb-1 text-center">{{ trans('common.elements.tax_number') }}</p>
-            <b class="text-sm">{{ store.settings.tax.number }}</b>
-          </div>
-        </div>
-
-        {% if store.settings.tax.certificate %}
-        <salla-modal sub-title-first sub-title="{{ trans('common.elements.tax_number') }}"
-          modal-title="{{ store.settings.tax.number }}" id="modal-value-tax">
-          <div class="flex justify-center max-w-full">
-            <img class="w-full" loading="lazy" src="{{ store.settings.tax.certificate }}"
-              alt="{{ store.settings.tax.number }}" />
-          </div>
-        </salla-modal>
-        {% endif %}
-        {% endif %}
-      </div>
-
-      <div>
-        {% component 'footer.payment-methods' %}
-      </div>
+    <div class="container mt-5 flex justify-end">
+      <salla-payments></salla-payments>
     </div>
   </div>
 

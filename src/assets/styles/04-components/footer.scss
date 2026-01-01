@@ -110,56 +110,6 @@ footer {
             }
           }
         }
-
-        .footer-contacts,
-        .footer-menu {
-          @apply mt-14;
-        }
-
-        .footer-contacts {
-          .contact-links {
-            @apply flex flex-col gap-4;
-            h3 {
-              @apply mr-14 tracking-wide;
-            }
-            a {
-              &:not(:nth-last-child(-n + 4)) {
-                @apply hidden;
-              }
-              @apply flex items-center gap-2 lg:gap-4 text-slate-900;
-
-              i {
-                @apply w-[35px] h-[35px] lg:w-[40px] lg:h-[40px] flex items-center justify-center rounded-full shrink-0 overflow-hidden relative z-10;
-
-                &::after {
-                  @apply absolute content-[''] w-full h-full bg-primary opacity-20 z-[-1];
-                }
-                &::before {
-                  @apply text-base lg:text-lg text-primary;
-                }
-              }
-
-              .contact-name {
-                @apply font-normal text-base text-[#323232] leading-none mt-1 tracking-wide;
-              }
-
-              p .text-unicode {
-                @apply transition duration-150 inline-block text-sm lg:text-base text-[#575F6B];
-              }
-              &:hover {
-                p .text-unicode {
-                  @apply text-primary scale-[1.1];
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .footer-payment {
-      &.container {
-        @apply flex flex-col xs:flex-row justify-center xs:justify-between items-center lg:py-5 mt-6 lg:px-10 gap-3;
       }
     }
   }
@@ -178,20 +128,4 @@ footer {
       }
     }
   }
-
-  // .footer-is-light & {
-  //   @apply bg-white text-gray-700;
-
-  //   .store-footer__inner {
-  //     @apply bg-gray-100 border-b-gray-200;
-  //   }
-
-  //   .social-link {
-  //     @apply border-gray-300;
-  //   }
-
-  //   .contact-social {
-  //     @apply border-gray-100;
-  //   }
-  // }
 }
