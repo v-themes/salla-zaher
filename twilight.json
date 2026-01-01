@@ -905,63 +905,6 @@
       ]
     },
     {
-      "key": "dc24d16d-6501-408a-bf97-8af12704db7f",
-      "title": "إشعارات الشريط العلوي",
-      "icon": "sicon-bell-ring",
-      "path": "header.notices",
-      "fields": [
-        {
-          "id": "title",
-          "key": "5c077be2-9dde-426c-9eb3-460edadb28ae",
-          "type": "string",
-          "format": "text",
-          "label": "العروض",
-          "description": null,
-          "labelHTML": null,
-          "placeholder": "Placeholder text ..",
-          "icon": "sicon-format-text-alt",
-          "value": "اضف عنوان العرض",
-          "multilanguage": true,
-          "required": false,
-          "minLength": "3",
-          "maxLength": "20"
-        },
-        {
-          "id": "notices",
-          "key": "61fad5aa-015a-4e36-9e20-4c51c1bd81f5",
-          "type": "collection",
-          "format": "collection",
-          "label": "عناصر شريط الاشعار",
-          "description": null,
-          "labelHTML": null,
-          "item_label": null,
-          "icon": "sicon-list-add",
-          "fields": [
-            {
-              "id": "text",
-              "key": "cc679da5-033c-4711-bdd0-d5223e35f6c0",
-              "type": "string",
-              "format": "text",
-              "label": "محتوى الاشعار",
-              "description": null,
-              "labelHTML": null,
-              "placeholder": "Placeholder text ..",
-              "icon": "sicon-format-text-alt",
-              "value": null,
-              "multilanguage": true,
-              "required": true,
-              "minLength": 6,
-              "maxLength": "34"
-            }
-          ],
-          "value": [],
-          "required": false,
-          "minLength": 1,
-          "maxLength": "3"
-        }
-      ]
-    },
-    {
       "key": "4b04d2d2-cebd-4069-878a-deb6a68abbde",
       "title": "لوحات المتجر",
       "icon": "sicon-store",
