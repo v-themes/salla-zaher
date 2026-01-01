@@ -1,35 +1,12 @@
 {#
-| Variable | Type | Description |
+| Variable         | Type    | Description                     |
 |------------------|---------|---------------------------------|
-| cart | object | |
-| cart.items_count | int | |
-| cart.total | string | Formatted total ex: "١٠٠ ر.س" |
+| cart             | object  |                                 |
+| cart.items_count | int     |                                 |
+| cart.total       | string  | Formatted total ex: "١٠٠ ر.س"   |
 #}
 
-{# Suggest mobile app #}
-<div class="suggest-mobile-app flex justify-between items-center p-2.5 bg-stone-100 gap-3">
-    <div class="flex-1 flex items-center gap-1">
-        <div class="close text-gray-500 cursor-pointer text-sm">&#10006;</div>
-
-        <img fetchpriority="high" loading="eager" class="w-14 h-16 object-contain shrink-0" src="{{theme.settings.get('app_image')|default(store.logo)}}" alt="{{ store.name }}">
-
-        <div class="flex-1 flex flex-col my-1.5">
-            <div class="font-semibold text-sm truncate w-[90%]">{{theme.settings.get('app_title')|default(store.name)}}</div>
-            <p class="text-xs text-gray-500 w-[90%]">{{trans('blocks.header.promo')}}</p>
-            <salla-rating-stars size="mini" value="{{theme.settings.get('app_rating')|default(5)}}"></salla-rating-stars>
-        </div>
-    </div>
-
-    <button class="px-2 py-1 border border-slate-800 whitespace-nowrap text-xs font-semibold">
-        <a href="#" rel="noreferrer" target="blank">{{trans('blocks.header.get')}}</a>
-    </button>
-</div>
-
 <header class="store-header bg-white z-[999]">
-    <div class="notices-top-bar" id="notices">
-        {# included Component notices #}
-    </div>
-
     {# Top Nav #}
     <div class="top-navbar py-2.5 bg-white">
         <div class="container flex justify-center items-center">
