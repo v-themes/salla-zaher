@@ -88,54 +88,6 @@
         }
       }
     }
-    .product-options {
-      @apply flex flex-col gap-2;
-      * {
-        @apply bg-transparent;
-      }
-      .s-product-options-wrapper {
-        @apply p-0 mb-0 #{!important};
-
-        .s-product-options-option-container {
-          .s-product-options-option {
-            @apply bg-transparent flex items-center flex-wrap gap-5 #{!important};
-            &-content {
-              @apply flex-1 min-w-[170px] max-w-[220px];
-              select {
-                @apply py-3;
-              }
-            }
-            &-label {
-              @apply min-w-[115px] max-w-full flex flex-col justify-end gap-1.5 mb-0;
-              b {
-                @apply text-base text-[#44444D] w-fit relative;
-                span {
-                  @apply absolute -top-1.5 -left-2;
-                }
-              }
-              small {
-                @apply hidden xs:block text-gray-500 text-xs truncate max-w-full #{!important};
-              }
-            }
-          }
-        }
-      }
-
-      .s-product-options-option-content {
-        .s-product-options-colors-wrapper {
-          .s-product-options-colors-item {
-            @media screen and (max-width: 550px) {
-              [dir='rtl'] & {
-                @apply ml-2;
-              }
-              [dir='ltr'] & {
-                @apply mr-2;
-              }
-            }
-          }
-        }
-      }
-    }
 
     section.add-to-cart {
       @apply flex flex-col xs:flex-row items-start lg:items-center gap-2 border-b border-[#D9D9D9];
@@ -713,35 +665,8 @@
   }
 }
 
-// cart
-.cart-item {
-  @apply border border-[#CFCFCF];
-  salla-conditional-fields > section {
-    @apply px-0 pt-0 last:mb-0 last:pb-0;
-  }
-  .s-product-options-wrapper {
-    @apply px-0 m-0;
-    .s-product-options-option-container {
-      @apply mb-1;
-    }
-  }
-  .btn--collapse {
-    @apply p-1 w-[162px];
-    span {
-      @apply text-[16px];
-    }
-  }
-  @media screen and (max-width: 600px) {
-    .s-product-options-option {
-      @apply flex;
-      .s-product-options-option-label {
-        @apply w-[95px];
-      }
-      .s-product-options-option-content {
-        @apply w-full;
-      }
-    }
-  }
+.s-product-options-wrapper {
+  @apply px-0;
 }
 
 .pie-wrapper {
