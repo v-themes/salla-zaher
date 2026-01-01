@@ -1,50 +1,4 @@
 footer {
-  @apply border-t border-gray-200;
-
-  > div.contact-us {
-    @apply container flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-20 py-10 px-4 xs:px-6;
-
-    .contact-links {
-      @apply flex-1 flex flex-col xs:grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-3;
-
-      h3,
-      a:not(:nth-child(-n + 5)) {
-        @apply hidden;
-      }
-
-      a {
-        @apply flex items-center gap-2 text-slate-900;
-
-        i {
-          @apply transition duration-150 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] flex items-center justify-center flex-shrink-0 border border-primary opacity-60 rounded-full;
-          &::before {
-            @apply text-lg sm:text-xl text-primary;
-          }
-        }
-        .contact-name {
-          @apply transition duration-150 font-normal lg:text-lg leading-none mt-1 lg:-mt-2 tracking-wide;
-        }
-        p span.text-unicode {
-          @apply inline-block transition duration-150;
-        }
-        &:hover {
-          i {
-            @apply opacity-100;
-            &::before {
-              @apply scale-110;
-            }
-          }
-          .contact-name {
-            @apply text-primary;
-          }
-          p span.text-unicode {
-            @apply text-primary scale-110;
-          }
-        }
-      }
-    }
-  }
-
   .footer-wrapper {
     @apply bg-transparent py-4 relative z-10;
 
@@ -128,4 +82,10 @@ footer {
       }
     }
   }
+}
+
+footer .footer-wrapper::before,
+footer {
+  border-top-left-radius: 100% 50px;
+  border-top-right-radius: 100% 50px;
 }

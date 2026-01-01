@@ -1,18 +1,8 @@
 <footer>
-  <div class='contact-us'>
-    <div class="flex flex-col">
-      <h3 class="leading-none mb-1">{{trans('footer.title')}}</h3>
-      <p>{{trans('footer.description')}}</p>
-    </div>
-
-    <salla-contacts></salla-contacts>
-  </div>
-
-  {# main footer #}
   <div aria-label="footer" class="footer-wrapper">
-    <div class="inner-footer container">
+    <div class="inner-footer container mt-10">
       <div class="hidden md:block">
-        <h3 class="mb-14">{{ trans('blocks.footer.pages_links') }}</h3>
+        <h3 class="mb-2">{{ trans('blocks.footer.pages_links') }}</h3>
 				<salla-menu source="footer"></salla-menu>
       </div>
 
@@ -28,7 +18,7 @@
         </p>
         {% endif %}
 
-        <salla-social></salla-social>
+        <salla-social class="social-links"></salla-social>
 
         <div class="md:hidden footer-menu-mobile">
           <h3>{{ trans('blocks.footer.pages_links') }}</h3>
@@ -39,7 +29,7 @@
       </div>
 
       <div class="hidden md:block">
-        <salla-contacts></salla-contacts>
+        <salla-contacts class="contact-links"></salla-contacts>
       </div>
     </div>
 
