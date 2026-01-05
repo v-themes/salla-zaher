@@ -212,10 +212,14 @@
                 <span class="text-red-500 text-xl lg:text-2xl font-semibold relative tracking-widest before:bg-red-500 before-price regular-price">
                     {{product.regular_price|money}}
                 </span>
-                {% endif %}
                 <h4 class="text-primary font-bold text-3xl lg:text-4xl tracking-widest total-price">
                     {{product.sale_price|money}}
                 </h4>
+                {% else %}
+                <h4 class="text-primary font-bold text-3xl lg:text-4xl tracking-widest total-price">
+                    {{product.regular_price|money}}
+                </h4>
+                {% endif %}
             </div>
 
             {# We'll adding saving value using JS #}
