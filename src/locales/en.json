@@ -1,5 +1,8 @@
 {
   "blocks": {
+    "comments": {
+      "add_comment": "Add your comment"
+    },
     "header": {
       "cart": "Cart",
       "get": "GET",
@@ -51,7 +54,9 @@
     "compare_product": "compare product",
     "description": "product description",
     "tags": "tags",
-    "ratings": "product ratings"
+    "ratings": "product ratings",
+    "explore": "Explore Product",
+    "more_from_brand": "Click here for more from brand"
   },
   "timer": {
     "days": "days",
@@ -65,5 +70,8 @@
   },
   "card": {
     "discount": "discount"
+  },
+  "home": {
+    "store_features": "Store Features"
   }
 }

@@ -1,5 +1,8 @@
 {
   "blocks": {
+    "comments": {
+      "add_comment": "أضـف تعليقك"
+    },
     "header": {
       "cart": "السلة",
       "get": "احصل علي",
@@ -47,7 +50,9 @@
     "compare_product": "قارن هذا المنتج",
     "description": "وصف المنتج",
     "tags": "الوسوم",
-    "ratings": "تقيمات المنتج"
+    "ratings": "تقيمات المنتج",
+    "explore": "استكشف المنتج",
+    "more_from_brand": "اضغط هنا للمزيد من ماركة"
   },
   "timer": {
     "days": "يوم",
@@ -61,5 +66,8 @@
   },
   "card": {
     "discount": "خصـم"
+  },
+  "home": {
+    "store_features": "مميــزات المتجر"
   }
 }

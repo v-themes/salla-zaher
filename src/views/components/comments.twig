@@ -18,7 +18,7 @@
 
 <div class="s-comments s-comments-{{ type }}">
     <div class="{{ type == 'page' ? 'pt-16':'' }}">
-        <h2 class="mb-2 sm:mb-5 text-base lg:text-lg font-semibold text-black px-4 hidden">أضـف تعليقك</h2>
+        <h2 class="mb-2 sm:mb-5 text-base lg:text-lg font-semibold text-black px-4 hidden">{{ trans('blocks.comments.add_comment') }}</h2>
         {% if comments|length %}
             <h2 class="text-lg font-bold text-gray-500 mb-8 hidden"> {{ pluralize('blocks.comments.comment', comments.total|number)|raw }}</h2>
             <salla-infinite-scroll next-page="{{ comments.next_page }}">

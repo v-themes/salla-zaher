@@ -14,7 +14,7 @@
                 {% if component.product_1 %}
                 <div class="info right-5">
                     <h4 class="truncate text-[#323232]">{{ component.product_1[0].name }}</h4>
-                    <a href="{{ component.product_1[0].url }}" class="underline text-[#787878]">استكشف المنتج</a>
+                    <a href="{{ component.product_1[0].url }}" class="underline text-[#787878]">{{ trans('product.explore') }}</a>
                 </div>
                 {% endif %}
             </div>
@@ -23,7 +23,7 @@
                 {% if component.product_2 %}
                 <div class="info left-5">
                     <h4 class="truncate text-[#323232]">{{ component.product_2[0].name }}</h4>
-                    <a href="{{ component.product_2[0].url }}" class="underline text-[#787878]">استكشف المنتج</a>
+                    <a href="{{ component.product_2[0].url }}" class="underline text-[#787878]">{{ trans('product.explore') }}</a>
                 </div>
                 {% endif %}
             </div>
