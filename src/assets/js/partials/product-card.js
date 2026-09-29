@@ -213,7 +213,8 @@ class ProductCard extends HTMLElement {
 
     if (!this.isHorizontal && addAsIcon) {
       return `<salla-add-product-button class="add-to-cart-custom" product-id="${this.product.id}"
-        product-status="${this.product.status}" product-type="${this.product.type}">
+        product-status="${this.product.status}" product-type="${this.product.type}"
+        data-out-of-stock="${this.outOfStock || salla.lang.get('pages.products.out_of_stock')}">
         <i class="sicon-cart-add text-lg text-white"></i>
       </salla-add-product-button>`;
     }
@@ -315,7 +316,8 @@ class ProductCard extends HTMLElement {
       }"
         product-status="${this.product.status}" product-type="${
       this.product.type
-    }">
+    }"
+        data-out-of-stock="${this.outOfStock || salla.lang.get('pages.products.out_of_stock')}">
         <i class="sicon-cart-add text-xl"></i>
       </salla-add-product-button>
       ${this.getCompareButton()}
@@ -332,7 +334,8 @@ class ProductCard extends HTMLElement {
       }"
         product-status="${this.product.status}" product-type="${
       this.product.type
-    }">
+    }"
+        data-out-of-stock="${this.outOfStock || salla.lang.get('pages.products.out_of_stock')}">
         <i class="sicon-cart-add text-lg"></i>
       </salla-add-product-button>
       ${this.getCompareButton()}
@@ -544,6 +547,11 @@ class ProductCard extends HTMLElement {
           .querySelector('salla-add-product-button')
           ?.setAttribute('donating-amount', e.target.value);
       });
+    });
+
+    const outOfStockText = this.outOfStock || salla.lang.get('pages.products.out_of_stock');
+    this.querySelectorAll('salla-add-product-button, salla-quick-buy, button').forEach((el) => {
+      el.setAttribute('data-out-of-stock', outOfStockText);
     });
 
     document.lazyLoadInstance?.update(this.querySelectorAll('.lazy'));

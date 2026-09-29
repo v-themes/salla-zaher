@@ -511,13 +511,8 @@
             @apply opacity-0;
           }
           &::before {
+            content: attr(data-out-of-stock);
             @apply absolute w-full text-gray-400;
-          }
-          [dir='rtl'] &::before {
-            content: 'نفذت الكمية';
-          }
-          [dir='ltr'] &::before {
-            content: 'out of stock';
           }
         }
       }

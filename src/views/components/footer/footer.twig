@@ -20,6 +20,14 @@
 
         <salla-social class="social-links"></salla-social>
 
+        {# Trust Badges / Commercial register #}
+        <div class="flex gap-4 my-4">
+          <salla-trust-badges {% if theme.settings.get('footer_is_dark') %} dark {% endif %}></salla-trust-badges>
+          {% if store.settings.certificate %}
+            {{ store.settings.certificate }}
+          {% endif %}
+        </div>
+
         <div class="md:hidden footer-menu-mobile">
           <h3>{{ trans('blocks.footer.pages_links') }}</h3>
 				  <salla-menu source="footer"></salla-menu>

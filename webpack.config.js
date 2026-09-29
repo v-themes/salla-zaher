@@ -20,6 +20,7 @@ module.exports = {
     order: asset('js/order.js'),
     'product-card': asset('js/partials/product-card.js'),
     'wishlist-card': asset('js/partials/wishlist-card.js'),
+    'add-product-toast': asset('js/partials/add-product-toast.js'),
   },
   output: {
     path: public(),

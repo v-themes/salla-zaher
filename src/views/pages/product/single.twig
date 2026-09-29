@@ -88,6 +88,8 @@
 
 {% extends "layouts.master" %}
 {% block content %}
+    <div class="s-blocks-wrapper s-before-product-info !mt-0">{% hook 'product.single.before_product_info' %}</div>
+
 <div class="product-page" id="product-{{ product.id }}">
     {# add breadcumbs container in pages to make a space in case breadcrumbs is off #}
     <nav class="container breadcrumbs">
@@ -262,6 +264,9 @@
 
             {# Installment Methods #}
             <salla-installment price="{{ product.price }}"></salla-installment>
+            {% if product.has_metadata %}
+            <salla-metadata></salla-metadata>
+            {% endif %}
 
             {# Take an action #}
             <form class="form product-form" enctype="multipart/form-data" method="post"
@@ -309,6 +314,8 @@
                     product-id="{{ product.id }}"></salla-gifting>
                 {% endif %}
             </form>
+
+            <salla-quick-order class="mt-5 md:-mb-2 block"></salla-quick-order>
 
             {# add to fav or comapre #}
             <div
@@ -389,11 +396,19 @@
     </div>
     {% endif %}
 
+    {#
+        Hook: product.single.before_customer_reviews
+        Fires before the customer reviews/comments section.
+        Use this hook to inject content between the product info and the reviews block.
+    #}
+    <div class="s-blocks-wrapper s-before-reviews">{% hook 'product.single.before_customer_reviews' %}</div>
+
     {# Comments #}
+    {% if store.settings.rating.show_on_product %}
     <div class="container mb-8 md:mb-14">
-        <h2 class="main-title">{{trans('product.ratings')}}</h2>
-        {% component 'comments' %}
+        <salla-comments item-id="{{product.id}}" type="product"></salla-comments>
     </div>
+    {% endif %}
 
     {% component 'product.offer' %}
 
@@ -402,9 +417,23 @@
     {% component 'home.store-features' %}
     {% endif %}
 
+    {#
+        Hook: product.single.before_product_recommendations
+        Fires before the similar/related products slider.
+        Use this hook to inject content between the reviews and the recommendations section.
+    #}
+    <div class="s-blocks-wrapper s-before-related">{% hook 'product.single.before_product_recommendations' %}</div>
+
     <div class="similar-products container">
         <salla-products-slider source="related" source-value="{{product.id}}" block-title="{{trans('pages.products.similar_products')}}" display-all-url></salla-products-slider>
     </div>
+
+    {#
+        Hook: product.single.after_product_recommendations
+        Fires after the similar/related products slider, at the very end of the product page content.
+        Use this hook to append content below the recommendations section.
+    #}
+    <div class="s-blocks-wrapper s-after-related">{% hook 'product.single.after_product_recommendations' %}</div>
 </div>
 {% endblock %}
 

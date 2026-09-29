@@ -23,12 +23,40 @@ class App extends AppHelpers {
     this.initCircleBar();
     this.initDonating();
     initTootTip();
+    this.initOutOfStockLabel();
 
     salla.comment.event.onAdded(() => window.location.reload());
 
     this.status = 'ready';
     document.dispatchEvent(new CustomEvent('theme::ready'));
     this.log('Theme Loaded 🎉');
+  }
+
+  initOutOfStockLabel() {
+    salla.lang.onLoaded(() => {
+      const outOfStock = salla.lang.get('pages.products.out_of_stock');
+      const applyAttr = () => {
+        document
+          .querySelectorAll(
+            '[product-status="out"], .add-to-cart-custom, .collection__item.out'
+          )
+          .forEach((el) => {
+            if (!el.hasAttribute('data-out-of-stock')) {
+              el.setAttribute('data-out-of-stock', outOfStock);
+            }
+            el.querySelectorAll('button, a').forEach((child) => {
+              if (!child.hasAttribute('data-out-of-stock')) {
+                child.setAttribute('data-out-of-stock', outOfStock);
+              }
+            });
+          });
+      };
+      applyAttr();
+      const observer = new MutationObserver(() => applyAttr());
+      if (document.body) {
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
+    });
   }
 
   log(message) {

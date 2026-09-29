@@ -235,6 +235,7 @@
               button {
                 @apply bg-gray-400 opacity-100 pointer-events-auto;
                 &::before {
+                  content: attr(data-out-of-stock);
                   @apply absolute bg-primary text-white -top-[25px] pt-[5px] text-[8px] sm:text-[10px] px-[12px] py-[4px] opacity-0 h-[0];
                   border-radius: 12px 5px 18px 2px;
                 }
@@ -242,11 +243,9 @@
                   @apply transition-all duration-300 opacity-100 h-[1.8rem];
                 }
                 [dir='rtl'] &::before {
-                  content: 'نفذت الكمية';
                   @apply -right-[66px];
                 }
                 [dir='ltr'] &::before {
-                  content: 'out of stock';
                   @apply -left-[66px];
                 }
               }
@@ -819,13 +818,8 @@
             a {
               @apply relative;
               &::before {
+                content: attr(data-out-of-stock);
                 @apply absolute w-[80%] h-8 left-[10%] top-1/2 -rotate-45 -translate-y-1/2 leading-8 text-center text-red-600 font-bold border-2 border-red-500 z-10;
-              }
-              [dir='rtl'] &::before {
-                content: 'نفذت الكمية';
-              }
-              [dir='ltr'] &::before {
-                content: 'out of stock';
               }
               img {
                 @apply grayscale;
@@ -1280,5 +1274,33 @@ salla-modal.s-offer-modal-type-products {
   [dir='ltr'] & {
     right: unset;
     left: 16px !important;
+  }
+}
+
+.s-blocks-wrapper {
+  @apply empty:hidden;
+
+  :not(.s-information-page) .s-block {
+    @apply first:mt-0;
+  }
+
+  &:empty {
+    + .container--products-list,
+    + .container--product-details {
+      @apply mt-0 #{!important};
+    }
+  }
+
+  &.s-information-page {
+    &.s-block.s-block--full-bg:first-of-type {
+      @apply mt-0;
+    }
+  }
+}
+
+.container--breadcrumbs {
+  &,
+  & + .s-blocks-wrapper {
+    @apply mt-0 #{!important};
   }
 }

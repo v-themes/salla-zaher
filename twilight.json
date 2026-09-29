@@ -82,6 +82,18 @@
       "required": false
     },
     {
+      "id": "enable_add_product_toast",
+      "type": "boolean",
+      "format": "switch",
+      "label": "تفعيل إشعار الإضافة للسلة المحسن",
+      "description": null,
+      "labelHTML": null,
+      "icon": "sicon-toggle-off",
+      "value": true,
+      "selected": true,
+      "required": false
+    },
+    {
       "type": "static",
       "id": "static-line_1",
       "format": "line"

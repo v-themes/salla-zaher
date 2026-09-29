@@ -214,6 +214,7 @@ salla-button {
     &.s-button-disabled[product-status='out'] {
       @apply bg-gray-100 text-gray-300 opacity-100 pointer-events-auto;
       &::before {
+        content: attr(data-out-of-stock);
         @apply absolute bg-primary text-white -top-[25px] pt-[5px] text-[8px] sm:text-[10px] px-[12px] py-[4px] opacity-0 h-[0];
         border-radius: 12px 5px 18px 2px;
       }
@@ -221,11 +222,9 @@ salla-button {
         @apply transition-all duration-300 opacity-100 h-[1.8rem];
       }
       [dir='rtl'] &::before {
-        content: 'نفذت الكمية';
         @apply -right-[66px];
       }
       [dir='ltr'] &::before {
-        content: 'out of stock';
         @apply -left-[66px];
       }
     }

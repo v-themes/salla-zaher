@@ -322,7 +322,8 @@ export default {
         `;
     miniCard.innerHTML += `
             <salla-add-product-button product-id="${id}"
-                product-status="${status}" product-type="${type}">
+                product-status="${status}" product-type="${type}"
+                data-out-of-stock="${salla.lang.get('pages.products.out_of_stock')}">
                 <i class="sicon-cart-add"></i>
             </salla-add-product-button>
         `;

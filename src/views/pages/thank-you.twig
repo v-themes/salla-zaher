@@ -125,6 +125,11 @@ share_message | string | | | short_share_message | string | | #} {% extends
     {% endif %} {% endfor %} {% hook 'thank-you:items.end' %}
   </div>
 
+  {# Split shipment tracking — self-hides for single-shipment orders #}
+  <salla-order-shipments class="block mb-6 md:mb-8 empty:hidden"></salla-order-shipments>
+
+  <salla-next-order-coupon data-testid="store-thankyou-coupon"></salla-next-order-coupon>
+
   <div class="lg:flex lg:space-s-8">
     {% if order.email_sent %}
     <div
